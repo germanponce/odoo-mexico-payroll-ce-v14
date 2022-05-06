@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Wizard para Confirmar Aumento Masivo -->
+    <record id="hr_contract_aumento_masivo_wizard_confirm" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.wizard</field>
+        <field name="model">hr.contract.aumento_masivo.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Asistente para crear Aumento Masivos">
+                <group colspan="4" col="4">
+                    <field name="type" />
+                    <field name="date" />
+                    <label for="monto" />
+                    <div class="o_row">
+                        <field name="monto" class="oe_inline"/><span attrs="{'invisible':[('type','!=','porcentaje')]}" class="oe_inline"> %</span>
+                    </div>
+                    <newline />
+                    <separator string="Filtros" colspan="4" />
+                    <field name="tipo_salario" />
+                    <field name="struct_ids" widget="many2many_tags" />
+                    <field name="department_ids" widget="many2many_tags" />
+                    <field name="employee_ids" widget="many2many_tags" />
+                    <field name="job_ids" widget="many2many_tags" />
+                </group>
+                <footer>
+                    <button string="Crear Aumento Masivo" type="object"
+                            name="create_record" class="btn-primary" />
+                    <button string="Cerrar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+  
+    
+    <record id="hr_contract_aumento_masivo_wizard_action" model="ir.actions.act_window">
+        <field name="name">Asistente para Aumentos Masivos</field>
+        <field name="res_model">hr.contract.aumento_masivo.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+    
+    <menuitem name="Aumentos Masivos"
+              id="hr_contract_aumentos_masivos_menu" 
+              sequence="60" 
+              parent="hr_payroll.menu_hr_payroll_employees_root" />
+    
+    <menuitem action="hr_contract_aumento_masivo_wizard_action" 
+              id="hr_contract_aumento_masivo_wizard_menu" 
+              sequence="35" 
+              parent="hr_contract_aumentos_masivos_menu" />
+    
+    
+    <record id="hr_contract_aumento_masivo_line_tree" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.line.tree</field>
+        <field name="model">hr.contract.aumento_masivo.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id" />
+                <field name="contract_id" invisible="1"/>
+                <field name="actual_salario_diario" />
+                <field name="actual_sbc_parte_fija" />
+                <field name="fecha_alta_reingreso" />
+                <field name="antiguedad" />
+                <field name="dias_vacaciones" />
+                <field name="porc_prima_vacacional" />
+                <field name="dias_aguinaldo" />
+                <field name="factor_integracion" />
+                <field name="sal_nuevo_salario_diario" />
+                <field name="sal_nuevo_salario_diario_integrado" />
+                <field name="parte_variable" />
+                <field name="sal_nuevo_sbc_parte_fija" />
+                <field name="incapacitado" />
+                <field name="aplicar_aumento" />
+                <field name="date" />
+            </tree>
+        </field>
+    </record>
+    
+    <record id="hr_contract_aumento_masivo_line_form" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.line.form</field>
+        <field name="model">hr.contract.aumento_masivo.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="4" col="4">
+                    <field name="date" />
+                    <field name="type" />
+                    <field name="employee_id" />
+                    <field name="contract_id" />
+                    <field name="incapacitado" />
+                    <field name="aplicar_aumento" />
+                </group>
+                <group>
+                    <group string="Salario Actual" >
+                        <field name="actual_salario_diario" />
+                        <field name="actual_sbc_parte_fija" />
+                        <field name="fecha_alta_reingreso" />
+                        <field name="antiguedad" />
+                        <field name="dias_vacaciones" />
+                        <field name="porc_prima_vacacional" />
+                        <field name="dias_aguinaldo" />
+                        <field name="factor_integracion" />
+                    </group>
+                    <group string="Salario Nuevo">
+                        <field name="sal_nuevo_salario_diario" />
+                        <field name="sal_nuevo_salario_diario_integrado" />
+                        <field name="parte_variable" />
+                        <field name="sal_nuevo_sbc_parte_fija" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record id="hr_contract_aumento_masivo_line_search" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.line.search</field>
+        <field name="model">hr.contract.aumento_masivo.line</field>
+        <field name="arch" type="xml">
+            <search string="Líneas">
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <filter name="incapacitado" string="Incapacitado en Fecha de Aplicación" domain="[('incapacitado','=','True')]" />
+                <filter name="aplicar_modificacion" string="Aplicar Modificación" domain="[('aplicar_aumento','=',True)]" />
+                <filter name="no_aplicar_modificacion" string="NO Aplicar Modificación" domain="[('aplicar_aumento','!=',True)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Incapacitado en Fecha Aplicación" name="group_incapacitado" context="{'group_by':'incapacitado'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_hr_contract_aumento_masivo_line" model="ir.actions.act_window">
+        <field name="name">Aumento Masivo Lineas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.aumento_masivo.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_contract_aumento_masivo_line_tree"/>
+        <field name="search_view_id" ref="hr_contract_aumento_masivo_line_search"/>
+    </record>
+    
+    
+    <record id="hr_contract_aumento_masivo_tree" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.tree</field>
+        <field name="model">hr.contract.aumento_masivo</field>
+        <field name="arch" type="xml">
+            <tree string="Aumento Masivo"
+                  decoration-warning="state == 'draft'"
+                  decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="line_ids"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_contract_aumento_masivo_form" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.form</field>
+        <field name="model">hr.contract.aumento_masivo</field>
+        <field name="arch" type="xml">
+            <form string="Aumento Masivo">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmar" states="draft" 
+                            confirm="¿Está seguro que desea aplicar el Aumento masivo???"
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_compute" type="object" string="Calcular Líneas" states="draft" 
+                            confirm="Está seguro que desea re-calcular? (Las líneas actuales se eliminarán)"
+                            groups="hr_payroll.group_hr_payroll_user" />
+                    <button name="action_cancel" type="object" string="Cancelar" 
+                            states="draft,done" 
+                            groups="hr_payroll.group_hr_payroll_user" 
+                            confirm="¿Está seguro que desea cancelar este registro?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines" type="object" 
+                                class="oe_stat_button" icon="fa-bars">
+                            <field name="count_lines" /><span>Líneas</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group colspan="4" col="4">
+                        <field name="type"/>
+                        <field name="date"/>
+                        <label for="monto" />
+                        <div class="o_row">
+                            <field name="monto" class="oe_inline"/><span attrs="{'invisible':[('type','!=','porcentaje')]}" class="oe_inline"> % </span><span attrs="{'invisible':[('type','!=','porcentaje')]}" class="oe_inline oe_edit_only"> - P.Ej. 20% = 20.0</span>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="Líneas">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="employee_id" />
+                                        <field name="contract_id" invisible="1"/>
+                                        <field name="actual_salario_diario" />
+                                        <field name="actual_sbc_parte_fija" />
+                                        <field name="fecha_alta_reingreso" />
+                                        <field name="antiguedad" />
+                                        <field name="dias_vacaciones" invisible="1"/>
+                                        <field name="porc_prima_vacacional" invisible="1"/>
+                                        <field name="dias_aguinaldo" invisible="1"/>
+                                        <field name="factor_integracion" />
+                                        <field name="sal_nuevo_salario_diario" />
+                                        <field name="sal_nuevo_salario_diario_integrado" invisible="1"/>
+                                        <field name="parte_variable" invisible="1"/>
+                                        <field name="sal_nuevo_sbc_parte_fija" />
+                                        <field name="incapacitado" />
+                                        <field name="aplicar_aumento" />
+                                        <!--<field name="date" />-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Parámetros">
+                                <group>
+                                    <group>
+                                        <field name="tipo_salario" />
+                                        <field name="sindicalizado" />
+                                        <field name="struct_ids" widget="many2many_tags" 
+                                               options="{'no_create': True}"/>
+                                        <field name="company_id" options="{'no_create': True}" 
+                                                       groups="base.group_multi_company"/>
+                                    </group>
+                                    <group>
+                                        <field name="department_ids" widget="many2many_tags" 
+                                               options="{'no_create': True}"/>
+                                        <field name="employee_ids" widget="many2many_tags" 
+                                               options="{'no_create': True}"/>
+                                        <field name="job_ids" widget="many2many_tags" 
+                                               options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </group>
+                    <field name="notes" colspan="4" placeholder="Observaciones..." />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_contract_aumento_masivo_search" model="ir.ui.view">
+        <field name="name">hr.contract.aumento_masivo.search</field>
+        <field name="model">hr.contract.aumento_masivo</field>
+        <field name="arch" type="xml">
+            <search string="Aumento Masivo">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="line_ids"/>
+                <filter name="state_draft" string="En Borrador" domain="[('state','=','draft')]" />
+                <filter name="state_done" string="Hecho" domain="[('state','=','done')]" />
+                <filter name="state_cancel" string="Cancelado" domain="[('state','=','cancel')]" />
+                <group expand="0" string="Group By">
+                    <filter string="Periodo" name="date" context="{'group_by':'date'}"/>
+                    <filter string="Estado" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hr_contract_aumento_masivo" model="ir.actions.act_window">
+        <field name="name">Aumentos Masivos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.aumento_masivo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_contract_aumento_masivo_tree"/>
+    </record>
+
+    
+    <menuitem action="action_hr_contract_aumento_masivo" 
+                  id="hr_contract_aumento_masivo_menu" 
+                  sequence="40" 
+                  parent="hr_contract_aumentos_masivos_menu" />
+        
+</odoo>

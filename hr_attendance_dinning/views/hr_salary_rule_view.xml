@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- hr.salary.rule -->
+    <record id="hr_salary_rule_form_l10n_mx_payroll_dinning" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form.l10n_mx_payroll.dinning</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.hr_salary_rule_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <field name="tipodeduccion_id" position="after">
+                <field name="is_dinning_attendance" 
+                       attrs="{'invisible': [('nomina_aplicacion','!=','deduccion')]}"/>
+            </field>
+        </field>
+    </record>
+    
+</odoo>

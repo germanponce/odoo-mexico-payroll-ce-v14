@@ -1,0 +1,10 @@
+id,code,name
+sat_nomina_tipojornada_1,01,Diurna
+sat_nomina_tipojornada_2,02,Nocturna
+sat_nomina_tipojornada_3,03,Mixta
+sat_nomina_tipojornada_4,04,Por hora
+sat_nomina_tipojornada_5,05,Reducida
+sat_nomina_tipojornada_6,06,Continuada
+sat_nomina_tipojornada_7,07,Partida
+sat_nomina_tipojornada_8,08,Por turnos
+sat_nomina_tipojornada_99,99,Otra Jornada

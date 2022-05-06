@@ -1,0 +1,50 @@
+<odoo>
+    
+    <data>
+        
+        <record id="overall_config_wizard_sat_models_nomina_form" model="ir.ui.view">
+            <field name="name">overall.config.wizard.sat.models.nomina</field>
+            <field name="model">overall.config.wizard.sat.models.nomina</field>
+            <field name="arch" type="xml">
+                <form string="Asistente Carga de Catalogos Nomina SAT CFDI 3.3">
+                    <field name="load_data" invisible="1"/>
+                    <p class="oe_grey">
+                        Este asistente le permite cargar los catálogos requeridos 
+                        para emitir el CFDI con Complemento de Nómina 1.2
+                    </p>
+                    <separator string="Resultados de la Carga de los Catalogos" attrs="{'invisible':[('load_data','=',False)]}"/>
+                    <h3>
+                    	<field name="action_status" placeholder="Resultados obtenidos..." 
+                               attrs="{'invisible':[('load_data','=',False)]}" readonly="1"/>
+                    </h3>
+                    <footer>
+                        <button string="Cargar Catálogos" name="process_catalogs" type="object" 
+                                default_focus="1" class="btn-primary"
+                                 attrs="{'invisible':[('load_data','=',True)]}"/>
+                        <button string="Cerrar" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="overall_config_wizard_sat_models_nomina_action" model="ir.actions.act_window">
+            <field name="name">Carga Catalogos SAT</field>
+            <field name="res_model">overall.config.wizard.sat.models.nomina</field>
+            <field name="view_mode">form</field>
+            
+            <field name="target">new</field>
+        </record>
+        
+        
+        
+        
+        
+        
+        <menuitem id="overall_config_wizard_sat_models_nomina_menu" 
+                  name="Asistente Carga Datos" 
+                  parent="menu_hr_payroll_sat" sequence="99"
+                  action="overall_config_wizard_sat_models_nomina_action"/>
+
+    </data>
+    
+</odoo>

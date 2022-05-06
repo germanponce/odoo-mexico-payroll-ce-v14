@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="res_config_settings_view_form_l10n_mx_payroll_imss" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hr.payroll.l10n_mx_payroll.imss</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="59"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.res_config_settings_view_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='l10n_mx_payroll_params']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <label for="hr_employee_nombre"/><br/>
+                        <field name="hr_employee_nombre" required="1"/>
+                        <div class="text-muted">
+                            Seleccione la forma en que quiere manejar el nombre de los Empleados.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane" >
+                        <field name="hr_imss_baja_contrato_y_empleado_archivar" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="hr_imss_baja_contrato_y_empleado_archivar"/>
+                        <div class="text-muted">
+                            Al confirmar el registro de Baja del IMSS poner el Contrato en estado Baja y archivar tanto el Contrato como el Empleado.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane" >
+                        <field name="hr_imss_vales_despensa_gravado_tomar_gravado_en_bimestre" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="hr_imss_vales_despensa_gravado_tomar_gravado_en_bimestre"/>
+                        <div class="text-muted">
+                            Si está activo entonces al realizar el cálculo de lo Gravado para IMSS de los Vales de Despensa se calculará tomando en cuenta los días del Bimestre. Si está desactivado entonces se tomará lo Gravado correspondiente al Periodo de cada Nómina.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

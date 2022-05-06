@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+    
+    <record id="view_hr_payslip_line_tree_l10n_mx_payroll_imss" model="ir.ui.view">
+        <field name="name">hr.payslip.line.tree.l10n_mx_payroll_imss</field>
+        <field name="model">hr.payslip.line</field>
+        <field name="priority" eval="51"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="total" position="after">
+                <field name="imss_gravado" />
+                <field name="imss_exento" />
+            </field>     
+        </field>
+    </record>
+</odoo>

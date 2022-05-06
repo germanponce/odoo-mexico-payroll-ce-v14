@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- hr.salary.rule -->
+    <record id="hr_salary_rule_form_acc_per_dept" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form.acc_per_dept</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="priority" eval="51"/>
+        <field name="inherit_id" ref="hr_payroll_account.hr_salary_rule_view_form"/>
+        <field name="arch" type="xml">
+            <field name="account_debit" position="replace"/>
+            <field name="account_credit" position="replace"/>
+            <field name="analytic_account_id" position="replace"/>
+            <field name="not_computed_in_net"  position="replace">
+                <separator string="Cuentas contables por departamento" colspan="4" />
+                <group>
+                    <field name="tipo_movimiento" readonly="False"/>
+                </group>
+                <group>
+                    <field name="not_computed_in_net" />
+                </group>
+                <field name="account_line_ids" colspan="4" nolabel="1">
+                    <tree editable="top">
+                        <field name="department_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="account_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="analytic_account_id" options="{'no_create': True, 'no_edit': True}"
+                               groups="analytic.group_analytic_accounting"/>
+                        <field name="company_id" options="{'no_create': True, 'no_edit': True}"
+                               groups="base.group_multi_company" />
+                    </tree>
+                </field>
+            </field>
+            
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_acc_per_dept_tree" model="ir.ui.view">
+        <field name="name">hr.salary.rule.account_per_department.tree</field>
+        <field name="model">hr.salary.rule.account_per_department</field>
+        <field name="arch" type="xml">
+            <tree string="Cuentas por Regla y Departamento" create="true" editable="top">
+                <field name="hr_salary_rule_id" options="{'no_create': True, 'no_edit': True}"/>
+                <field name="department_id" options="{'no_create': True, 'no_edit': True}"/>
+                <field name="account_id" options="{'no_create': True, 'no_edit': True}"/>
+                <field name="analytic_account_id" options="{'no_create': True, 'no_edit': True}"
+                       groups="analytic.group_analytic_accounting"/>
+                <field name="company_id" options="{'no_create': True, 'no_edit': True}"
+                       groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record id="hr_salary_rule_acc_per_dept_search" model="ir.ui.view">
+        <field name="name">hr.salary.rule.account_per_department.search</field>
+        <field name="model">hr.salary.rule.account_per_department</field>
+        <field name="arch" type="xml">
+            <search string="Cuentas por Regla y Departamento">
+                <field name="hr_salary_rule_id" />
+                <field name="department_id" />
+                <field name="account_id" />
+                <field name="analytic_account_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Regla salarial" name="grp_hr_salary_rule_id" context="{'group_by':'hr_salary_rule_id'}"/>
+                    <filter string="Departamento" name="grp_department_id" context="{'group_by':'department_id'}"/>
+                    <filter string="Cuenta Contable" name="grp_account_id" context="{'group_by':'account_id'}"/>
+                    <filter string="Analítica" name="grp_analytic_account_id" context="{'group_by':'analytic_account_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    
+    
+    <record id="action_hr_salary_rule_acc_per_dept" model="ir.actions.act_window">
+        <field name="name">Cuentas Contables x Regla y Depto</field>
+        <field name="res_model">hr.salary.rule.account_per_department</field>
+        <field name="type">ir.actions.act_window</field>
+        <!--<field name="view_type">form</field>-->
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="hr_salary_rule_acc_per_dept_tree"/>
+    </record>
+        
+    <menuitem id="hr_salary_rule_acc_per_dept_menu" 
+              action="action_hr_salary_rule_acc_per_dept" 
+              sequence="32" 
+              parent="hr_payroll.menu_hr_salary_configuration"
+              groups="account.group_account_manager"/>
+     
+    
+</odoo>

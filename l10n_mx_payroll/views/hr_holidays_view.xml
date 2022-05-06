@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="edit_holiday_status_form_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.leave.type.l10n_mx_payroll</field>
+        <field name="model">hr.leave.type</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <field name="leave_validation_type" position="after">
+                <field name="hr_salary_rule_id" />
+                <field name="es_incapacidad" />
+                <field name="tipoincapacidad_id" 
+                        attrs="{'invisible': [('es_incapacidad', '!=', True)], 'required': [('es_incapacidad', '=', True)]}"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="view_holiday_status_normal_tree_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.leave.type.tree.l10n_mx_payroll</field>
+        <field name="model">hr.leave.type</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_holidays.view_holiday_status_normal_tree"/>
+        <field name="arch" type="xml">
+            <field name="leave_validation_type" position="after">
+                <field name="hr_salary_rule_id" />
+                <field name="es_incapacidad" />
+            </field>
+        </field>
+    </record>
+    
+    <!-- hr.leave.allocation -->
+    <record id="hr_leave_allocation_view_form_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.leave.allocation.l10n_mx_payroll</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="contract_id" groups="hr_holidays.group_hr_holidays_manager"
+                       domain="[('employee_id', '=', employee_id),('state','=','open')]" />
+                <label for="vacaciones"  groups="hr_holidays.group_hr_holidays_manager" />
+                <div groups="hr_holidays.group_hr_holidays_manager"
+                     class="o_row o_row_readonly o_hr_holidays_dates">
+                    <field name="vacaciones" groups="hr_holidays.group_hr_holidays_manager" /> <span style="font-weight: bold;"> Antigüedad: </span><field name="antiguedad" groups="hr_holidays.group_hr_holidays_manager" /> <span>años.</span>
+                </div>
+                
+                <label for="vacaciones_vigencia_inicio"  groups="hr_holidays.group_hr_holidays_manager" />
+                <div groups="hr_holidays.group_hr_holidays_manager"
+                     class="o_row o_row_readonly o_hr_holidays_dates">
+                    <field name="vacaciones_vigencia_inicio"
+                           attrs="{'required': [('vacaciones', '!=', False)]}"/> - <field name="vacaciones_vigencia_final" attrs="{'required': [('vacaciones', '!=', False)]}"/>
+                </div>
+            </field>
+        </field>
+    </record>
+    
+    
+    
+    
+    
+    <record id="hr_leave_view_form_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.leave.view.form.l10n_mx_payroll-request</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <!--<field name="contract_id" invisible="1"
+                           domain="[('employee_id', '=', employee_id),('state','=','open')]"
+                           groups="hr_holidays.group_hr_holidays_manager" />-->
+                <separator string="Extras de Nómina Relacionada(s)" colspan="2"/>
+                <field name="hr_extra_ids" nolabel="1" colspan="2"
+                       context="{'default_employee_id' : employee_id}"/>
+            </xpath>
+            
+            
+            <!--
+            <form string="Leave Request">
+            <field name="can_reset" invisible="1"/>
+            <field name="can_approve" invisible="1"/>
+            <header>
+                <button string="Confirm" name="action_confirm" states="draft" type="object" class="oe_highlight"/>
+                <button string="Approve" name="action_approve" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', '!=', 'confirm')]}"/>
+                <button string="Validate" name="action_validate" states="validate1" type="object" groups="hr_holidays.group_hr_holidays_manager" class="oe_highlight"/>
+                <button string="Refuse" name="action_refuse"  type="object" attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', 'not in', ('confirm','validate','validate1'))]}"/>
+                <button string="Reset to Draft" name="action_draft" type="object"
+                        attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['confirm', 'refuse'])]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="confirm,validate"/>
+            </header>
+            <sheet>
+                <field name="leave_type_request_unit" invisible="1"/>
+                <group>
+                    <group name="col_right" invisible="1">
+                        <field name="employee_id" invisible="1"/>
+                        <field name="department_id" groups="hr_holidays.group_hr_holidays_user" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="holiday_status_id" context="{'employee_id':employee_id, 'default_date_from':date_from}" options="{'no_create': True, 'no_open': True}"/>
+
+                        <field name="number_of_days" invisible="1"/>
+                        <label for="number_of_days_display" string="Duration"/>
+                        <div>
+                            <div attrs="{'invisible': [('leave_type_request_unit', '=', 'hour')]}">
+                                <field name="number_of_days_display" nolabel="1" class="oe_inline"/>
+                                <span class="ml8">Days</span>
+                            </div>
+                            <div attrs="{'invisible': [('leave_type_request_unit', '!=', 'hour')]}">
+                                <field name="number_of_hours_display" nolabel="1" class="oe_inline"/>
+                                <span class="ml8">Hours</span>
+                            </div>
+                        </div>
+
+                        <label for="request_date_from" string="From"/>
+                        <div>
+                            <field name="date_from" invisible="1"/>
+                            <field name="date_to" invisible="1"/>
+                            <div class="o_row o_row_readonly o_hr_holidays_dates">
+                                <field name="request_date_from" class="oe_inline"
+                                    attrs="{'readonly': [('state', 'not in', ('draft', 'confirm'))]}"/>
+                                <span class="oe_inline"
+                                    attrs="{'invisible': ['|', ('request_unit_half', '=', True), ('request_unit_hours', '=', True)]}">
+                                    To
+                                </span>
+                                <field name="request_date_to" class="oe_inline"
+                                    attrs="{
+                                        'readonly': [('state', 'not in', ('draft', 'confirm'))],
+                                        'invisible': ['|', ('request_unit_half', '=', True), ('request_unit_hours', '=', True)]
+                                    }"/>
+                                <field name="request_date_from_period" class="oe_inline"
+                                    string="In"
+                                    options="{'horizontal': True}"
+                                    attrs="{
+                                        'readonly': [('state', 'not in', ('draft', 'confirm'))],
+                                        'required': [('request_unit_half', '=', True)],
+                                        'invisible': [('request_unit_half', '=', False)]}"/>
+                            </div>
+                            <div class="o_row o_row_readonly">
+                                <label for="request_unit_half"
+                                    attrs="{'readonly': [('state', 'not in', ('draft', 'confirm'))]}"/>
+                                <field name="request_unit_half"
+                                    attrs="{'readonly': [('state', 'not in', ('draft', 'confirm'))]}"/>
+                                <label for="request_unit_hours" attrs="{
+                                    'readonly': [('state', 'not in', ('draft', 'confirm'))],
+                                    'invisible': [('leave_type_request_unit', '!=', 'hour')]
+                                }"/>
+                                <field name="request_unit_hours" attrs="{
+                                    'readonly': [('state', 'not in', ('draft', 'confirm'))],
+                                    'invisible': [('leave_type_request_unit', '!=', 'hour')]
+                                }"/>
+                                <label for="request_unit_custom" invisible="1" attrs="{
+                                    'readonly': [('state', 'not in', ('draft', 'confirm'))],
+                                }"/>
+                                <field name="request_unit_custom" invisible="1" attrs="{
+                                    'readonly': [('state', 'not in', ('draft', 'confirm'))],
+                                }"/>
+                            
+                                <label for="request_hour_from" string="From"
+                                    attrs="{'invisible': [('request_unit_hours', '=', False)]}"/>
+                                <field name="request_hour_from"
+                                    attrs="{
+                                        'readonly': [('state', '=', 'validate')],
+                                        'required': [('request_unit_hours', '=', True)],
+                                        'invisible': [('request_unit_hours', '=', False)]}"/>
+                                <label for="request_hour_to" string="To"
+                                    attrs="{'invisible': [('request_unit_hours', '=', False)]}"/>
+                                <field name="request_hour_to"
+                                    attrs="{
+                                        'readonly': [('state', '=', 'validate')],
+                                        'required': [('request_unit_hours', '=', True)],
+                                        'invisible': [('request_unit_hours', '=', False)]}"/>
+                            </div>
+                        </div>
+                        <field name="name" attrs="{'readonly': [('state', 'not in', ('draft', 'confirm'))]}"/>
+                    </group>
+                </group>
+                <group name="col_extra" colspan="4" attrs="{'invisible': [('contract_id', '=', False)]}">
+                    <field name="contract_id" invisible="1"
+                           domain="[('employee_id', '=', employee_id),('state','=','open')]"
+                           groups="hr_holidays.group_hr_holidays_manager" />
+                    
+                    <separator string="Comentarios del Gerente" colspan="2"/>
+                    <field name="report_note" placeholder="e.g. Report to the next month..."
+                           nolabel="1" colspan="2"/>
+                    <separator string="Extras de Nómina Relacionada(s)" colspan="2"/>
+                    <field name="hr_extra_ids" nolabel="1" colspan="2"
+                           context="{'default_employee_id' : employee_id}"/>
+                </group>
+                
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+            </form>-->
+        </field>
+    </record>
+
+    
+        
+    
+    <!-- hr.leave -->
+    <record id="edit_leave_new_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.leave.l10n_mx_payroll</field>
+        <field name="model">hr.leave</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+        <field name="arch" type="xml">
+            <field name="holiday_status_id" position="replace">
+                <field name="holiday_status_id" nolabel="1" options="{'no_create': True, 'no_open':True}"/>
+            </field>
+            <field name="name" position="after">
+                <field name="es_incapacidad" invisible="1"/> 
+                <!--attrs="{'invisible': [('es_incapacidad', '!=', True)]}"/>-->
+                <field name="tipoincapacidad_id" attrs="{'invisible': ['|',('es_incapacidad', '!=', True),('holiday_type','!=','employee')]}"/>
+            </field>
+            <field name="department_id" position="after">
+                <field name="company_id" groups="base.group_multi_company"
+                       options="{'no_create': True, 'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+    
+        <!-- hr.leave.group -->
+        <record id="hr_leave_group_tree" model="ir.ui.view">
+            <field name="name">hr.leave.group.tree</field>
+            <field name="model">hr.leave.group</field>
+            <field name="arch" type="xml">
+                <tree string="Agrupacion para Recibo de Nómina">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_leave_group_form" model="ir.ui.view">
+            <field name="name">hr.leave.group.form</field>
+            <field name="model">hr.leave.group</field>
+            <field name="arch" type="xml">
+                <form string="Agrupacion para Recibo de Nómina">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="code" />
+                            <field name="name" />
+                            <span colspan="4" style="font-weight: bold;">Descripción</span>
+                            <field name="description" colspan="4" nolabel="1"/>
+                            <span colspan="4" style="font-weight: bold;">Tipos de Ausencias Relacionadas</span>
+                            <field name="leave_type_ids" colspan="4" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="hr_leave_group_search" model="ir.ui.view">
+            <field name="name">hr.leave.group.search</field>
+            <field name="model">hr.leave.group</field>
+            <field name="arch" type="xml">
+                <search string="Agrupación para Recibo de Nómina">
+                    <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                           string="Agrupación"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_hr_leave_group" model="ir.actions.act_window">
+            <field name="name">Agrupación de Ausencias</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.leave.group</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_leave_group_tree"/>
+        </record>
+
+        <menuitem action="action_hr_leave_group" 
+                  id="action_hr_leave_group_menu" 
+                  sequence="30" 
+                  parent="hr_holidays.menu_hr_holidays_configuration" 
+                  groups="base.group_no_one"/>
+    
+
+</odoo>

@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        
+        <!--
+        <template id="header_payroll_list">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+            <t t-if="not company">
+                
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <div class="header">
+                <div class="row">
+                    <div class="col-3 mb4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 60px;" alt="Logo"/>
+                    </div>
+                    <div class="col-6 text-center" style="font-size: 12px;">
+                        <span t-field="o.company_id.name" style="font-weight: bold;"/><br/>
+                        RFC: <span t-field="o.company_id.vat"/><br/>
+                        Registro Patronal: <span t-field="o.company_id.registro_patronal"/><br/>
+                        Lista de Nómina: <span t-field="o.name"/><br/>
+                        Periodo: <span t-esc="date_from" /> - <span t-esc="date_to" />
+                    </div>
+                    <div class="col-3 text-center" style="font-size: 12px;">
+                        Page: <span class="page"/> / <span class="topage"/><br/>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                    </div>
+                    <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                </div>
+                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+        </template>
+        -->
+        
+        
+        <!-- Recibo por Empleado -->
+        <template id="subreport_recibo_nomina">
+            <table style="border-style:none;border-collapse: collapse;margin-top:3px;padding: 3px;width: 100%;page-break-inside: avoid;">
+                <tr>
+                    <td colspan="5" style="font-size: 11px;font-weight:bold;padding-top: 10px;border-top: double 3px #00000;border-bottom: double 3px #000000;">
+                        [<span t-esc="nomina.employee_id.num_empleado" />] <span t-field="nomina.employee_id.name" /> - Nómina: <span t-field="nomina.number" />
+                    </td>
+                </tr>
+                <tr style="font-size: 10px;">
+                    <td width="24%">RFC: <span t-field="nomina.employee_id.address_home_id.vat" /></td>
+                    <td width="24%">CURP: <span t-field="nomina.employee_id.curp" /></td>
+                    <td width="4%"></td>
+                    <td width="24%">Afiliación IMSS: <span t-field="nomina.employee_id.nss" /></td>
+                    <td width="24%">Puesto: <span t-field="nomina.employee_id.job_id.name" /></td>
+                </tr>
+                <tr style="font-size: 10px;">
+                    <td>Días Pagados: <span t-esc="nomina.dias_trabajados + nomina.dias_domingos + nomina.dias_feriados - sum(nomina.worked_days_line_ids.filtered(lambda w: w.code in ('PERMISO_SIN_GOCE_DE_SUELDO', 'FALTAS_INJUSTIFICADAS')).mapped('number_of_days'))" /></td>
+                    <td colspan="2">Hrs. Extras: <span t-esc="sum(nomina.input_line_ids.filtered(lambda x: x.code=='HORAS_EXTRAS' and x.payslip_extra_id).mapped('payslip_extra_id.qty'))" 
+                                                       t-if="nomina.contract_id.sat_tipo_contrato_id.code not in('09','99')"/></td>
+                    <td>Fecha Ingreso: <span t-field="nomina.contract_id.fecha_ingreso" /></td>
+                    <td>Jornada: <span t-field="nomina.contract_id.sat_tipojornada_id.name" /></td>
+                </tr>
+                <tr style="font-size: 10px;">
+                    <td>Sal. Diario: <span t-field="nomina.contract_id.cfdi_sueldo_base" /></td>
+                    <td colspan="2">SDI: <span t-field="nomina.contract_id.cfdi_salario_diario_integrado" /></td>
+                    <td>SBC: <span t-esc="'{:,.2f}'.format(nomina.contract_id.cfdi_salario_diario_integrado2 or nomina.contract_id.cfdi_salario_diario_integrado)"/></td>
+                    <td>Sal.Var.: 0.00</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table class="table table-sm" style="font-size: 9px;width:100%;">
+                            <tr style="font-size: 9px;border-top: 1px solid #AAAAAA;font-weight: bold;">
+                                <td width="75%">Conceptos Percepciones</td>
+                                <td width="25%" class="text-right">Importe</td>
+                            </tr>
+                            <t t-set="suma_percepciones_netas" t-value="sum((nomina.percepciones_ids.filtered(lambda w: not w.no_suma) + nomina.otrospagos_ids.filtered(lambda w: w.salary_rule_id.tipootropago_id.code!='002')).mapped('total'))" />
+                            <t t-set="suma_percepciones" t-value="0.0" />
+                            <t t-set="records" t-value="nomina.percepciones_ids + nomina.otrospagos_ids.filtered(lambda w: w.salary_rule_id.tipootropago_id.code!='002')" />
+                            <tr t-foreach="records" t-as="linea">
+                                <t t-set="suma_percepciones" t-value="suma_percepciones + linea.total" />
+                                <td><span t-field="linea.name"/></td>
+                                <td style="text-align:right;"><span t-field="linea.total"/></td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td></td>
+                    <td colspan="2" valign="top">
+                        <table class="table table-sm" style="font-size: 9px;width:100%;">
+                            <tr style="font-size: 9px;border-top: 1px solid #AAAAAA;font-weight: bold;">
+                                <td width="75%">Conceptos Deducciones</td>
+                                <td width="25%" class="text-right">Importe</td>
+                            </tr>
+                            <t t-set="suma_deducciones" t-value="0.0" />
+                            <t t-set="records" t-value="nomina.deducciones_ids + nomina.otrospagos_ids.filtered(lambda w: w.salary_rule_id.tipootropago_id.code=='002' and not w.no_suma)" />
+                            <tr t-foreach="records" t-as="linea">
+                                <t t-if="linea.salary_rule_id.tipootropago_id.code=='002'">
+                                    <t t-set="suma_deducciones" t-value="suma_deducciones - linea.total" />
+                                </t>
+                                <t t-if="linea.salary_rule_id.tipootropago_id.code!='002'">
+                                    <t t-set="suma_deducciones" t-value="suma_deducciones + linea.total" />
+                                </t>
+                                <td><span t-field="linea.name"/></td>
+                                <td style="text-align:right;"><t t-if="linea.salary_rule_id.tipootropago_id.code=='002'">(</t><span t-field="linea.total"/><t t-if="linea.salary_rule_id.tipootropago_id.code=='002'">)</t></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="font-size: 9px;font-weight: bold;">
+                    <td style="border-top: 3px double #666666;padding: 3px;text-align: right;" colspan="2">Total Percepciones: <t t-esc="'{:,.2f}'.format(suma_percepciones)"/></td>
+                    <td style="border-top: 3px double #666666;padding: 3px;"></td>
+                    <td style="border-top: 3px double #666666;padding: 3px;border-bottom: 3px double #666666;text-align: right;" colspan="2" rowspan="2" valign="top">Total Deducciones: <t t-esc="'{:,.2f}'.format(suma_deducciones)"/></td>
+                </tr>
+                <tr style="font-size: 9px;font-weight: bold;">
+                    <td style="border-bottom: 3px double #666666;padding: 3px;text-align:right;"  colspan="2">NETO A PAGAR: <t t-esc="'{:,.2f}'.format(suma_percepciones_netas - suma_deducciones)"/></td>
+                    <td style="border-bottom: 3px double #666666;padding: 3px;"></td>
+                </tr>
+            </table>
+        </template>
+        
+        
+        <!-- Resumen por Departamento -->
+        <template id="subreport_recibo_nomina_departamento">
+            <table style="border-style:none;border-collapse: collapse;margin-top:3px;padding: 3px;width: 100%">
+                <tr>
+                    <td colspan="3" style="font-size: 11px;font-weight:bold;padding-top: 10px;border-top: double 3px #00000;border-bottom: double 3px #000000;background-color: #DDDDDD;">
+                        Resumen Departamento: <span t-field="department.complete_name" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="48%">
+                        <table class="table table-sm" style="font-size: 9px;width:100%;">
+                            <tr style="font-size: 9px;border-top: 1px solid #AAAAAA;font-weight: bold;">
+                                <td width="75%">Conceptos Percepciones</td>
+                                <td width="25%" class="text-right">Importe</td>
+                            </tr>
+                            <t t-set="suma_percepciones" t-value="0.0" />
+                            <t t-set="suma_percepciones_netas" t-value="0.0" />
+                            <t t-set="conceptos" t-value="conceptos_por_departamento[department.id]['percepciones'].items()" />
+                            <tr t-foreach="conceptos" t-as="linea">
+                                <t t-set="suma_percepciones_netas" t-value="suma_percepciones_netas + (linea[1]['total'] if not linea[1]['salary_rule_id'].no_suma else 0.0)" />
+                                <t t-set="suma_percepciones" t-value="suma_percepciones + linea[1]['total']" />
+                                <td><span t-esc="linea[1]['name']"/></td>
+                                <td style="text-align:right;"><span t-esc="'{:,.2f}'.format(linea[1]['total'])"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="4%"></td>
+                    <td width="48%" valign="top">
+                        <table class="table table-sm" style="font-size: 9px;width:100%;">
+                            <tr style="font-size: 9px;border-top: 1px solid #AAAAAA;font-weight: bold;">
+                                <td width="75%">Conceptos Deducciones</td>
+                                <td width="25%" class="text-right">Importe</td>
+                            </tr>
+                            <t t-set="suma_deducciones" t-value="0.0" />                                
+                            <t t-set="conceptos" t-value="conceptos_por_departamento[department.id]['deducciones'].items()" />
+                            <tr t-foreach="conceptos" t-as="linea">
+                                <t t-set="suma_deducciones" t-value="suma_deducciones + linea[1]['total']" />
+                                <td><span t-esc="linea[1]['name']"/></td>
+                                <td style="text-align:right;"><span t-esc="'{:,.2f}'.format(linea[1]['total'])"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="font-size: 9px;font-weight: bold;background-color: #DDDDDD;">
+                    <td style="border-top: 3px double #666666;padding: 3px;text-align:right;">Total Percepciones: <t t-esc="'{:,.2f}'.format(suma_percepciones)"/></td>
+                    <td style="border-top: 3px double #666666;padding: 3px;"></td>
+                    <td class="text-right" style="border-top: 3px double #666666;padding: 3px;border-bottom: 3px double #666666;text-align:right;"  rowspan="2" valign="top">Total Deducciones: <t t-esc="'{:,.2f}'.format(suma_deducciones)"/></td>
+                </tr>
+                <tr style="font-size: 9px;font-weight: bold;background-color: #DDDDDD;">
+                    <td class="text-right" style="border-bottom: 3px double #666666;padding: 3px;text-align:right;">NETO A PAGAR: <t t-esc="'{:,.2f}'.format(suma_percepciones_netas - suma_deducciones)"/></td>
+                    <td style="border-bottom: 3px double #666666;padding: 3px;"></td>
+                </tr>
+            </table>
+        </template>
+        
+        
+        <!-- Resumen TOTALES -->
+        <template id="subreport_recibo_nomina_totales">
+            <br/>
+            <br/>
+            <table style="border-style:none;border-collapse: collapse;margin-top:3px;padding: 3px;width: 100%">
+                <tr>
+                    <td colspan="3" style="font-size: 11px;font-weight:bold;padding-top: 10px;border-top: double 3px #00000;border-bottom: double 3px #000000;background-color: #DDDDDD;">
+                        SUMA TODOS LOS DEPARTAMENTOS.
+                    </td>
+                </tr>
+                <tr>
+                    <td width="48%">
+                        <table class="table table-sm" style="font-size: 9px;width:100%;">
+                            <tr style="font-size: 9px;border-top: 1px solid #AAAAAA;font-weight: bold;">
+                                <td width="75%">Conceptos Percepciones</td>
+                                <td width="25%" class="text-right">Importe</td>
+                            </tr>
+                            <t t-set="suma_percepciones" t-value="0.0" />
+                            <t t-set="suma_percepciones_netas" t-value="0.0" />
+                            <t t-set="conceptos" t-value="conceptos_todos_departamentos['percepciones'].items()" />
+                            <tr t-foreach="conceptos" t-as="linea">
+                                <t t-set="suma_percepciones_netas" t-value="suma_percepciones_netas + (linea[1]['total'] if not linea[1]['salary_rule_id'].no_suma else 0.0)" />
+                                <t t-set="suma_percepciones" t-value="suma_percepciones + linea[1]['total']" />
+                                <td><span t-esc="linea[1]['name']"/></td>
+                                <td style="text-align:right;"><span t-esc="'{:,.2f}'.format(linea[1]['total'])"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="4%"></td>
+                    <td width="48%" valign="top">
+                        <table class="table table-sm" style="font-size: 9px;width:100%;">
+                            <tr style="font-size: 9px;border-top: 1px solid #AAAAAA;font-weight: bold;">
+                                <td width="75%">Conceptos Deducciones</td>
+                                <td width="25%" class="text-right">Importe</td>
+                            </tr>
+                            <t t-set="suma_deducciones" t-value="0.0" />                                
+                            <t t-set="conceptos" t-value="conceptos_todos_departamentos['deducciones'].items()" />
+                            <tr t-foreach="conceptos" t-as="linea">
+                                <t t-set="suma_deducciones" t-value="suma_deducciones + linea[1]['total']" />
+                                <td><span t-esc="linea[1]['name']"/></td>
+                                <td style="text-align:right;"><span t-esc="'{:,.2f}'.format(linea[1]['total'])"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="font-size: 9px;font-weight: bold;background-color: #DDDDDD;">
+                    <td style="border-top: 3px double #666666;padding: 3px;text-align:right;">Total Percepciones: <t t-esc="'{:,.2f}'.format(suma_percepciones)"/></td>
+                    <td style="border-top: 3px double #666666;padding: 3px;"></td>
+                    <td class="text-right" style="border-top: 3px double #666666;padding: 3px;border-bottom: 3px double #666666;text-align:right;"  rowspan="2" valign="top">Total Deducciones: <t t-esc="'{:,.2f}'.format(suma_deducciones)"/></td>
+                </tr>
+                <tr style="font-size: 9px;font-weight: bold;background-color: #DDDDDD;">
+                    <td class="text-right" style="border-bottom: 3px double #666666;padding: 3px;text-align:right;">NETO A PAGAR: <t t-esc="'{:,.2f}'.format(suma_percepciones_netas - suma_deducciones)"/></td>
+                    <td style="border-bottom: 3px double #666666;padding: 3px;"></td>
+                </tr>
+            </table>
+        </template>
+        
+        
+        <template id="report_payroll_list">
+        <t t-set="data_report_margin_top" t-value="15"/>
+        <t t-set="data_report_header_spacing" t-value="15"/>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div style="width:100%;">
+                            <t t-call="l10n_mx_payroll.report_payroll_list_detail" />
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+        
+    </template>
+        
+        
+    <template id="report_payroll_list_detail">
+        <div class="page">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 40px;" alt="Logo"/>
+                </div>
+                <div class="col-6 text-center" style="font-size: 11px;">
+                    <span t-field="o.company_id.name" style="font-weight: bold;"/><br/>
+                    RFC: <span t-field="o.company_id.vat"/><br/>
+                    Registro Patronal: <span t-field="o.company_id.registro_patronal"/><br/>
+                    Lista de Nómina: <span t-field="o.name"/><br/>
+                    Periodo: <span t-esc="date_from" /> - <span t-esc="date_to" />
+                </div>
+            </div>
+        
+            <t t-foreach="departments" t-as="department">
+                <div class="page">
+                    <table style="border: 0px;width: 100%;height: 50px;border-collapse: collapse;padding: 1px;">
+                        <thead>
+                            <tr>
+                                <td style="border-top: 1px solid #555555;border-bottom: 1px solid #555555;font-size: 12px;font-weight:bold;padding: 5px;background-color:#DDDDDD;">
+                                    Departamento: <span t-field="department.complete_name"/>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.slip_ids.filtered(lambda w: w.contract_id.department_id.id==department.id and w.contract_id.id in contracts).sorted(key=lambda r: r.employee_id.name)" t-as="nomina">
+                                <td>                                                
+                                    <t t-call="l10n_mx_payroll.subreport_recibo_nomina"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                    <t t-call="l10n_mx_payroll.subreport_recibo_nomina_departamento"/>                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span style="font-size: 9px;">Total de Empleados del Departamento: <t t-esc="len(o.slip_ids.filtered(lambda w: w.contract_id.department_id.id==department.id and w.contract_id.id in contracts).ids)" /></span><br />
+                    <br/>
+                </div>
+            </t>
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 40px;" alt="Logo"/>
+                </div>
+                <div class="col-6 text-center" style="font-size: 11px;">
+                    <span t-field="o.company_id.name" style="font-weight: bold;"/><br/>
+                    RFC: <span t-field="o.company_id.vat"/><br/>
+                    Registro Patronal: <span t-field="o.company_id.registro_patronal"/><br/>
+                    Lista de Nómina: <span t-field="o.name"/><br/>
+                    Periodo: <span t-esc="date_from" /> - <span t-esc="date_to" />
+                </div>
+            </div>
+            <div class="row">
+                <t t-call="l10n_mx_payroll.subreport_recibo_nomina_totales"/>
+                <br />
+                <span style="font-size: 9px;">Total de Empleados: <t t-esc="len(o.slip_ids.ids)" /></span>
+                <br />
+            </div>
+        </div>
+    </template>
+    
+
+        
+        <record id="report_payroll_list_action" model="ir.actions.report">
+            <field name="name">Lista de Raya</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_mx_payroll.report_payroll_list</field>
+            <field name="report_file">l10n_mx_payroll.report_payroll_list</field>
+            <field name="print_report_name">'Lista de Raya - %s' % (object.name)</field>
+            <!--<field name="binding_model_id" ref="model_hr_payslip_run"/>-->
+            <field name="binding_type">report</field>
+        </record>
+        
+        
+  </data>
+</odoo>

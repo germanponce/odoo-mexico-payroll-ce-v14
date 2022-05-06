@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Valores para usar:
+* o => hr.payslip
+* emisor_rfc    => Cadena que contiene el RFC del emisor
+* emisor_nombre => Cadena que contiene el Nombre del emisor
+* emisor_regimen=> Cadena que contiene la clave del Regimen del emisor
+* receptor_rfc    => Cadena que contiene el RFC del receptor
+* receptor_nombre => Cadena que contiene el Nombre del receptor
+* certificate_number => Serie del Certificado
+* certificate => Certificado en cadena
+* fecha => fecha del CFDI
+-->
+<odoo>
+    <data>
+        <template id="l10n_mx_payroll.cfdi33_nomina12">            
+            <cfdi:Comprobante 
+                xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd" Version="3.3" t-att-Serie="o.sat_serie or False" t-att-Folio="o.sat_folio or o.number" t-att-Fecha="fecha" Sello="" FormaPago="99" t-att-NoCertificado="certificate_number" t-att-Certificado="certificate" t-att-SubTotal="'%.2f' % (o.sum_percepciones + o.sum_otrospagos_xml + o.total_indemnizacion)" t-att-Descuento="o.sum_deducciones and '%.2f' % o.sum_deducciones or 0" Moneda="MXN" t-att-Total="'%.2f' % (o.sum_percepciones + o.sum_otrospagos_xml + o.total_indemnizacion - o.sum_deducciones)" TipoDeComprobante="N" MetodoPago="PUE" t-att-LugarExpedicion="o.company_id.partner_id.commercial_partner_id.zip">
+                <!--<t t-set="related" t-value="record.get_cfdi_related()"/> ### Esto solo funciona con la LM de Odoo
+                <t t-if="related">
+                    <cfdi:CfdiRelacionados
+                        t-att-TipoRelacion="related['type']">
+                        <t t-foreach="related['related']" t-as="number">
+                            <cfdi:CfdiRelacionado t-att-UUID="number"/>
+                        </t>
+                    </cfdi:CfdiRelacionados>
+                </t>-->
+                <cfdi:Emisor t-att-Rfc="emisor_rfc" t-att-Nombre="emisor_nombre" t-att-RegimenFiscal="emisor_regimen"/>
+                <cfdi:Receptor t-att-Rfc="receptor_rfc" t-att-Nombre="receptor_nombre" UsoCFDI="P01" />
+                <cfdi:Conceptos>
+                    <cfdi:Concepto ClaveProdServ="84111505" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago de nómina" t-att-ValorUnitario="'%.2f' % (o.sum_percepciones + o.sum_otrospagos_xml + o.total_indemnizacion)" t-att-Importe="'%.2f' % (o.sum_percepciones + o.sum_otrospagos_xml + o.total_indemnizacion)" t-att-Descuento="o.sum_deducciones and '%.2f' % o.sum_deducciones or 0"/>
+                </cfdi:Conceptos>
+                <cfdi:Complemento>
+                    <nomina12:Nomina t-att-TipoNomina="o.tiponomina_id.code" t-att-FechaPago="o.date_payroll" t-att-FechaInicialPago="o.date_from" t-att-FechaFinalPago="o.date_to" t-att-NumDiasPagados="o.dias_periodo" t-att-TotalPercepciones="(o.sum_percepciones + o.total_indemnizacion) and '%.2f' % (o.sum_percepciones + o.total_indemnizacion) or 0" t-att-TotalDeducciones="o.sum_deducciones and '%.2f' % o.sum_deducciones or 0" t-att-TotalOtrosPagos="o.sum_otrospagos_xml or not (o.settlement_id and o.settlement_id.state != 'cancel' and o.tiponomina_id.code=='E') and '%.2f' % o.sum_otrospagos_xml or 0" Version="1.2">
+                        <t t-if="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id"><nomina12:Emisor t-att-RegistroPatronal="o.company_id.registro_patronal" t-att-RfcPatronOrigen="emisor_rfc"></nomina12:Emisor></t>
+                        <nomina12:Receptor t-att-SalarioDiarioIntegrado="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and '%.2f' % o.contract_id.cfdi_sueldo_base or False" t-att-SalarioBaseCotApor="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and (o.contract_id.cfdi_salario_diario_integrado2 or o.contract_id.cfdi_salario_diario_integrado) and '%.2f' % (o.contract_id.cfdi_salario_diario_integrado2 or o.contract_id.cfdi_salario_diario_integrado) or False" t-att-CuentaBancaria="o.employee_id.bank_account_id and o.employee_id.bank_account_id[0].acc_number or False" t-att-Banco="o.employee_id.bank_account_id and len(o.employee_id.bank_account_id[0].acc_number) &lt; 18 and o.employee_id.bank_account_id.bank_id.sat_bank_id.bic or False" t-att-PeriodicidadPago="o.tiponomina_id.code=='O' and o.contract_id.sat_periodicidadpago_id.code or '99'" t-att-RiesgoPuesto="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and o.contract_id.sat_riesgopuesto_id.code or False" t-att-ClaveEntFed="o.employee_id.address_home_id.state_id.code" t-att-TipoRegimen="o.settlement_id and o.settlement_id.state != 'cancel' and o.tiponomina_id.code=='E' and '13' or o.contract_id.sat_tiporegimen_id.code" t-att-TipoJornada="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and o.contract_id.sat_tipojornada_id.code or False" t-att-Sindicalizado="o.contract_id.sindicalizado=='Si' and 'S\xed' or 'No'" t-att-TipoContrato="o.settlement_id and o.settlement_id.state != 'cancel' and o.tiponomina_id.code=='E' and '99' or o.contract_id.sat_tipo_contrato_id.code" t-att-FechaInicioRelLaboral="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and o.contract_id.fecha_ingreso or False" t-att-NumSeguridadSocial="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and o.employee_id.nss or False" t-att-Antigüedad="o.contract_id.sat_tipo_contrato_id.code in ('01','02','03','04','05','06','07','08') and o.settlement_id.settlement_payslip_id.id != o.id and o.antiguedad or False" t-att-NumEmpleado="o.employee_id.num_empleado" t-att-Curp="o.employee_id.curp"></nomina12:Receptor><t t-if="o.percepciones_ids">
+                        <nomina12:Percepciones t-att-TotalSeparacionIndemnizacion="o.total_indemnizacion and '%.2f' % o.total_indemnizacion or False" t-att-TotalSueldos="'%.2f' % o.sum_percepciones" t-att-TotalGravado="'%.2f' % o.sum_percepciones_gravadas" t-att-TotalExento="'%.2f' % o.sum_percepciones_exentas"><t t-foreach="o.percepciones_ids" t-as="percepcion"><t t-if="percepcion.salary_rule_id.tipopercepcion_id.code=='019' and percepcion.salary_rule_id.tipo_gravable=='gravable'">
+                            <nomina12:Percepcion t-att-TipoPercepcion="percepcion.salary_rule_id.tipopercepcion_id.code" t-att-Clave="percepcion.salary_rule_id.code[:15]" t-att-Concepto="percepcion.salary_rule_id.name[:100]" t-att-ImporteGravado="'%.2f' % (o.extra_hours_gravado or 0.00)" t-att-ImporteExento="'%.2f' % (o.extra_hours_exento or 0.00)">
+                                <nomina12:HorasExtra t-att-Dias="o.extra_hours_dias_doble" TipoHoras="01" t-att-HorasExtra="o.extra_hours_qty_doble" t-att-ImportePagado="'%.2f' % o.extra_hours_monto_doble"/><t t-if="o.extra_hours_monto_triple">
+                                <nomina12:HorasExtra t-att-Dias="o.extra_hours_dias_triple" TipoHoras="02" t-att-HorasExtra="o.extra_hours_qty_triple" t-att-ImportePagado="'%.2f' % o.extra_hours_monto_triple"/></t>
+                            </nomina12:Percepcion></t><t t-if="percepcion.salary_rule_id.tipopercepcion_id.code!='019'">
+                            <nomina12:Percepcion t-att-TipoPercepcion="percepcion.salary_rule_id.tipopercepcion_id.code" t-att-Clave="percepcion.salary_rule_id.code[:15]" t-att-Concepto="percepcion.salary_rule_id.name[:100]" t-att-ImporteGravado="'%.2f' % (percepcion.salary_rule_id.tipo_gravable=='gravable' and percepcion.total or 0.00)" t-att-ImporteExento="'%.2f' % (percepcion.salary_rule_id.tipo_gravable=='exento' and percepcion.total or 0.00)" /></t></t><t t-if="o.total_indemnizacion">
+                            <nomina12:SeparacionIndemnizacion t-att-TotalPagado="'%.2f' % o.total_indemnizacion" t-att-NumAñosServicio="o.indemnizacion_antiguedad" t-att-UltimoSueldoMensOrd="'%.2f' % o.indemnizacion_ultimo_sueldo_ordinario" t-att-IngresoAcumulable="'%.2f' % o.indemnizacion_ultimo_sueldo_ordinario" t-att-IngresoNoAcumulable="'%.2f' % (o.sum_percepciones_gravadas - o.indemnizacion_ultimo_sueldo_ordinario) if (o.sum_percepciones_gravadas - o.indemnizacion_ultimo_sueldo_ordinario) > 0.0 else o.total_indemnizacion" /></t>
+                        </nomina12:Percepciones></t><t t-if="o.deducciones_ids">
+                        <nomina12:Deducciones t-att-TotalImpuestosRetenidos="o.total_retenciones and '%.2f' % o.total_retenciones or False" t-att-TotalOtrasDeducciones="(o.sum_deducciones - o.total_retenciones) and '%.2f' % (o.sum_deducciones - o.total_retenciones) or False"><t t-foreach="o.deducciones_ids" t-as="deduccion">
+                            <nomina12:Deduccion t-att-TipoDeduccion="deduccion.salary_rule_id.tipodeduccion_id.code" t-att-Clave="deduccion.salary_rule_id.code[:15]" t-att-Concepto="deduccion.salary_rule_id.name[:100]" t-att-Importe="'%.2f' % deduccion.total" /></t>
+                        </nomina12:Deducciones></t><t t-if="o.otrospagos_ids">
+                        <nomina12:OtrosPagos><t t-set="tiene_subsidio_causado" t-value="False"/><t t-foreach="o.otrospagos_ids" t-as="otropago"><t t-if="otropago.salary_rule_id.tipootropago_id.code =='004'">
+                            <nomina12:OtroPago t-att-TipoOtroPago="otropago.salary_rule_id.tipootropago_id.code" t-att-Clave="otropago.salary_rule_id.code[:15]" t-att-Concepto="otropago.salary_rule_id.name[:100]" t-att-Importe="'%.2f' % otropago.total" >
+                                <nomina12:CompensacionSaldosAFavor RemanenteSalFav="0.00" t-att-Año="str(int(o.date_to[:4])  - 1)" t-att-SaldoAFavor="'%.2f' % otropago.total" />
+                            </nomina12:OtroPago></t><t t-if="otropago.salary_rule_id.tipootropago_id.code not in ('002','004')">
+                            <nomina12:OtroPago t-att-TipoOtroPago="otropago.salary_rule_id.tipootropago_id.code" t-att-Clave="otropago.salary_rule_id.code[:15]" t-att-Concepto="otropago.salary_rule_id.name[:100]" t-att-Importe="'%.2f' % otropago.total" /></t><t t-if="otropago.salary_rule_id.es_subsidio_causado and not any(x.salary_rule_id.tipootropago_id.code in ('007','008') for x in o.otrospagos_ids)">
+                            <nomina12:OtroPago t-att-TipoOtroPago="otropago.salary_rule_id.tipootropago_id.code" Clave="OT_002" Concepto="Subsidio al Empleo (Efectivamente entregado)" t-att-Importe="(o.subsidio_pagado or 0.01)"><t t-set="tiene_subsidio_causado" t-value="True"/>
+                                <nomina12:SubsidioAlEmpleo t-att-SubsidioCausado="'%.2f' % otropago.total" />
+                            </nomina12:OtroPago></t></t><t t-if="not tiene_subsidio_causado and o.contract_id.sat_tiporegimen_id.code == '02' and not any(x.salary_rule_id.tipootropago_id.code in ('007','008') for x in o.otrospagos_ids)">
+                            <nomina12:OtroPago TipoOtroPago="002" Clave="002" Concepto="Subsidio al Empleo (Causado)" Importe="0.00">
+                                <nomina12:SubsidioAlEmpleo SubsidioCausado="0.00" />
+                            </nomina12:OtroPago></t>
+                        </nomina12:OtrosPagos></t><t t-if="not o.otrospagos_ids and not (o.settlement_id and o.settlement_id.state != 'cancel' and o.tiponomina_id.code=='E') and o.contract_id.sat_tiporegimen_id.code == '02'">
+                        <nomina12:OtrosPagos>
+                            <nomina12:OtroPago TipoOtroPago="002" Clave="002" Concepto="Subsidio al Empleo (Causado)" Importe="0.00">
+                                <nomina12:SubsidioAlEmpleo SubsidioCausado="0.00" />
+                            </nomina12:OtroPago>
+                        </nomina12:OtrosPagos></t><t t-if="o.incapacidades_ids">
+                        <nomina12:Incapacidades><t t-foreach="o.incapacidades_ids" t-as="incapacidad">
+                            <nomina12:Incapacidad t-att-DiasIncapacidad="'%s' % int(incapacidad.total)" t-att-TipoIncapacidad="incapacidad.salary_rule_id.tipoincapacidad_id.code" t-att-ImporteMonetario="'%.2f' % o.total_incapacidades"/>
+                            </t>
+                        </nomina12:Incapacidades></t>
+                    </nomina12:Nomina>
+                </cfdi:Complemento>
+            </cfdi:Comprobante>
+        </template>
+    </data>
+</odoo>

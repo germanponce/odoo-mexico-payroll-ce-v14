@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="HRLeaveTypeDescanso" model="hr.leave.type">
+            <field name="code">DESC</field>
+            <field name="name">Descanso</field>
+            <field name="unpaid" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">blue</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeVacaciones" model="hr.leave.type">
+            <field name="code">VAC</field>
+            <field name="name">VACACIONES</field>
+            <field name="unpaid" eval="False"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">fixed</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">violet</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeFaltas" model="hr.leave.type">
+            <field name="code">F</field>
+            <field name="name">FALTAS_INJUSTIFICADAS</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">red</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeEnfermedadDeTrabajo" model="hr.leave.type">
+            <field name="code">INC_ENF_TRAB</field>
+            <field name="name">INCAPACIDAD_POR_ENFERMEDAD_DE_TRABAJO</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">magenta</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeAccidenteTrabajo" model="hr.leave.type">
+            <field name="code">INC_ACC_TRAB</field>
+            <field name="name">INCAPACIDAD_POR_ACCIDENTE_DE_TRABAJO</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">lightpink</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeAccidenteTrayecto" model="hr.leave.type">
+            <field name="code">INC_ACC_TRAY</field>
+            <field name="name">INCAPACIDAD_POR_ACCIDENTE_EN_TRAYECTO</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">lightyellow</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeIncapacidadMaternidad" model="hr.leave.type">
+            <field name="code">INC_MAT</field>
+            <field name="name">INCAPACIDAD_POR_MATERNIDAD</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">lightsalmon</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypeIncapacidadEnfermedad" model="hr.leave.type">
+            <field name="code">INC_ENF_GRAL</field>
+            <field name="name">INCAPACIDAD_POR_ENFERMEDAD_GENERAL</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">lavender</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypePermisoSinSueldo" model="hr.leave.type">
+            <field name="code">PERM_SG</field>
+            <field name="name">PERMISO_SIN_GOCE_DE_SUELDO</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">wheat</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="HRLeaveTypePermisoConSueldo" model="hr.leave.type">
+            <field name="code">PERM_CG</field>
+            <field name="name">PERMISO_CON_GOCE_DE_SUELDO</field>
+            <field name="unpaid" eval="True"/>
+            <field name="time_type">leave</field>
+            <field name="allocation_type">no</field>
+            <field name="leave_validation_type">both</field>
+            <field name="color_name">ivory</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+    </data>
+</odoo>

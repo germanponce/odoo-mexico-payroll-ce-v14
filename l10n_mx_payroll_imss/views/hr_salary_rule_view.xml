@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="hr_salary_rule_form_l10n_mx_payroll_imss" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form.l10n_mx_payroll_imss</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="priority" eval="49"/>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <field name="appears_on_payslip" position="after">
+                <field name="aplica_calculo_imss" />
+            </field>
+            <notebook position="inside">
+                <page string="Cálculo IMSS" attrs="{'invisible':[('aplica_calculo_imss','in',(0, False))]}">
+                    <separator string="Código Python Gravado/Exento IMSS" />
+                    <field name="python_code_imss" 
+                           groups="l10n_mx_payroll.group_hr_payroll_super_manager"
+                           attrs="{'invisible':[('aplica_calculo_imss','in',(0, False))],'required':[('aplica_calculo_imss','=',1)]}"
+                           widget="ace" options="{'mode': 'python'}"/> 
+
+                </page>
+            </notebook>
+                
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_res_bank_form_payroll_bank_dispersion">
+            <field name="name">res.bank.form.payroll_bank_dispersion</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <sheet position="inside">
+                    <group string="Definición Archivo Batch Nómina (Qweb)" 
+                           groups="l10n_mx_payroll.group_hr_payroll_super_manager">
+                        <group>
+                            <field name="payroll_batch_file_id" />
+                            <field name="payroll_batch_file_company_code" />
+                            
+                        </group>
+                        <group>
+                            <field name="payroll_batch_file_name" />
+                            <field name="payroll_batch_file_seq" />
+                        </group>
+                    </group>
+                </sheet>
+            </field>
+        </record>
+    </data>
+</odoo>
+        
+        

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    
+    <record id="view_hr_payslip_filter_l10n_mx_payroll_odoo" model="ir.ui.view">
+        <field name="name">hr.payslip.search.l10n_mx_payroll.odoo.search</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <field name="payslip_run_id" position="after">
+                <separator />
+                <filter string="Sin Folio Fiscal (UUID)" name="sin_uuid" domain="[('l10n_mx_edi_pac_status','!=','signed')]"
+                        help="Sin Folio Fiscal (UUID)"/>
+                <filter string="Con Folio Fiscal (UUID)" name="con_uuid" domain="[('l10n_mx_edi_pac_status','=','signed')]"
+                        help="Con Folio Fiscal (UUID)"/>
+            </field>
+            <filter name="company_id" position="before">
+                <filter string="Estado CFDI" name="group_by_l10n_mx_edi_pac_status" context="{'group_by': 'l10n_mx_edi_pac_status'}"/>
+            </filter>
+        </field>
+    </record>
+    
+    <record id="view_hr_payslip_form_l10n_mx_payroll_odoo" model="ir.ui.view">
+        <field name="name">hr.payslip.form.l10n_mx_payroll.odoo</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="CFDI Info" id="odoo_info">
+                    <group>
+                        <group>
+                            <field name="l10n_mx_edi_pac_status" />
+                            <field name="l10n_mx_edi_sat_status" />
+                            <field name="l10n_mx_edi_cfdi_name" />
+                            <field name="l10n_mx_edi_cfdi"/>
+                        </group>
+                        <group>
+                            
+                            <field name="l10n_mx_edi_cfdi_certificate_id" />
+                            <field name="l10n_mx_edi_cfdi_supplier_rfc" />
+                            <field name="l10n_mx_edi_cfdi_customer_rfc" />
+                            <field name="l10n_mx_edi_origin" />
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    
+    
+    <record id="view_hr_payslip_form_l10n_mx_payroll_odoo2" model="ir.ui.view">
+        <field name="name">hr.payslip.form.l10n_mx_payroll.odoo2</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.view_hr_payslip_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <field name="settlement_id" position="after">
+                <field name="l10n_mx_edi_cfdi_uuid" attrs="{'invisible': [('l10n_mx_edi_cfdi_uuid','=',False)]}"/>
+                <field name="payslip_datetime" attrs="{'invisible': [('l10n_mx_edi_cfdi_uuid','=',False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="res_config_settings_view_form_l10n_mx_payroll_attend_proc" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.l10n_mx_payroll.attendance_procesor</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="56"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.res_config_settings_view_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='l10n_mx_payroll_params']" position="after">
+                <h2>Procesamiento de Asistencias</h2>
+                    <div class="row mt16 o_settings_container" id="hr_attendance_processor_params">
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_retardos_para_una_falta"/><br/>
+                                <field name="hr_attendance_retardos_para_una_falta" required="1"/>
+                                <div class="text-muted">
+                                    Número de Retardos en el Periodo que generan una falta. Recuerde que dependiendo la Estructura Salarial podrá indicar si aplica o no al trabajador.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_considerar_retardos_en_periodo"/><br/>
+                                <field name="hr_attendance_considerar_retardos_en_periodo" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar si los retardos se consideran para todo el mes o solo en el periodo de Nóminas según corresponda. Si no considera los retardos para todo el mes entonces solo aplicaría para Nómina Semanal y/o Quincenal (1-15 + 16-Fin de Mes).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_retardo_por_minuto"/><br/>
+                                <field name="hr_attendance_retardo_por_minuto" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar si se generan descuentos por minuto de retardo tomando en cuenta el parámetro de Tolerancia para Retardo; si el trabajador llega después de la hora de entrada pero antes de esa tolerancia entonces se crea un registro de Extra de Nómina para descontar los minutos.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" 
+                             attrs="{'invisible':[('hr_attendance_retardo_por_minuto','=','2')]}">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_retardo_salary_rule_id"/><br/>
+                                <field name="hr_attendance_retardo_salary_rule_id" 
+                                       attrs="{'required':[('hr_attendance_retardo_por_minuto','=','1')]}"/>
+                                <div class="text-muted">
+                                    Parametro para indicar la Regla Salarial para generar los descuentos por minuto tomando en cuenta el parámetro de Mins. Tolerancia para Retardo; si el trabajador llega después de la hora de entrada según el Horario de Trabajo que tenga asignado pero antes de esa tolerancia entonces se crea un registro de Extra de Nómina para poder descontar los minutos.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_minutos_tolerancia_retardo"/><br/>
+                                <field name="hr_attendance_minutos_tolerancia_retardo" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar los minutos de Tolerancia antes de considerarse como retardo. Considere un valor razonable no mayor a 30 minutos.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_minutos_retardo_genera_falta"/><br/>
+                                <field name="hr_attendance_minutos_retardo_genera_falta" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar los minutos para considerarse un retardo que genera una Falta. Considere un valor razonable no mayor a 60 minutos.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_minutos_tolerancia_hrs_extra"/><br/>
+                                <field name="hr_attendance_minutos_tolerancia_hrs_extra" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar los minutos después de la Hora de Salida para considerarse como Horas Extras. Considere un valor razonable no mayor a 60 minutos.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_hrs_extra_desde_tolerancia"/><br/>
+                                <field name="hr_attendance_hrs_extra_desde_tolerancia" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar si se generan las Horas Extras sumando el valor del parámetro &lt;Horas Extras - Mins. después de Salida&gt; para que a partir de allí se calculen las Horas Extras.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_minutos_tolerancia_salida"/><br/>
+                                <field name="hr_attendance_minutos_tolerancia_salida" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar los minutos Máximo previos a la hora de salida. Si sobrepasa el máximo se genera falta del día.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="hr_attendance_dia_inicio_periodo_semanal"/><br/>
+                                <field name="hr_attendance_dia_inicio_periodo_semanal" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar el día de la semana que es inicio del periodo para las Nóminas Semanales; solo es útil si usa Nómina Semanal.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+            </xpath>            
+        </field>
+    </record>
+    
+</odoo>

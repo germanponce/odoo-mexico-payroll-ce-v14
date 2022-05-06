@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="hr_payslip_run_bank_dispersion_wiz" model="ir.ui.view">
+            <field name="name">Crear Archivo Batch para Dispersión de Nómina</field>
+            <field name="model">hr.payslip.run.bank_dispersion</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Crear Archivo Batch para Dispersión de Nómina">
+                    <group>
+                        <field name="bank_id" attrs="{'invisible':[('ok','=',True)]}"
+                               options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="payslip_run_id" invisible="1" />
+                        <field name="ok" invisible="1" />
+                        <field name="filename" invisible="1" />
+                        <field name="txt_file" 
+                               readonly="1" filename="filename"
+                               attrs="{'invisible':[('ok','!=',True)]}"/>
+                    </group>
+                    <footer>
+                        <button name="button_get_file" string="Crear Archivo" 
+                                class="oe_highlight"
+                                type="object" attrs="{'invisible':[('ok','=',True)]}"/>
+                        
+                        <button special="cancel" string="Cerrar" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_payslip_run_bank_dispersion_wiz" model="ir.actions.act_window">
+            <field name="name">Archivo Batch para Dispersión de Nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.run.bank_dispersion</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="hr_payslip_run_bank_dispersion_wiz"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+            <field name="binding_view_types">list,form</field>
+        </record>
+        
+        <!--
+        <record id="action_validate_account_move" model="ir.actions.act_window">
+            <field name="name">Post entries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">validate.account.move</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="validate_account_move_view"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+            <field name="help">This wizard will validate all journal entries selected. Once journal entries are validated, you can not update them anymore.</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="binding_view_types">list</field>
+        </record>
+        -->
+</odoo>

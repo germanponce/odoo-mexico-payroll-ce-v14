@@ -1,0 +1,5 @@
+id,code,name
+sat_nomina_tipoincapacidad_1,01,Riesgo de trabajo.
+sat_nomina_tipoincapacidad_2,02,Enfermedad en general.
+sat_nomina_tipoincapacidad_3,03,Maternidad.
+sat_nomina_tipoincapacidad_4,04,Licencia por cuidados médicos de hijos diagnosticados con cáncer.

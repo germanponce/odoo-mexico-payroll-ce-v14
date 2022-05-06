@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- res.company 
+    <record id="view_company_form_l10n_mx_payroll_attendance" model="ir.ui.view">
+        <field name="name">res.company.form.attendance_processor</field>
+        <field name="model">res.company</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.view_company_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <field name="antiguedad_segun_lft" position="after">
+                <separator string="Parámetros Asistencias" colspan="2" />
+                <field name="hr_attendance_retardos_para_una_falta" />
+                <field name="hr_attendance_retardo_por_minuto" />
+                <field name="hr_attendance_retardo_salary_rule_id" />
+                <field name="hr_attendance_considerar_retardos_en_periodo" />
+                <field name="hr_attendance_minutos_tolerancia_retardo" />
+                <field name="hr_attendance_minutos_retardo_genera_falta" />
+                <field name="hr_attendance_minutos_tolerancia_hrs_extra" />
+                <field name="hr_attendance_hrs_extra_desde_tolerancia" />
+                <field name="hr_attendance_minutos_tolerancia_salida" />
+                <field name="hr_attendance_dia_inicio_periodo_semanal" />
+            </field>
+        </field>
+    </record>-->
+        
+</odoo>

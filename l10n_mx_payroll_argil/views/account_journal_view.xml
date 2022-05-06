@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_account_journal_form_payroll_argil">
+            <field name="name">view.account.journal.form.payroll_argil</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="l10n_mx_einvoice.view_account_journal_form_l10n_mx_einvoice"/>
+            <field name="arch" type="xml">
+                <field name="use_for_cfdi" position="attributes">
+                    <attribute name="attrs">{'invisible': [('type','not in',('sale','bank','cash','general'))]}</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
+        
+        

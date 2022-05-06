@@ -1,0 +1,12 @@
+id,code,name,vigencia_inicio,vigencia_fin,dias
+sat_nomina_periodicidadpago_1,01,Diario,2016-11-01,,1
+sat_nomina_periodicidadpago_2,02,Semanal,2016-11-01,,7
+sat_nomina_periodicidadpago_3,03,Catorcenal,2016-11-01,,14
+sat_nomina_periodicidadpago_4,04,Quincenal,2016-11-01,,15.2
+sat_nomina_periodicidadpago_5,05,Mensual,2016-11-01,,30.4
+sat_nomina_periodicidadpago_6,06,Bimestral,2016-11-01,,60.8
+sat_nomina_periodicidadpago_7,07,Unidad obra,2016-11-01,,0
+sat_nomina_periodicidadpago_8,08,Comisión,2016-11-01,,0
+sat_nomina_periodicidadpago_9,09,Precio alzado,2016-11-01,,0
+sat_nomina_periodicidadpago_10,10,Decenal,2017-01-19,,10
+sat_nomina_periodicidadpago_99,99,Otra Periodicidad,2016-11-01,,0

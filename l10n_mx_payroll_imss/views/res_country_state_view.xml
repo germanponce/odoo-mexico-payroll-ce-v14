@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_country_state_form_l10n_mx_payroll_imss_incapacity" model="ir.ui.view">
+        <field name="name">res.country.state.l10n_mx_payroll.imss.incapacity</field>
+        <field name="model">res.country.state</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.view_country_state_form"/>
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="imss_code"/>
+            </field>            
+        </field>
+    </record>
+</odoo>

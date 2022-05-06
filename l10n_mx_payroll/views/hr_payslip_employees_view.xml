@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    <record id="view_hr_payslip_by_employees_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.payslip.employees.l10n_mx_payroll</field>
+        <field name="model">hr.payslip.employees</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[3]" position="after">
+                <group>
+                    <field name="fecha"/>
+                </group>
+            </xpath>
+            <field name="employee_ids" position="replace">
+                <field name="employee_ids" nolabel="1" context="{'fecha':fecha}"/>
+            </field>
+        </field>
+    </record>
+    -->
+</odoo>

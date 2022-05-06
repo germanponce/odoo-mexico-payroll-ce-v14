@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>	
+    
+    <record id="view_contract_form_l10n_mx_payroll_imss" model="ir.ui.view">
+        <field name="name">hr.contract.form.l10n_mx_payroll_imss</field>
+        <field name="model">hr.contract</field>
+        <field name="priority" eval="51"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.hr_contract_view_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <group name="detalles_contrato" position="inside">
+                <group name="imss_data">
+                    <separator string="Información IMSS" colspan="2" />
+                    <field name="tipo_salario" />
+                    <field name="tipo_trabajador" />
+                    <field name="jornada_reducida" />
+                    <field name="tipo_pension" />
+                    <field name="fecha_ingreso_vs_date_start" invisible="1" />
+                </group>                
+            </group>
+        </field>
+    </record>
+    
+    <!--
+    <record id="hr_contract_view_form_l10n_mx_payroll_imss" model="ir.ui.view">
+        <field name="name">hr.contract.form.l10n_mx_payroll_imss2</field>
+        <field name="model">hr.contract</field>
+        <field name="priority" eval="51"/>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <field name="department_id" position="after">
+                <field name="struct_id" />
+            </field>
+        </field>
+    </record>
+    -->
+    
+</odoo> 

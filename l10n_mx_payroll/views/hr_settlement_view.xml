@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_settlement_batch_wizard" model="ir.ui.view">
+        <field name="name">hr.settlement.batch.wizard.employees</field>
+        <field name="model">hr.settlement.batch.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Parámetros para Finiquitos">
+                <group>
+                    <span colspan="4" nolabel="1">Este Asistente generará los Finiquitos de los Empleados seleccionados.</span>
+                </group>
+                <group>
+                    <field name="struct_id"  />
+                    <field name="hr_causa_id" />
+                    <field name="type"  />  
+                    <span colspan="2">Fecha que se va a poner como Fin de Contrato para los Empleados seleccionados</span>
+                    <field name="contract_date_end"  />  
+                    <separator string="Empleados" colspan="2"/>
+                    <field name="employee_ids" nolabel="1" colspan="2"
+                           domain="[('con_contrato_activo','=',True)]"/>
+                </group>
+                <footer>
+                    <button icon="fa-cogs" string="Generar Finiquitos" 
+                            name="compute_sheet" type="object" class="oe_highlight"  />
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_hr_settlement_batch_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Finiquito/Liquidación</field>
+        <field name="res_model">hr.settlement.batch.wizard</field>
+        
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_hr_settlement_batch_wizard"/>
+        <field name="target">new</field>
+    </record>
+    
+    
+    <record id="hr_settlement_batch_tree" model="ir.ui.view">
+        <field name="name">hr.settlement.batch.tree</field>
+        <field name="model">hr.settlement.batch</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Finiquitos"
+                  decoration-warning="state == 'draft'"
+                  decoration-muted="state == 'cancel'">            
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="date_payroll"/>
+                <field name="date_payroll_settlement"/>
+                <field name="journal_id"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    
+    <record id="hr_settlement_batch_form" model="ir.ui.view">
+        <field name="name">hr.settlement.batch.form</field>
+        <field name="model">hr.settlement.batch</field>
+        <field name="arch" type="xml">
+            <form string="Lista de Finiquitos">
+                <header>
+                    <button name="action_done" type="object" string="Finalizar" states="draft"
+                            confirm="¿Está seguro que desea Finalizar este registro?"
+                            groups="hr_holidays.group_hr_holidays_manager" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancelar" 
+                            states="draft,done" 
+                            confirm="¿Está seguro que desea cancelar este registro?"/>
+                    <button name="%(action_hr_settlement_batch_wizard)d"
+                            class="oe_highlight" icon="fa-money"
+                            type="action" string="Generar Finiquitos"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_settlements" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <field name="settlement_count" widget="statinfo" string="Finiquitos"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="journal_id" />
+                            <label for="date_from" string="Periodo Nómina"/>
+                            <div>
+                                <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                            </div>
+                            <field name="date_payroll"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="notes" colspan="2" placeholder="Observaciones..." nolabel="1"/>
+                            <field name="company_id" options="{'no_create': True}" 
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        
+                    </group>
+                    <group string="Finiquitos" colspan="4"/>
+                    <field name="settlement_ids" colspan="4"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_settlement_batch_search" model="ir.ui.view">
+        <field name="name">hr.settlement.batch.search</field>
+        <field name="model">hr.settlement.batch</field>
+        <field name="arch" type="xml">
+            <search string="Lista de Finiquitos">
+                <field name="name"/>
+                <field name="settlement_ids"/>
+                <filter name="state_draft" string="Borrador" domain="[('state','=','draft')]" />
+                <filter name="state_done" string="Hecho" domain="[('state','=','done')]" />
+                <filter name="state_cancel" string="Cancelado" domain="[('state','=','cancel')]" />
+                <group expand="0" string="Group By">
+                    <filter string="Periodo" name="date" context="{'group_by':'date'}"/>
+                    <filter string="Estado" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hr_settlement_batch" model="ir.actions.act_window">
+        <field name="name">Lista de Finiquitos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.settlement.batch</field>
+        
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_settlement_batch_tree"/>
+    </record>
+    
+    
+    <!-- . . . . . . . . . . . . . . . . . . . . . . -->
+    
+    
+    <record id="hr_settlement_tree" model="ir.ui.view">
+        <field name="name">hr.settlement.tree</field>
+        <field name="model">hr.settlement</field>
+        <field name="arch" type="xml">
+            <tree string="Finiquito / Liquidación"
+                  decoration-warning="state == 'draft'"
+                  decoration-muted="state == 'cancel'"
+                  decoration-primary="state == 'confirmed'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="type" invisible="1"/>
+                <field name="hr_causa_id"/>
+                <field name="struct_id"/>
+                <field name="neto_a_pagar" sum="sum_amount"/>
+                <!--<field name="payslip_id"/>-->
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_settlement_form" model="ir.ui.view">
+        <field name="name">hr.settlement.form</field>
+        <field name="model">hr.settlement</field>
+        <field name="arch" type="xml">
+            <form string="Finiquito / Liquidación">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmar" states="draft" 
+                            groups="hr_holidays.group_hr_holidays_user" class="oe_highlight"/>
+                    <button name="action_done" type="object" string="Finalizar" states="confirmed"
+                            confirm="¿Está seguro que desea Aprobar este registro?"
+                            groups="hr_holidays.group_hr_holidays_manager" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancelar" 
+                            states="draft,confirmed,done" 
+                            confirm="¿Está seguro que desea cancelar este registro?"/>
+                    <button name="compute_payslip" type="object" string="Calcular Nómina" 
+                            states="draft" class="oe_highlight"
+                            confirm="¿Está seguro que desea re-calcular la Nómina?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group string="Datos Generales">
+                        <group>
+                            <field name="employee_id" 
+                                   domain="[('active','in',(True, False))]"
+                                   options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="contract_id" 
+                                   options="{'no_create': True, 'no_edit': True}"
+                                   domain="[('employee_id','=',employee_id),('active','in',(True, False))]"/>
+                            <label for="fecha_ingreso" string="Periodo Contrato" />
+                            <div class="o_row">
+                                <field name="contract_date_start" class="oe_inline"/> - <field name="contract_date_end" class="oe_inline"/>
+                            </div>
+                            <field name="fecha_ingreso" />
+                            <field name="department_id" options="{'no_create': True, 'no_edit': True}"/>
+                            
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="journal_id" />
+                            <field name="hr_causa_id" options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="type" invisible="1"/>
+                            <field name="settlement_batch_id" 
+                                   domain="[('state','=','draft')]"/>
+                            <field name="company_id" options="{'no_create': True}" 
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Nómina Regular">
+                            <field name="struct_id"/>
+                            <field name="date_payroll"/>
+                            <label for="date_from" string="Periodo Nómina"/>
+                            <div>
+                                <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                            </div>
+                            <field name="payslip_id" />
+                            <field name="move_id" />
+                        </group>
+                        <group string="Nómina Finiquito">
+                            <field name="settlement_struct_id"/>
+                            <field name="date_payroll_settlement"/>
+                            <field name="settlement_payslip_id" />
+                            <field name="settlement_move_id" />
+                        </group>
+                    </group>
+                    <field name="notes" colspan="4" placeholder="Observaciones..." />
+                    <notebook>
+                        <page string="Resumen">
+                            <group colspan="4" col="4">
+                                <separator string="Percepciones" colspan="4"/>
+                                <field name="percepciones_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="salary_rule_id" invisible="1"/>
+                                        <field name="category_id"/>
+                                        <field name="quantity"/>
+                                        <field name="tipo_gravable"/>
+                                        <field name="rate" invisible="1"/>
+                                        <field name="amount" invisible="1"/>
+                                        <field name="total" sum="suma_total_percepciones"/>
+                                        <field name="no_suma" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="sum_percepciones_regulares" />
+                                <field name="sum_percepciones_no_suma" />
+                            </group>
+                            <group colspan="4" col="4">   
+                                <separator string=". . . . . . . . . . . . ." colspan="4" />
+                                <separator string="Deducciones" colspan="4"/>
+                                <field name="deducciones_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="salary_rule_id" invisible="1"/>
+                                        <field name="category_id"/>
+                                        <field name="quantity"/>
+                                        <field name="rate" invisible="1"/>
+                                        <field name="amount" invisible="1"/>
+                                        <field name="total" sum="suma_total_deducciones"/>                            
+                                    </tree>
+                                </field>
+                                <separator string=". . . . . . . . . . . . ." colspan="4" />
+                                <separator string="Otros Pagos" colspan="4"/>
+                                <field name="otrospagos_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="salary_rule_id" invisible="1"/>
+                                        <field name="category_id"/>
+                                        <field name="quantity"/>
+                                        <field name="rate" invisible="1"/>
+                                        <field name="amount" invisible="1"/>
+                                        <field name="total" sum="suma_total_otrospagos_regulares"/>
+                                        <field name="no_suma" />
+                                        <field name="es_subsidio_causado" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="sum_otrospagos_regulares" />
+                                <field name="sum_otrospagos_no_suma" />
+                            <!--</group>
+                            
+                            <group colspan="4" col="4">    
+                                <separator string=". . . . . . . . . . . . ." colspan="4" />
+                                <separator string="Incapacidad" colspan="4"/>
+                                <field name="incapacidades_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="salary_rule_id"/>
+                                        <field name="category_id"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="quantity" string="Días"/>
+                                        <field name="rate" invisible="1"/>
+                                        <field name="amount" invisible="1"/>
+                                        <field name="total" sum="suma_total_percepciones"/>                            
+                                    </tree>
+                                </field>
+                            </group>
+                            <separator string="Totales" colspan="4" /> -->
+                            
+                            
+                                <separator string="Totales" colspan="2" />
+                                <field name="sum_percepciones"/>
+                                <field name="sum_deducciones"/>
+                                <field name="sum_otrospagos" />
+                                <!--<field name="sum_incapacidad" />-->
+                                <field name="neto_a_pagar" class="oe_subtotal_footer_separator"/>
+                                <!--<field name="sum_otrospagos_xml" />-->
+                            </group>
+                        </page>
+                        <page string="Datos para Cálculo">
+                            <field name="calculado" invisible="1" />
+                            <group>
+                                <group string="Datos Cálculo">
+                                    <field name="antig_dias" />
+                                    <field name="antig_anios" />
+                                    <field name="dias_trabajados" />
+                                    <field name="cfdi_sueldo_base" />
+                                    <field name="param_prevision_social" />
+                                    <field name="sueldo_base_con_prevision_social" />
+                                    <separator string="· · · · · · · · · · · ·"  colspan="2"/>
+                                    <button name="compute_data" string="Calcular" 
+                                            type="object" states="draft"/>
+                                    <span>&lt;== Use este botón por primera vez para calcular los montos. Cada vez que use el botón limpiará las modificaciones.</span>
+                                    <button name="compute_data2" string="Calcular con Cambios" type="object"
+                                            attrs="{'invisible': ['|',('calculado','!=',True),('state','!=','draft')]}" />
+                                    <span attrs="{'invisible': ['|',('calculado','!=',True),('state','!=','draft')]}">&lt;== Use este botón para calcular los montos tomando en cuenta las modificaciones.</span>
+                                    
+    
+                                    
+                                    <separator string="Indemnización"  colspan="2"/>
+                                    <field name="monto_indemnizacion_90_dias" />
+                                    <field name="monto_indemnizacion_20_dias" />
+                                    <field name="suma_indemnizacion" />
+                                    <separator string="Prima de Antigüedad"  colspan="2"/>
+                                    <field name="monto_prima_antiguedad_12_dias" />
+                                    <field name="monto_prima_antiguedad_15_anios" />
+                                    <field name="suma_prima_antiguedad" />
+                                    <separator string="Aguinaldo" colspan="2" />
+                                    <field name="dias_aguinaldo" />
+                                    <field name="proporcional_aguinaldo_dias" />
+                                    <field name="proporcional_aguinaldo" />
+                                    <separator string="Vacaciones" colspan="2" />
+                                    <field name="dias_vacaciones_pendientes" />
+                                    <field name="proporcional_vacaciones_dias" />
+                                    <field name="total_dias_vacaciones" />
+                                    <field name="proporcional_vacaciones" />
+                                    <label for="proporcional_prima_vac_dias" string="- - - - - - - - - -" 
+                                           colspan="2" />
+                                    <field name="proporcional_prima_vac_dias" />
+                                    <field name="proporcional_prima_vacacional_base" />
+                                    <field name="proporcional_prima_vacacional" />
+                                    <separator string="· · · · · · · · · · · ·" colspan="2" />
+                                    <field name="monto_finiquito" />
+                                    <separator string="_ _ _ _ _ _ _ _ _ _ _ _ _" colspan="2" />
+                                    <field name="sumas" />
+                                </group>
+                                <group string="">
+                                    <separator string="Otras Percepciones" colspan="2" />
+                                    <field name="other_income_ids" colspan="2" nolabel="1">
+                                        <tree editable="bottom">
+                                            
+                                            <field name="hr_salary_rule_id" 
+                                                   domain="[('can_be_payroll_extra','=',True),('nomina_aplicacion','=','percepcion')]"
+                                                   options="{'no_create': True, 'no_edit': True}"/>
+                                            <field name="amount" sum="sum_amount1"/>
+                                        </tree>
+                                    </field>
+                                    <separator string="Otros Descuentos" colspan="2" />
+                                    <field name="discount_ids" colspan="2" nolabel="1">
+                                        <tree editable="bottom">
+                                            
+                                            <field name="hr_salary_rule_id" 
+                                                   domain="[('can_be_payroll_extra','=',True),('nomina_aplicacion','=','deduccion')]"
+                                                   options="{'no_create': True, 'no_edit': True}"/>
+                                            <field name="amount" sum="sum_amount2"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Detalle">
+                            <group colspan="4" col="4" string="Extras de Nómina">
+                                <field name="hr_payslip_extra_ids" colspan="4" nolabel="1" />
+                            </group>
+                            <group colspan="4" col="4" string="Cálculo de Conceptos">
+                                <field name="line_ids" colspan="4" nolabel="1">
+                                    <tree string="Salary Structure" editable="bottom" decoration-info="total == 0">
+                                        <field name="sequence" invisible="1"/>
+                                        <field name="salary_rule_id"/>
+                                        <field name="code"/>
+                                        <!--<field name="name"/>-->
+                                        <field name="category_id"/>
+                                        <field name="quantity"/>
+                                        <field name="rate"/>
+                                        
+                                        <field name="amount"/>
+                                        <field name="total"/>
+                                    </tree>
+                                    <form string="Payslip Line">
+                                        <group col="4">
+                                            <field name="name"/>
+                                            <field name="code"/>
+                                            <field name="category_id"/>
+                                            <field name="sequence"/>
+                                            <field name="quantity"/>
+                                            <field name="rate"/>
+                                            <field name="amount"/>
+                                            <field name="total"/>
+                                            <field name="salary_rule_id"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>                    
+                    
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_settlement_search" model="ir.ui.view">
+        <field name="name">hr.settlement.search</field>
+        <field name="model">hr.settlement</field>
+        <field name="arch" type="xml">
+            <search string="Finiquito / Liquidación">
+                <field name="name"/>
+                <field name="employee_id" domain="[('active','in',(True,False))]"/>
+                <field name="contract_id"/>
+                <field name="payslip_id"/>
+                <field name="settlement_batch_id"/>
+                <filter name="state_draft" string="En Borrador" domain="[('state','=','draft')]" />
+                <filter name="state_confirmed" string="Confirmado" domain="[('state','=','confirmed')]" />
+                <filter name="state_done" string="Hecho" domain="[('state','=','done')]" />
+                <filter name="state_cancel" string="Cancelado" domain="[('state','=','cancel')]" />
+                <group expand="0" string="Group By">
+                    <filter string="Empleado" name="employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Departamento" name="department_id" context="{'group_by':'department_id'}"/>
+                    <filter string="Periodo" name="date" context="{'group_by':'date'}"/>
+                    <filter string="Nómina" name="payslip_id" context="{'group_by':'payslip_id'}"/>
+                    <filter string="Estado" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hr_settlement" model="ir.actions.act_window">
+        <field name="name">Finiquito / Liquidación</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.settlement</field>
+        
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_settlement_tree"/>
+    </record>
+
+    
+    <menuitem id="hr_payslip_settlement_menu" 
+                  name="Finiquitos"
+                  sequence="99" 
+                  parent="hr_payroll.menu_hr_payroll_payslips" />
+    
+        
+    <menuitem id="hr_settlement_menu" 
+              action="action_hr_settlement" 
+              name="Finiquito / Liquidación"
+              sequence="20" 
+              parent="l10n_mx_payroll.hr_payslip_settlement_menu" />
+    
+    <!--<menuitem id="hr_settlement_batch_menu" 
+              action="action_hr_settlement_batch" 
+              name="Lista de Finiquitos"
+              sequence="10" 
+              parent="l10n_mx_payroll.hr_payslip_settlement_menu" />
+    -->
+</odoo>

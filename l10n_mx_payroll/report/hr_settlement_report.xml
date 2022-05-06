@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_hr_settlement">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.internal_layout">
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            <h2 t-esc="'FINIQUITO ' + o.name" class="mt0"/>
+                            <p class="text-right" style="font-size: 10px;">
+                                <span t-esc="o.company_id.partner_id.city + ', ' + o.company_id.partner_id.state_id.name + ' a ' + o.date.strftime('%d/%m/%Y')" style="text-decoration: underline;"/>
+                                <BR/>
+                                <span t-esc="'BUENO POR $ '" style="text-decoration: underline;"/><span t-esc="'{:,.2f}'.format(o.sumas_neto)" style="text-decoration: underline;"/>
+                            </p>
+                            <p style="text-align:justify; font-size: 10px;">RECIBI DE <span t-field="o.company_id.name" style="text-weight: bold;"/> el monto arriba mencionado que esta empresa me entrega a esta fecha al dar por terminado voluntariamente sin ninguna responsabilidad para la misma, mi contrato individual de trabajo en los términos del artículo 53 de la Ley Federal del Trabajo.
+Reconozco expresamente que durante el tiempo en que presté mis servicios a la mencionada empresa, fui pagado por éste, total y oportunamente en todas y cada una de las prestaciones a que tuve derecho, nacidas de la Ley Federal del Trabajo y de mi contrato respectivo, y que estuve inscrito en todo momento en el Instituto Mexicano del Seguro Social, la citada empresa no me adeuda cantidad alguna por concepto de salarios ordinarios, extraordinarios, días de descanso semanal y obligatorio, vacaciones, indemnizaciones, honorarios por servicios profesionales, antigüedad, indemnización por retiro, bonificación, participación de utilidades, ni en general por ningún otro concepto, por lo que otorgo este recibo con el carácter más amplio de finiquito liberatorio, dándome por pagado  satisfactoriamente, sin reservarme el derecho de interponer ninguna acción legal en lo futuro  en contra de la empresa y estoy conforme con la cantidad que se me otorga y con la descripción que se hace por los conceptos que a continuación se describen:
+                            </p>
+                            <table class="table" style="font-size: 10px;width:60%; margin-left:20%;margin-right:20%; padding: 3px;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid black;">
+                                        <th width="70%" class="text-center"><strong>Concepto</strong></th>
+                                        <th width="30%" class="text-center"><strong>Monto</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: bold;">VACACIONES</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.proporcional_vacaciones)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">PRIMA VACACIONAL (<span t-esc="'{:,.2f}'.format(o.proporcional_prima_vacacional_base)"/>%)</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.proporcional_prima_vacacional)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">AGUINALDO</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.proporcional_aguinaldo)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">INDEMNIZACION (90 Días)</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.monto_indemnizacion_90_dias)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">INDEMNIZACION (20 Días x Año)</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.monto_indemnizacion_20_dias)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">PRIMA DE ANTIGÜEDAD</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.suma_prima_antiguedad)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;border-top: 1px solid #666666;" class="text-right">SUBTOTAL FINIQUITO</td>
+                                        <td class="text-right" style="border-top: 1px solid #666666;"><span t-esc="'{:,.2f}'.format(o.sumas)"/></td>
+                                    </tr>
+                                    <tr><td colspan="2"/></tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">OTROS INGRESOS</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(sum(o.other_income_ids.mapped('amount')))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">OTROS DESCUENTOS</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(sum(o.discount_ids.mapped('amount')))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                        <t t-set="isr" t-value="o.suma_isr"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;border-top: 1px solid #777777;" class="text-right">SALARIO (Antes de ISR)</td>
+                                        <td class="text-right" style="border-top: 1px solid #777777;"><span t-esc="'{:,.2f}'.format(o.sumas_neto + isr)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;">ISR</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(isr)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold;border-top: 3px double #777777;border-bottom: 3px double #777777;" class="text-right">SALARIO (Neto)</td>
+                                        <td class="text-right" style="border-top: 3px double #777777;border-bottom: 3px double #777777;"><span t-esc="'{:,.2f}'.format(o.sumas_neto)"/></td>
+                                    </tr>
+                                    <!--
+                                    <tr>
+                                        <t t-set="subtotal" t-value="o.sumas + o.payslip_id.sum_percepciones_regulares"/>
+                                        <td style="font-weight: bold;" class="text-right">SUBTOTAL</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(o.sumas + o.payslip_id.sum_percepciones_regulares)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <t t-set="isr" t-value="sum(o.payslip_id.line_ids.filtered(lambda w: w.nomina_aplicacion=='deduccion' and w.appears_on_payslip and w.tipodeduccion_id.code=='002').mapped('total')) + (o.settlement_payslip_id and sum(o.settlement_payslip_id.line_ids.filtered(lambda w: w.nomina_aplicacion=='deduccion' and w.appears_on_payslip and w.tipodeduccion_id.code=='002').mapped('total')) or 0.0)"/>
+                                        <td style="font-weight: bold;" class="text-right">ISR</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(sum(o.payslip_id.line_ids.filtered(lambda w: w.nomina_aplicacion=='deduccion' and w.appears_on_payslip and w.tipodeduccion_id.code=='002').mapped('total')) + (o.settlement_payslip_id and sum(o.settlement_payslip_id.line_ids.filtered(lambda w: w.nomina_aplicacion=='deduccion' and w.appears_on_payslip and w.tipodeduccion_id.code=='002').mapped('total')) or 0.0))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <t t-set="imss" t-value="sum(o.payslip_id.line_ids.filtered(lambda w: w.nomina_aplicacion=='deduccion' and w.appears_on_payslip and w.tipodeduccion_id.code=='001').mapped('total'))"/>
+                                        <td style="font-weight: bold;" class="text-right">IMSS</td>
+                                        <td class="text-right"><span t-esc="'{:,.2f}'.format(sum(o.payslip_id.line_ids.filtered(lambda w: w.nomina_aplicacion=='deduccion' and w.appears_on_payslip and w.tipodeduccion_id.code=='001').mapped('total')))"/></td>
+                                    </tr>
+
+                                    -->
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <p>
+                                Nombre: <span t-field="o.employee_id.name" style="text-weight: bold;"/><br/>
+                                RFC: <span t-field="o.employee_id.address_home_id.vat" style="text-weight: bold;"/><br/>
+                                CURP: <span t-field="o.employee_id.curp" style="text-weight: bold;"/><br/>
+                            </p>
+                        </div>
+                    </t>
+                 </t>
+             </t>
+        </template>
+        
+        
+        <record id="action_report_hr_settlement" model="ir.actions.report">
+            <field name="name">Finiquito</field>
+            <field name="model">hr.settlement</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_mx_payroll.report_hr_settlement</field>
+            <field name="report_file">l10n_mx_payroll.hr_settlement_report</field>
+            <field name="print_report_name">'Finiquito %s' % (object.name)</field>
+            <!--<field name="binding_model_id" ref="model_hr_payslip_run"/>-->
+            <field name="binding_type">report</field>
+        </record>
+                
+    </data>
+</odoo>

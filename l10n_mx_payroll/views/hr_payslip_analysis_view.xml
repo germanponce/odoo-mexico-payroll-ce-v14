@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="view_hr_payslip_analysis_tree" model="ir.ui.view">
+         <field name="name">hr.payslip.analysis.tree</field>
+         <field name="model">hr.payslip.analysis</field>
+         <field name="arch" type="xml">
+             <tree string="Análisis de Nóminas">
+                 <field name="employee_id"/>
+                 <field name="number"/>
+                 <field name="date_from"/>
+                 <field name="date_to"/>
+                 <field name="date_payroll"/>
+                 <field name="salary_rule_id"/>
+                 <field name="amount" sum="sum_monto"/>
+                 <field name="state"/>
+             </tree>
+         </field>
+    </record>    
+        
+    <record id="view_hr_payslip_analysis_pivot" model="ir.ui.view">
+         <field name="name">hr.payslip.analysis.pivot</field>
+         <field name="model">hr.payslip.analysis</field>
+         <field name="arch" type="xml">
+             <pivot string="Análisis de Nóminas" display_quantity="false">
+                 <field name="employee_id" type="row"/>
+                 <field name="date" type="col"/>
+                 <field name="salary_rule_id" type="col"/>
+                 <field name="amount" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+        
+    <record id="view_hr_payslip_analysis_graph" model="ir.ui.view">
+         <field name="name">hr.payslip.analysis.graph</field>
+         <field name="model">hr.payslip.analysis</field>
+         <field name="arch" type="xml">
+             <graph string="Análisis de Nóminas">
+                 <field name="salary_rule_id"/>
+                 <field name="amount" type="measure"/>
+             </graph>
+         </field>
+    </record>
+        
+    <record id="filter_hr_payslip_salary_rule_id" model="ir.filters">
+        <field name="name">Regla Salarial</field>
+        <field name="model_id">hr.payslip.analysis</field>
+        <field name="domain">[]</field>
+        <field name="context">{'group_by': ['date:month', 'salary_rule_id']}</field>
+    </record>        
+        
+    <record id="view_hr_payslip_analysis_search" model="ir.ui.view">
+        <field name="name">hr.payslip.analysis.search</field>
+        <field name="model">hr.payslip.analysis</field>
+        <field name="arch" type="xml">
+            <search string="Análisis de Nóminas">
+                <field name="name"/>
+                <field name="number"/>
+                <field name="payslip_run_id"/>
+                <field name="date_to"/>
+                <field name="employee_id"/>
+                <field name="salary_rule_id"/>
+                <field name="category_id"/>
+                <field name="contract_department_id"/>
+                <filter string="Mayor a Cero" domain="[('amount','&gt;', 0)]" name="amount_no_zero" />
+                <filter string="Este Año" name="thisyear" domain="['|', ('date_to', '=', False), '&amp;',('date_to','&lt;=', time.strftime('%%Y-12-31')),('date_to','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                <filter string="Este mes" domain="[('date_to','&gt;=', time.strftime('%%Y-%%m-01'))]" name="this_month" />                
+                <separator/>
+                <filter string="Borrador" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmada" name ="state_done" domain="[('state', '=', 'done')]"/>
+                <filter string="Rechazada" name ="state_cancel" domain="[('state', '=', 'cancel')]"/>
+                <filter string="No Suma" name ="no_suma_1" domain="[('no_suma', '=', 1)]"/>
+                <filter string="Suma" name ="no_suma_0" domain="[('no_suma', '!=', 1)]"/>
+                <separator/>
+                <filter string="Percepciones" name ="nomina_aplicacion_percepciones" domain="[('nomina_aplicacion', '=', 'percepcion')]"/>
+                <filter string="Deducciones" name ="nomina_aplicacion_deducciones" domain="[('nomina_aplicacion', '=', 'deduccion')]"/>
+                <filter string="Otros Pagos" name ="nomina_aplicacion_otrospagos" domain="[('nomina_aplicacion', '=', 'otrospagos')]"/>
+                <filter string="No Afecta Nómina" name ="state_cancel" domain="[('nomina_aplicacion', '=', 'no_aplica')]"/>
+                <separator />
+                <filter string="Sindicalizado" name="sindicalizado" domain="[('contract_sindicalizado','=','Si')]"
+                        help="Empleado Sindicalizado"/>
+                <filter string="De Confianza" name="no_sindicalizado" domain="[('contract_sindicalizado','=','No')]"
+                        help="Empleado De Confianza"/>
+                <group expand="1" string="Group By">
+                    <filter string="Tipo de Nómina" name="groupby_tiponomina_id" context="{'group_by':'tiponomina_id'}"/>
+                    <filter string="Empleado" name='groupbby_employee_id' context="{'group_by':'employee_id'}"/>
+                    <filter string="Regla Salarial" name='groupby_salary_rule_id' context="{'group_by':'salary_rule_id'}"/>
+                    <filter string="Categoría" name="groupby_category_id" context="{'group_by':'category_id'}"/>
+                    <filter string="Uso en Nómina" name="groupby_nomina_aplicacion" context="{'group_by':'nomina_aplicacion'}"/>
+                    <separator/>
+                    <filter string="Fecha" name="date" context="{'group_by':'date'}"/>
+                    <filter string="Año" name="date_year" context="{'group_by':'date:year'}"/>
+                    <filter string="Mes" name="date_month" context="{'group_by':'date:month'}"/>
+                    <filter string="Día" name="date_today" context="{'group_by':'date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+        
+    <record id="action_hr_payslip_analysis" model="ir.actions.act_window">
+        <field name="name">Análisis</field>
+        <field name="res_model">hr.payslip.analysis</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="context">{'search_default_this_month':1, 'group_by':[], 'group_by_no_leaf':1}</field>
+        <field name="search_view_id" ref="view_hr_payslip_analysis_search"/>
+        <field name="help">Desde aquí puede revisar las Nóminas.</field>
+    </record>
+
+    <menuitem action="action_hr_payslip_analysis" 
+              name="Análisis de Nóminas" 
+              parent="hr_payroll.menu_hr_payroll_report"
+              id="menu_hr_payslip_analysis" sequence="50"/>
+        
+
+    </data>
+</odoo>

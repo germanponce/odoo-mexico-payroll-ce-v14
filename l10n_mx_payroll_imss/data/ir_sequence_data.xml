@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_hr_employee_imss_alta" model="ir.sequence">
+            <field name="name">hr.employee.imss.alta_reingreso</field>
+            <field name="code">hr.employee.imss.alta_reingreso</field>
+            <field name="prefix">A/R-</field>
+            <field name="padding">5</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hr_employee_imss_baja" model="ir.sequence">
+            <field name="name">hr.employee.imss.baja</field>
+            <field name="code">hr.employee.imss.baja</field>
+            <field name="prefix">B-</field>
+            <field name="padding">5</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hr_employee_imss_modificacion" model="ir.sequence">
+            <field name="name">hr.employee.imss.modificacion</field>
+            <field name="code">hr.employee.imss.modificacion</field>
+            <field name="prefix">M-</field>
+            <field name="padding">5</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_hr_employee_imss_sbc" model="ir.sequence">
+            <field name="name">hr.employee.imss.sbc</field>
+            <field name="code">hr.employee.imss.sbc</field>
+            <field name="prefix">SBC-</field>
+            <field name="padding">5</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_hr_employee_imss_incapacity" model="ir.sequence">
+            <field name="name">hr.employee.imss.incapacity</field>
+            <field name="code">hr.employee.imss.incapacity</field>
+            <field name="prefix">Incap-</field>
+            <field name="padding">5</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>

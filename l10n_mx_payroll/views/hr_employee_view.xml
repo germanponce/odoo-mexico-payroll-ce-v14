@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    
+    <record id="view_employee_form_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_mx_payroll</field>
+        <field name="model">hr.employee</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="job_id" position="before">
+                <separator string="Datos Requeridos para Nómina" colspan="2"/>
+            </field>
+            <field name="job_id" position="after">
+                <field name="num_empleado" required="1"/>
+                <field name="nss" required="1"/>
+                <field name="curp" required="1"/>
+                <field name="tipo_sangre"/>
+                <field name="alergias"/>                
+                <separator string="Infonavit" colspan="2"/>
+                <field name="infonavit_ids" colspan="2" nolabel="1"
+                       context="{'default_employee_id' : id}">
+                    <tree editable="bottom">
+                        <field name="employee_id" invisible="1"/>
+                        <field name="name" />
+                        <field name="tipo" />
+                        <field name="factor" />
+                        <field name="vigencia" />
+                    </tree>
+                </field>
+            </field>
+            <field name="address_home_id" position="replace">
+                <field name="address_home_id" context="{'show_address': 1,}" 
+                       required="1"
+                       options="{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True}"/>
+            </field>
+            <notebook position="inside">
+                <page string="Historial SBCs">
+                    <field name="sdi_ids">
+                        <tree>
+                            <field name="contract_id" />
+                            <field name="date" />
+                            <field name="amount" />
+                            <field name="notes" />
+                        </tree>
+                    </field>
+                
+                </page>
+            </notebook>
+        </field>
+    </record>
+    
+    
+    <record id="view_employee_filter_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.employee.search.l10n_mx_payroll</field>
+        <field name="model">hr.employee</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <filter name="message_needaction" position="before">
+                <filter string="Con Contrato Activo" name="contrato_activo" domain="[('con_contrato_activo','=',True)]"/>
+            </filter>
+            <filter name="group_job" position="after">
+                <filter name="group_struct" string="Estructura Salarial" domain="[]" context="{'group_by':'struct_id'}"/>
+            </filter>
+            <field name="job_id" position="after">
+                <field name="struct_id"/>
+            </field>
+            
+        </field>
+    </record>
+    
+</odoo>

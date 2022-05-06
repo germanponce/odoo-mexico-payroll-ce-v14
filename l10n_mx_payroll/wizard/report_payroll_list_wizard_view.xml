@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        
+        <record id="HRReportPayrollListWizard_form" model="ir.ui.view">
+            <field name="name">hr.report_payroll_list.wizard</field>
+            <field name="model">hr.report_payroll_list.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Imprimir Lista de Raya">
+                    <group colspan="4" col="4">
+                        <field name="payslip_run_id" />
+                        <field name="sindicalizado" />
+                        <field name="department_ids" widget="many2many_tags"/>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                        <field name="job_ids" widget="many2many_tags"/>
+                        <field name="analytic_account_ids" widget="many2many_tags"/>
+                        
+                    </group>
+                    <footer>
+                        <button string="Imprimir" name="get_report" type="object" 
+                                class="btn-primary" icon="fa-print"/>
+                        <button string="Cerrar"  special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="HRReportPayrollListWizard_action" model="ir.actions.act_window">
+            <field name="name">Imprimir Lista de Raya</field>
+            <field name="res_model">hr.report_payroll_list.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="HRReportPayrollListWizard_form"/>
+        </record>
+        
+    </data>
+</odoo>

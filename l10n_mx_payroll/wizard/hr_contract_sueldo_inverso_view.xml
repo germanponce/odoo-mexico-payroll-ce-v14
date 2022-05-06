@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        
+        <record id="HRContractSueldoInversoWizard" model="ir.ui.view">
+            <field name="name">hr.contract.sueldo_inverso.wizard</field>
+            <field name="model">hr.contract.sueldo_inverso</field>
+            <field name="arch" type="xml">
+                <form string="Cálculo de Sueldo">
+                    <group>
+                        <group>
+                            <field name="tipo_sueldo" />
+                            <field name="sindicalizado" />
+                            <field name="periodo" />
+                            
+                            <field name="dias_aguinaldo" />
+                            <field name="dias_vacaciones" />
+                            <label for="porc_prima_vacacional"/>
+                            <div class="o_row">
+                                <field name="porc_prima_vacacional" class="oe_inline"/><span>%</span>    
+                            </div>
+                        </group>
+                        <group>
+                            <span colspan="2">Capture el Monto base para hacer el cálculo</span>
+                            <field name="monto_base" />
+                            <field name="sueldo_diario" />
+                            <field name="sueldo_sbc" />
+                            <span colspan="2">==========================================</span>
+                            <field name="sueldo_bruto" />
+                            <field name="monto_isr_base" />
+                            <field name="monto_subsidio_causado" />
+                            <field name="monto_isr" 
+                                   attrs="{'invisible':[('monto_isr','=',0)]}"/>
+                            <field name="monto_subsidio_entregado" 
+                                   attrs="{'invisible':[('monto_subsidio_entregado','=',0)]}"/>
+                            <field name="monto_imss" />
+                            <span colspan="2">==========================================</span>
+                            <field name="sueldo_neto" />
+                        </group>
+                    </group>
+                    <field name="tabla_isr" colspan="4" invisible="1"/>
+                    <field name="tabla_subsidio" colspan="4" invisible="1"/>
+                    <field name="salario_minimo" invisible="1"/>
+                    <field name="uma" invisible="1"/>
+                    <footer>
+                        <button string="Cerrar"  special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="HRContractSueldoInversoWizard_action" model="ir.actions.act_window">
+            <field name="name">Cálculo de Sueldo Neto / Inverso</field>
+            <field name="res_model">hr.contract.sueldo_inverso</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="HRContractSueldoInversoWizard"/>
+        </record>
+        
+        <menuitem action="HRContractSueldoInversoWizard_action" 
+                  id="HRContractSueldoInversoWizard_menu" 
+                  sequence="60" 
+                  parent="hr_work_entry_contract.menu_hr_payroll_work_entries_root" />
+        
+    </data>
+</odoo>

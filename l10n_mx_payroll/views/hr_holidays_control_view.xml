@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- hr.holidays.wizard -->
+    <record id="l10n_mx_payroll_hr_holidays_wizard" model="ir.ui.view">
+        <field name="name">hr.holidays.wizard.form</field>
+        <field name="model">hr.leaves.wizard</field>
+        <field name="priority" eval="10"/>        
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Por favor indique las opciones a aplicar">
+                        <field name="date" />
+                        <field name="department_ids" widget="many2many_tags"/>
+                        <field name="employee_ids">
+                            <tree>
+                                <field name="name" />
+                                <field name="department_id" />
+                                <field name="parent_id" />
+                                <field name="curp" />
+                                <field name="nss" />
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="get_vacations" string="Crear Periodos Vacacionales" 
+                                class="btn-primary" type="object"/>
+                        <button special="cancel" string="Cerrar" type="object" icon="fa-window-close"/>
+                    </footer>
+                </sheet>
+            </form>    
+        </field>
+    </record>
+    
+    
+    <record id="hr_holidays_wizard_action" model="ir.actions.act_window">
+            <field name="name">Generar Vacaciones</field>
+            <field name="res_model">hr.leaves.wizard</field>
+            <field name="view_mode">form</field>
+            
+            <field name="target">new</field>
+        </record>
+    
+    <menuitem id="l10n_mx_payroll_hr_holidays_wizard_menu" 
+              action="hr_holidays_wizard_action" 
+              groups="hr_holidays.group_hr_holidays_manager"
+              parent="hr_holidays.menu_hr_holidays_approvals" sequence="80"/>
+    
+</odoo>

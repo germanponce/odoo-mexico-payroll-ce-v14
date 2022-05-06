@@ -1,0 +1,31 @@
+hr_attendance_dinning               => OK
+    - Mejoras por hacer:
+        + Parámetro para definir el monto del comedor por evento
+        + Capturar el monto en la asistencia (para tomar de allí y ponerlo en el Extra)
+        
+hr_attendance_processor             => OK
+    - Faltan mas pruebas
+    
+hr_payroll_account_per_department   => PRUEBAS
+
+hr_payroll_analytic_dispersion      => PENDIENTE
+
+l10n_mx_payroll                     => OK
+    - Pendiente revisar cómo integrar nueva funcionalidad de "Entradas de Trabajo"
+    
+l10n_mx_payroll_bank_dispersion     => PRUEBAS
+
+l10n_mx_payroll_imss                => PRUEBAS
+
+l10n_mx_payroll_argil               => PENDIENTE
+
+l10n_mx_payroll_pac_sf              => PENDIENTE
+
+l10n_mx_payroll_pac_sf              => PENDIENTE
+
+l10n_mx_payroll_resend              => PRUEBAS
+
+to_attendance_device                => Comprar desde apps de Odoo
+to_base                             => Comprar desde apps de Odoo
+to_safe_confirm_button              => Comprar desde apps de Odoo
+    

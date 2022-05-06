@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- res.company -->
+    <record id="view_hr_employee_grade_form_attendance_params" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.attendance_processor</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Asistencias">
+                    <group>
+                        <group>
+                            <field name="crear_faltas_x_acumulacion_retardos" />
+                        </group>
+                        <group>
+                            <field name="aplica_descuento_x_minuto_retardo" />
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+        
+</odoo>

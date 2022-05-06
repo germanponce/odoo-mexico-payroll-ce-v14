@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                
+        <template id="report_payslip_argil" inherit_id="hr_payroll.report_payslip">
+            <!--<span id="rfc_emisor" position="replace">
+                <span t-field="o.company_id.partner_id.vat" id="rfc_emisor"/>
+            </span>
+
+            <span id="rfc_receptor" position="replace">
+                <span t-field="o.employee_id.address_home_id.vat" id="rfc_receptor"/>
+            </span>            
+            <span id="regimen_fiscal" position="replace">
+                <span t-field="o.company_emitter_id.partner_id.regimen_fiscal_id.name" id="regimen_fiscal"/>
+            </span>-->
+
+            <div id="resumen" position="replace">
+                <div class="row" id="resumen">
+                    <t t-if="o.cfdi_folio_fiscal">
+                        <table class="table table-condensed" style="font-size:12px;">
+                            <tr>
+                                <td rowspan="3" id="sat_cbb">
+                                    <img t-if="o.cfdi_cbb"
+                                             t-att-src="'data:image/png;base64,%s' % to_text(o.cfdi_cbb)" 
+                                             style="width:5.5cm;height:5.5cm;"/>
+                                </td>
+                                <td id="sat_cadena_original"><strong>Cadena Original:</strong><BR/><span t-field="o.cfdi_cadena_original" style="display:block;width:670px;word-wrap:break-word;"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong id="sat_sello_emisor">Sello Digital Emisor:</strong><BR/><span t-field="o.sello" style="display:block;width:670px;word-wrap:break-word;"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong id="sat_sello_sat">Sello Digital SAT:</strong><BR/><span t-field="o.cfdi_sello" style="display:block;width:670px;word-wrap:break-word;"/></td>
+                            </tr>
+                        </table>
+                        <div class="digital-stamp-content text-center">
+                            <strong>Este documento es una representación impresa de un CFDI</strong>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

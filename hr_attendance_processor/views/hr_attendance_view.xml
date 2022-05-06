@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+        <!-- hr.holidays.wizard -->
+    <record id="hr_attendance_processor_wiz" model="ir.ui.view">
+        <field name="name">hr.attendance.processor_wiz.form</field>
+        <field name="model">hr.attendance.processor_wiz</field>
+        <field name="priority" eval="10"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4">
+                        <field name="date" />
+                    </group>
+                    <footer>
+                        <button name="attendance_processor" class="btn-primary"
+                                string="Procesar Asistencias" type="object"/>
+                        <button special="cancel" string="Cerrar" type="object" icon="fa-window-close"/>
+                    </footer>
+                </sheet>
+            </form>    
+        </field>
+    </record>
+    
+    
+    <record id="hr_attendance_processor_wiz_action" model="ir.actions.act_window">
+            <field name="name">Procesar Asistencias</field>
+            <field name="res_model">hr.attendance.processor_wiz</field>
+            <field name="view_mode">form</field>
+            
+            <field name="target">new</field>
+        </record>
+    
+    <menuitem id="hr_attendance_processor_wiz_menu" 
+              action="hr_attendance_processor_wiz_action" 
+              groups="hr_attendance.group_hr_attendance_user"
+              parent="hr_attendance.menu_hr_attendance_manage_attendances" 
+              sequence="80"/>
+    
+    
+    <!-- views -->
+
+    <record id="view_attendance_tree_processor" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.processor</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <field name="check_out" position="after">
+                <field name="retardo"/>
+                <field name="tomado_para_falta"/>
+                <field name="falta"/>
+                <field name="procesado"/>
+                <field name="payslip_extra_id"/>
+                <field name="holiday_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_attendance_view_form_processor" model="ir.ui.view">
+        <field name="name">hr.attendance.form.processor</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <field name="check_out" position="after">
+                <field name="retardo"/>
+                <field name="tomado_para_falta"/>
+                <field name="falta"/>
+                <field name="procesado"/>
+                <field name="payslip_extra_id"/>
+                <field name="holiday_id"/>
+            </field>
+        </field>
+    </record>
+    
+</odoo>

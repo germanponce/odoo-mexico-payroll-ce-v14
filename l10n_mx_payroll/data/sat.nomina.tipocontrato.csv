@@ -1,0 +1,12 @@
+id,code,name
+sat_nomina_tipocontrato_1,01,Contrato de trabajo por tiempo indeterminado
+sat_nomina_tipocontrato_2,02,Contrato de trabajo para obra determinada
+sat_nomina_tipocontrato_3,03,Contrato de trabajo por tiempo determinado
+sat_nomina_tipocontrato_4,04,Contrato de trabajo por temporada
+sat_nomina_tipocontrato_5,05,Contrato de trabajo sujeto a prueba
+sat_nomina_tipocontrato_6,06,Contrato de trabajo con capacitación inicial
+sat_nomina_tipocontrato_7,07,Modalidad de contratación por pago de hora laborada
+sat_nomina_tipocontrato_8,08,Modalidad de trabajo por comisión laboral
+sat_nomina_tipocontrato_9,09,Modalidades de contratación donde no existe relación de trabajo
+sat_nomina_tipocontrato_10,10,"Jubilación, pensión, retiro."
+sat_nomina_tipocontrato_99,99,Otro contrato

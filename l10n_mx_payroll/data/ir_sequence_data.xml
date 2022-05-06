@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Parameter Prevision social general -->
+        <record model="ir.config_parameter" id="l10n_mx_payroll_prevision_social">               
+          <field name="key">l10n_mx_payroll_prevision_social</field> 
+          <field name="value">(%s)</field>              
+        </record>
+
+        
+        <!-- Sequences for hr.payslip.extra -->
+        <record id="seq_HRPayslip_Extra" model="ir.sequence">
+            <field name="name">HR Payslip Extras</field>
+            <field name="code">hr.payslip.extra</field>
+            <field name="prefix">ExN-</field>
+            <field name="padding">6</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequences for hr.payslip.extra.discounts -->
+        <record id="seq_HRPayslip_Extra_Discounts" model="ir.sequence">
+            <field name="name">HR Payslip Descuentos Periodicos</field>
+            <field name="code">hr.payslip.extra.discounts</field>
+            <field name="prefix">DP-</field>
+            <field name="padding">6</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Sequences for hr.settlement -->
+        <record id="seq_HRPayslip_Settlement" model="ir.sequence">
+            <field name="name">HR Payslip Settlement</field>
+            <field name="code">hr.settlement</field>
+            <field name="prefix">FL-</field>
+            <field name="padding">6</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        
+        <!-- Sequences for hr.contract.aumento_masivo -->
+        <record id="seq_HRContract_AumentoMasivo" model="ir.sequence">
+            <field name="name">HR Contract Massive Change Salary</field>
+            <field name="code">hr.contract.aumento_masivo</field>
+            <field name="prefix"></field>
+            <field name="padding">4</field>
+            <field name="use_date_range" eval="True"/>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

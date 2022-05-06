@@ -1,0 +1,1298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="menu_hr_payroll_sat" 
+              name="Catálogos Nómina" 
+              parent="hr_work_entry_contract.menu_hr_payroll_configuration" 
+              sequence="90"
+              groups="hr_payroll.group_hr_payroll_manager"/>
+    
+    <!-- c_OrigenRecurso -->
+        <record id="sat_c_OrigenRecurso_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.origenrecurso.tree</field>
+            <field name="model">sat.nomina.origenrecurso</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Origen de Recurso" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_OrigenRecurso_form" model="ir.ui.view">
+            <field name="name">sat.nomina.origenrecurso.form</field>
+            <field name="model">sat.nomina.origenrecurso</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Origen de Recurso">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_OrigenRecurso_search" model="ir.ui.view">
+            <field name="name">sat.nomina.origenrecurso.search</field>
+            <field name="model">sat.nomina.origenrecurso</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Origen Recurso">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_OrigenRecurso" model="ir.actions.act_window">
+            <field name="name">Tipo Origen Recurso</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.origenrecurso</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_OrigenRecurso_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_c_OrigenRecurso" id="action_sat_c_OrigenRecurso_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    
+    <!-- c_PeriodicidadPago -->
+        <record id="sat_c_PeriodicidadPago_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.periodicidadpago.tree</field>
+            <field name="model">sat.nomina.periodicidadpago</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Periodicidad de Pago" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="dias"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_PeriodicidadPago_form" model="ir.ui.view">
+            <field name="name">sat.nomina.periodicidadpago.form</field>
+            <field name="model">sat.nomina.periodicidadpago</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Periodicidad de Pago">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="dias"/>
+                            <newline />
+                            <field name="vigencia_inicio" />
+                            <field name="vigencia_fin" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_PeriodicidadPago_search" model="ir.ui.view">
+            <field name="name">sat.nomina.periodicidadpago.search</field>
+            <field name="model">sat.nomina.periodicidadpago</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Periodicidad de Pago">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Periodicidad de Pago"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_PeriodicidadPago" model="ir.actions.act_window">
+            <field name="name">Tipo Periodicidad de Pago</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.periodicidadpago</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_PeriodicidadPago_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_c_PeriodicidadPago" id="action_sat_c_PeriodicidadPago_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoContrato -->
+        <record id="sat_c_TipoContrato_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipocontrato.tree</field>
+            <field name="model">sat.nomina.tipocontrato</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Contratos" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoContrato_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipocontrato.form</field>
+            <field name="model">sat.nomina.tipocontrato</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Contrato">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoContrato_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipocontrato.search</field>
+            <field name="model">sat.nomina.tipocontrato</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Contrato">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoContrato" model="ir.actions.act_window">
+            <field name="name">Tipos de Contrato</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipocontrato</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoContrato_tree"/>
+        </record>
+    
+        <!--<menuitem action="action_sat_c_TipoContrato" id="action_sat_c_TipoContrato_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoDeduccion -->
+        <record id="sat_c_TipoDeduccion_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipodeduccion.tree</field>
+            <field name="model">sat.nomina.tipodeduccion</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Deducción" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoDeduccion_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipodeduccion.form</field>
+            <field name="model">sat.nomina.tipodeduccion</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Deducción">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="vigencia_inicio" />
+                            <field name="vigencia_fin" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoDeduccion_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipodeduccion.search</field>
+            <field name="model">sat.nomina.tipodeduccion</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Deducción">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Deducción"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoDeduccion" model="ir.actions.act_window">
+            <field name="name">Tipos de Deducción</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipodeduccion</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoDeduccion_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_c_TipoDeduccion" id="action_sat_c_TipoDeduccion_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoHoras -->
+        <record id="sat_c_TipoHoras_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipohoraextra.tree</field>
+            <field name="model">sat.nomina.tipohoraextra</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Horas Extras" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoHoras_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipohoraextra.form</field>
+            <field name="model">sat.nomina.tipohoraextra</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Horas Extras">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoHoras_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipohoraextra.search</field>
+            <field name="model">sat.nomina.tipohoraextra</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Horas Extras">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoHoras" model="ir.actions.act_window">
+            <field name="name">Tipos de Horas Extras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipohoraextra</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoHoras_tree"/>
+        </record>
+    
+        <!--<menuitem action="action_sat_c_TipoHoras" id="action_sat_c_TipoHoras_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoIncapacidad -->
+        <record id="sat_c_TipoIncapacidad_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipoincapacidad.tree</field>
+            <field name="model">sat.nomina.tipoincapacidad</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Incapacidad" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoIncapacidad_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipoincapacidad.form</field>
+            <field name="model">sat.nomina.tipoincapacidad</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Incapacidad">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoIncapacidad_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipoincapacidad.search</field>
+            <field name="model">sat.nomina.tipoincapacidad</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Incapacidad">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoIncapacidad" model="ir.actions.act_window">
+            <field name="name">Tipos de Incapacidad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipoincapacidad</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoIncapacidad_tree"/>
+        </record>
+    
+        <!--<menuitem action="action_sat_c_TipoIncapacidad" id="action_sat_c_TipoIncapacidad_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoJornada -->
+        <record id="sat_c_TipoJornada_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipojornada.tree</field>
+            <field name="model">sat.nomina.tipojornada</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Jornada Laboral" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoJornada_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipojornada.form</field>
+            <field name="model">sat.nomina.tipojornada</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Jornada Laboral">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoJornada_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipojornada.search</field>
+            <field name="model">sat.nomina.tipojornada</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Jornada Laboral">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoJornada" model="ir.actions.act_window">
+            <field name="name">Tipos de Jornada Laboral</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipojornada</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoJornada_tree"/>
+        </record>
+    
+        <!--<menuitem action="action_sat_c_TipoJornada" id="action_sat_c_TipoJornada_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    
+    <!-- c_TipoNomina -->
+        <record id="sat_c_TipoNomina_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tiponomina.tree</field>
+            <field name="model">sat.nomina.tiponomina</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Nómina" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoNomina_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tiponomina.form</field>
+            <field name="model">sat.nomina.tiponomina</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Nómina">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoNomina_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tiponomina.search</field>
+            <field name="model">sat.nomina.tiponomina</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Nómina">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoNomina" model="ir.actions.act_window">
+            <field name="name">Tipos de Nómina</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tiponomina</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoNomina_tree"/>
+        </record>
+    
+        <!--<menuitem action="action_sat_c_TipoNomina" id="action_sat_c_TipoNomina_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoOtroPago -->
+        <record id="sat_c_TipoOtroPago_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipootropago.tree</field>
+            <field name="model">sat.nomina.tipootropago</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Otros Tipos de Pago" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="vigencia_inicio" />
+                    <field name="vigencia_fin" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoOtroPago_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipootropago.form</field>
+            <field name="model">sat.nomina.tipootropago</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Otros Tipos de Pago">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="vigencia_inicio" />
+                            <field name="vigencia_fin" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoOtroPago_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipootropago.search</field>
+            <field name="model">sat.nomina.tipootropago</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Otros Tipos de Pago">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Origen Recurso"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoOtroPago" model="ir.actions.act_window">
+            <field name="name">Tipos de Otros Tipos de Pago</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipootropago</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoOtroPago_tree"/>
+        </record>
+    
+        <!--<menuitem action="action_sat_c_TipoOtroPago" id="action_sat_c_TipoOtroPago_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoPercepcion -->
+        <record id="sat_c_TipoPercepcion_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tipopercepcion.tree</field>
+            <field name="model">sat.nomina.tipopercepcion</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Percepción" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoPercepcion_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tipopercepcion.form</field>
+            <field name="model">sat.nomina.tipopercepcion</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Percepción">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="vigencia_inicio" />
+                            <field name="vigencia_fin" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoPercepcion_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tipopercepcion.search</field>
+            <field name="model">sat.nomina.tipopercepcion</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Percepción">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Percepción"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoPercepcion" model="ir.actions.act_window">
+            <field name="name">Tipos de Percepción</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tipopercepcion</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoPercepcion_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_c_TipoPercepcion" id="action_sat_c_TipoPercepcion_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_TipoRegimen -->
+        <record id="sat_c_TipoRegimen_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tiporegimen.tree</field>
+            <field name="model">sat.nomina.tiporegimen</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Régimen de Contratación" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_TipoRegimen_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tiporegimen.form</field>
+            <field name="model">sat.nomina.tiporegimen</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Régimen de Contratación">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="vigencia_inicio" />
+                            <field name="vigencia_fin" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_TipoRegimen_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tiporegimen.search</field>
+            <field name="model">sat.nomina.tiporegimen</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Régimen de Contratación">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Régimen de Contratación"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_TipoRegimen" model="ir.actions.act_window">
+            <field name="name">Tipos de Régimen de Contratación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tiporegimen</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_TipoRegimen_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_c_TipoRegimen" id="action_sat_c_TipoRegimen_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    <!-- c_RiesgoPuesto -->
+        <record id="sat_c_RiesgoPuesto_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.riesgopuesto.tree</field>
+            <field name="model">sat.nomina.riesgopuesto</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de Riesgos" create="false">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="prima"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_c_RiesgoPuesto_form" model="ir.ui.view">
+            <field name="name">sat.nomina.riesgopuesto.form</field>
+            <field name="model">sat.nomina.riesgopuesto</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de Riesgos">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code" string="Codigo SAT"/>
+                            <h1><field name="code"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="vigencia_inicio" />
+                            <field name="vigencia_fin" />
+                            <field name="prima"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_c_RiesgoPuesto_search" model="ir.ui.view">
+            <field name="name">sat.nomina.riesgopuesto.search</field>
+            <field name="model">sat.nomina.riesgopuesto</field>
+            <field name="arch" type="xml">
+                <search string="Tipos de Riesgos">
+                     <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" 
+                            string="Riesgos"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_c_RiesgoPuesto" model="ir.actions.act_window">
+            <field name="name">Tipos de Riesgos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.riesgopuesto</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_c_RiesgoPuesto_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_c_RiesgoPuesto" id="action_sat_c_RiesgoPuesto_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />-->
+    
+    
+    
+    <!-- Tabla Art 113 Ley ISR -->
+        <record id="sat_TablaISR_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_isr.tree</field>
+            <field name="model">sat.nomina.tabla_isr</field>
+            <field name="arch" type="xml">
+                <tree string="Tabla para Cálculo de ISR" create="true" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="tipo"/>
+                    <field name="limite_inferior"/>
+                    <field name="limite_superior"/>
+                    <field name="cuota_fija"/>
+                    <field name="tasa"/>
+                    <field name="vigencia"/>
+                    <field name="name" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_TablaISR_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_isr.form</field>
+            <field name="model">sat.nomina.tabla_isr</field>
+            <field name="arch" type="xml">
+                <form string="Tabla para Cálculo de ISR">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" />
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="tipo" />
+                            <newline />
+                            <field name="limite_inferior"/>
+                            <field name="limite_superior"/>
+                            <field name="cuota_fija"/>
+                            <field name="tasa"/>
+                            <field name="vigencia"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_TablaISR_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_isr.search</field>
+            <field name="model">sat.nomina.tabla_isr</field>
+            <field name="arch" type="xml">
+                <search string="Tabla para Cálculo de ISR">
+                    <field name="name"/>
+                    <field name="tipo"/>
+                    <filter name="tipo_diaria" domain="[('tipo','=','diaria')]" 
+                            string="Diaria"/>
+                    <filter name="tipo_semanal" domain="[('tipo','=','semanal')]" 
+                            string="Semanal"/>
+                    <filter name="tipo_decenal" domain="[('tipo','=','decenal')]" 
+                            string="Decenal"/>
+                    <filter name="tipo_quincenal" domain="[('tipo','=','quincenal')]" 
+                            string="Quincenal"/>
+                    <filter name="tipo_mensual" domain="[('tipo','=','mensual')]" 
+                            string="Mensual"/>
+                    <filter name="tipo_anual" domain="[('tipo','=','anual')]" 
+                            string="Anual"/>
+                    <group string="Agrupar por">
+                        <filter string="Tipo" name="groupby_tipo" context="{'group_by':'tipo'}"/>                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_TablaISR" model="ir.actions.act_window">
+            <field name="name">Tabla para Cálculo de ISR</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tabla_isr</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_TablaISR_tree"/>
+        </record>
+
+        <menuitem action="action_sat_TablaISR" id="action_sat_TablaISR_menu" 
+                  sequence="10" parent="menu_hr_payroll_sat" />
+ 
+    
+    <!-- Tabla Subsidio al Empleo -->
+        <record id="sat_TablaSubsidio_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_subsidio.tree</field>
+            <field name="model">sat.nomina.tabla_subsidio</field>
+            <field name="arch" type="xml">
+                <tree string="Tabla Subsidio al Empleo" create="true" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="tipo" />
+                    <field name="limite_inferior"/>
+                    <field name="limite_superior"/>
+                    <field name="subsidio"/>
+                    <field name="vigencia"/>
+                    <field name="name" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_TablaSubsidio_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_subsidio.form</field>
+            <field name="model">sat.nomina.tabla_subsidio</field>
+            <field name="arch" type="xml">
+                <form string="Tabla Subsidio al Empleo">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" />
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="tipo" />
+                            <newline />
+                            <field name="limite_inferior"/>
+                            <field name="limite_superior"/>
+                            <field name="subsidio"/>
+                            <field name="vigencia"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_TablaSubsidio_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_subsidio.search</field>
+            <field name="model">sat.nomina.tabla_subsidio</field>
+            <field name="arch" type="xml">
+                <search string="Tabla Subsidio al Empleo">
+                    <field name="name"/>
+                    <field name="tipo"/>
+                    <filter name="tipo_diaria" domain="[('tipo','=','diaria')]" 
+                            string="Diaria"/>
+                    <filter name="tipo_semanal" domain="[('tipo','=','semanal')]" 
+                            string="Semanal"/>
+                    <filter name="tipo_decenal" domain="[('tipo','=','decenal')]" 
+                            string="Decenal"/>
+                    <filter name="tipo_quincenal" domain="[('tipo','=','quincenal')]" 
+                            string="Quincenal"/>
+                    <filter name="tipo_mensual" domain="[('tipo','=','mensual')]" 
+                            string="Mensual"/>
+                    <filter name="tipo_anual" domain="[('tipo','=','anual')]" 
+                            string="Anual"/>
+                    <group string="Agrupar por">
+                        <filter string="Tipo" name="groupby_tipo" context="{'group_by':'tipo'}"/>                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_TablaSubsidio" model="ir.actions.act_window">
+            <field name="name">Tabla Subsidio al Empleo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tabla_subsidio</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_TablaSubsidio_tree"/>
+        </record>
+
+        <menuitem action="action_sat_TablaSubsidio" id="action_sat_TablaSubsidio_menu" 
+                  sequence="11" parent="menu_hr_payroll_sat" />
+ 
+    
+    <!-- Tabla Dias Vacaciones -->
+        <record id="sat_TablaVacaciones_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_vacaciones.tree</field>
+            <field name="model">sat.nomina.tabla_vacaciones</field>
+            <field name="arch" type="xml">
+                <tree string="Tabla Dias Vacaciones" create="true" editable="bottom">
+                    <field name="name" invisible="1"/>
+                    <field name="antiguedad"/>
+                    <field name="dias"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_TablaVacaciones_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_vacaciones.form</field>
+            <field name="model">sat.nomina.tabla_vacaciones</field>
+            <field name="arch" type="xml">
+                <form string="Tabla Dias Vacaciones">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" />
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="antiguedad"/>
+                            <field name="dias"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_TablaVacaciones_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_vacaciones.search</field>
+            <field name="model">sat.nomina.tabla_vacaciones</field>
+            <field name="arch" type="xml">
+                <search string="Tabla Dias Vacaciones">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_TablaVacaciones" model="ir.actions.act_window">
+            <field name="name">Tabla Dias Vacaciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tabla_vacaciones</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_TablaVacaciones_tree"/>
+        </record>
+
+        <menuitem action="action_sat_TablaVacaciones" id="action_sat_TablaVacaciones_menu" 
+                  sequence="12" parent="menu_hr_payroll_sat" />
+    
+    
+    <!-- Tabla Prestaciones -->
+        <record id="sat_TablaPrestaciones_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_prestaciones.tree</field>
+            <field name="model">sat.nomina.tabla_prestaciones</field>
+            <field name="arch" type="xml">
+                <tree string="Tabla Prestaciones" create="true" editable="bottom">
+                    <field name="name" invisible="1"/>
+                    <field name="sindicalizado"/>
+                    <field name="antiguedad"/>
+                    <field name="dias_vacaciones"/>
+                    <field name="prima_vacacional"/>
+                    <field name="dias_aguinaldo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_TablaPrestaciones_form" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_prestaciones.form</field>
+            <field name="model">sat.nomina.tabla_prestaciones</field>
+            <field name="arch" type="xml">
+                <form string="Tabla Prestaciones">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" />
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="sindicalizado"/>
+                            <field name="antiguedad"/>
+                            <field name="dias_vacaciones"/>
+                            <field name="prima_vacacional"/>
+                            <field name="dias_aguinaldo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_TablaPrestaciones_search" model="ir.ui.view">
+            <field name="name">sat.nomina.tabla_prestaciones.search</field>
+            <field name="model">sat.nomina.tabla_prestaciones</field>
+            <field name="arch" type="xml">
+                <search string="Tabla Prestaciones">
+                    <field name="sindicalizado"/>
+                    <field name="antiguedad"/>
+                    <group string="Agrupar por">
+                        <filter string="Tipo Prestación" name="groupby_sindicalizado" context="{'group_by':'sindicalizado'}"/>                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_TablaPrestaciones" model="ir.actions.act_window">
+            <field name="name">Tabla Prestaciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.tabla_prestaciones</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_TablaPrestaciones_tree"/>
+        </record>
+
+        <menuitem action="action_sat_TablaPrestaciones" 
+                  id="action_sat_TablaPrestaciones_menu" 
+                  sequence="13" 
+                  parent="menu_hr_payroll_sat" />
+    
+    
+    <!-- Tabla Salario Minimo -->
+        <record id="sat_SM_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.salario_minimo.tree</field>
+            <field name="model">sat.nomina.salario_minimo</field>
+            <field name="arch" type="xml">
+                <tree string="Salario Mínimos">
+                    <field name="tipo" />
+                    <field name="monto"/>
+                    <field name="vigencia"/>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_SM_form" model="ir.ui.view">
+            <field name="name">sat.nomina.salario_minimo.form</field>
+            <field name="model">sat.nomina.salario_minimo</field>
+            <field name="arch" type="xml">
+                <form string="Salario Mínimo">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="tipo" />
+                            <field name="monto"/>
+                            <field name="vigencia"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_SM_search" model="ir.ui.view">
+            <field name="name">sat.nomina.salario_minimo.search</field>
+            <field name="model">sat.nomina.salario_minimo</field>
+            <field name="arch" type="xml">
+                <search string="Salario Mínimo">
+                    <field name="tipo" />
+                    <field name="monto"/>
+                    <field name="vigencia"/>
+                    <filter name="tipo_smg" domain="[('tipo','=','smg')]" 
+                            string="Salario Mínimo General"/>
+                    <filter name="tipo_smfn" domain="[('tipo','=','smfn')]" 
+                            string="Salario Mínimo Frontera Norte"/>
+                    <group string="Agrupar por">
+                        <filter string="Tipo" name="groupby_tipo" context="{'group_by':'tipo'}"/>                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_SM" model="ir.actions.act_window">
+            <field name="name">Salario Mínimo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.salario_minimo</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_SM_tree"/>
+        </record>
+
+        <menuitem action="action_sat_SM" id="action_sat_SM_menu" 
+                  sequence="12" parent="menu_hr_payroll_sat" />
+    
+    
+    <!-- Tabla UMA y UMI -->
+        <record id="sat_UMA_UMI_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.uma_umi.tree</field>
+            <field name="model">sat.nomina.uma_umi</field>
+            <field name="arch" type="xml">
+                <tree string="UMA y UMI">
+                    <field name="tipo" />
+                    <field name="monto"/>
+                    <field name="vigencia"/>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_UMA_UMI_form" model="ir.ui.view">
+            <field name="name">sat.nomina.uma_umi.form</field>
+            <field name="model">sat.nomina.uma_umi</field>
+            <field name="arch" type="xml">
+                <form string="UMA">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="tipo" />
+                            <field name="monto"/>
+                            <field name="vigencia"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_UMA_UMI_search" model="ir.ui.view">
+            <field name="name">sat.nomina.uma_umi.search</field>
+            <field name="model">sat.nomina.uma_umi</field>
+            <field name="arch" type="xml">
+                <search string="UMA">
+                    <field name="tipo" />
+                    <field name="monto"/>
+                    <field name="vigencia"/>
+                    <filter name="tipo_uma" domain="[('tipo','=','uma')]" 
+                            string="UMA"/>
+                    <filter name="tipo_umi" domain="[('tipo','=','umi')]" 
+                            string="UMI"/>
+                    <group string="Agrupar por">
+                        <filter string="Tipo" name="groupby_tipo" context="{'group_by':'tipo'}"/>                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_UMA_UMI" model="ir.actions.act_window">
+            <field name="name">UMA y UMI</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.uma_umi</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_UMA_UMI_tree"/>
+        </record>
+
+        <menuitem action="action_sat_UMA_UMI" id="action_sat_UMA_UMI_menu" 
+                  sequence="13" parent="menu_hr_payroll_sat" />
+    
+    
+    <!-- Tabla FactoresIMSS -->
+        <record id="sat_FactoresIMSS_tree" model="ir.ui.view">
+            <field name="name">sat.nomina.factores_imss.tree</field>
+            <field name="model">sat.nomina.factores_imss</field>
+            <field name="arch" type="xml">
+                <tree string="Factores IMSS" create="true">
+                    <field name="sequence" widget="handle" />
+                    <field name="tipo_seguro" />
+                    <field name="prestacion" />
+                    <field name="cuota_patron" />
+                    <field name="cuota_trabajador" />
+                    <field name="cuota_total" />
+                    <field name="base_calculo_patron" />
+                    <field name="base_calculo_trabajador" />
+                    <field name="vigencia"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sat_FactoresIMSS_form" model="ir.ui.view">
+            <field name="name">sat.nomina.factores_imss.form</field>
+            <field name="model">sat.nomina.factores_imss</field>
+            <field name="arch" type="xml">
+                <form string="Factores IMSS">
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="tipo_seguro" />
+                            <field name="prestacion" />
+                            <field name="cuota_patron" />
+                            <field name="base_calculo_patron" />
+                            <field name="cuota_trabajador" />
+                            <field name="base_calculo_trabajador" />
+                            <field name="cuota_total" />
+                            <field name="tipo_cuota" 
+                                   attrs="{'invisible': [('tipo_seguro','!=','enfermedades_y_maternidad'),('prestacion','!=','en_especie')]}"/>
+                            <field name="vigencia"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="sat_FactoresIMSS_search" model="ir.ui.view">
+            <field name="name">sat.nomina.factores_imss.search</field>
+            <field name="model">sat.nomina.factores_imss</field>
+            <field name="arch" type="xml">
+                <search string="Factores IMSS">
+                    <field name="name"/>
+                    <field name="tipo_seguro" />
+                    <field name="prestacion" />
+                    <field name="vigencia"/>
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_sat_FactoresIMSS" model="ir.actions.act_window">
+            <field name="name">Factores IMSS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sat.nomina.factores_imss</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sat_FactoresIMSS_tree"/>
+        </record>
+
+        <!--<menuitem action="action_sat_FactoresIMSS" id="action_sat_FactoresIMSS_menu" 
+                  sequence="13" parent="menu_hr_payroll_sat" />-->
+    
+    
+        <!-- Causas de Terminacion de Relacion Laboral -->
+        <record id="hr_causa_fin_relacion_laboral_tree" model="ir.ui.view">
+            <field name="name">hr.causa_fin_relacion_laboral.tree</field>
+            <field name="model">hr.causa_fin_relacion_laboral</field>
+            <field name="arch" type="xml">
+                <tree string="Causas de Terminacion de Relacion Laboral" create="true">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="type" />
+                    <field name="indemnizacion_90_dias"/>
+                    <field name="indemnizacion_20_dias"/>
+                    <field name="prima_antiguedad_12_dias"/>
+                    <field name="prima_antiguedad_15_anios"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_causa_fin_relacion_laboral_form" model="ir.ui.view">
+            <field name="name">hr.causa_fin_relacion_laboral.form</field>
+            <field name="model">hr.causa_fin_relacion_laboral</field>
+            <field name="arch" type="xml">
+                <form string="Causas de Terminacion de Relacion Laboral">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="code"/>
+                            <h2><field name="code"/></h2><newline />
+                            <label class="oe_edit_only" for="name"/>
+                            <h2><field name="name"/></h2>
+                        </div>
+                        <group colspan="4" col="4">
+                            <field name="type" />
+                            <field name="active" />
+                        </group>
+                        <table width="100%">
+                            <tr>
+                                <td><label for="indemnizacion_90_dias" /></td>
+                                <td><label for="indemnizacion_20_dias" /></td>
+                                <td><label for="gratif_x_invalidez" /></td>
+                                <td><label for="prima_antiguedad_12_dias" /></td>
+                                <td><label for="prima_antiguedad_15_anios" /></td>
+                                <td><label for="salarios_vencidos" /></td>
+                            </tr>
+                            <tr>
+                                <td><field name="indemnizacion_90_dias"/></td>
+                                <td><field name="indemnizacion_20_dias"/></td>
+                                <td><field name="gratif_x_invalidez"/></td>
+                                <td><field name="prima_antiguedad_12_dias"/></td>
+                                <td><field name="prima_antiguedad_15_anios"/></td>
+                                <td><field name="salarios_vencidos"/></td>                                    
+                            </tr>
+                        </table>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="hr_causa_fin_relacion_laboral_search" model="ir.ui.view">
+            <field name="name">hr.causa_fin_relacion_laboral.search</field>
+            <field name="model">hr.causa_fin_relacion_laboral</field>
+            <field name="arch" type="xml">
+                <search string="Causas de Terminacion de Relacion Laboral">
+                    <field name="name" filter_domain="['|', ('code','ilike',self),('name','ilike',self)]" />
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_hr_causa_fin_relacion_laboral" model="ir.actions.act_window">
+            <field name="name">Causas de Terminacion de Relacion Laboral</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.causa_fin_relacion_laboral</field>
+            
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_causa_fin_relacion_laboral_tree"/>
+        </record>
+
+        <menuitem action="action_hr_causa_fin_relacion_laboral" 
+                  id="action_hr_causa_fin_relacion_laboral_menu" 
+                  sequence="14" parent="menu_hr_payroll_sat" />
+</odoo>

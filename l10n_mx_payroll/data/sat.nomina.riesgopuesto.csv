@@ -1,0 +1,7 @@
+id,code,name,vigencia_inicio,vigencia_fin
+sat_nomina_riesgopuesto_1,1,Clase I,2017-01-01,
+sat_nomina_riesgopuesto_2,2,Clase II,2017-01-01,
+sat_nomina_riesgopuesto_3,3,Clase III,2017-01-01,
+sat_nomina_riesgopuesto_4,4,Clase IV,2017-01-01,
+sat_nomina_riesgopuesto_5,5,Clase V,2017-01-01,
+sat_nomina_riesgopuesto_99,99,No aplica,2017-08-13,

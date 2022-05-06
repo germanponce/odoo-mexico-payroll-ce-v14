@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="res_config_settings_view_form_l10n_mx_payroll_dinning" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hr.payroll.l10n_mx_payroll.dinning</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="60"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.res_config_settings_view_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='l10n_mx_payroll_params']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" >
+                    <div class="o_setting_left_pane" >
+                        <field name="comedor_monto_descuento_fijo" required="1"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="comedor_monto_descuento_fijo"/><br/>
+                        <div class="text-muted">
+                            Parámetro para indicar si el descuento por comedor es por un monto fijo o variable.
+                            Si lo desactiva podrá indicar el monto a descontar del trabajador al momento de capturar el registro de Comedor
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('comedor_monto_descuento_fijo','!=',True)]}">
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <label for="comedor_monto_descuento"/><br/>
+                        <field name="comedor_monto_descuento" required="1"/>
+                        <div class="text-muted">
+                            Aquí puede definir el monto a descontar por cada registro de asistencia al comedor
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

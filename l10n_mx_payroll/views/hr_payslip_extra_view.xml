@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Wizard para Confirmar Extras de Nómina -->
+    <record id="hr_payslip_extra_wizard_confirm" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.wizard.confirm</field>
+        <field name="model">hr.payslip.extra.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Extras de Nóminas">
+                <group col="4" colspan="4">
+                    <button name="action_confirm_extras" string="Confirmar" type="object" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_approve_extras" string="Aprobar" type="object" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_reject_extras"  string="Rechazar" type="object" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_cancel_extras"  string="Cancelar" type="object" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                </group>
+                <footer>
+                    <button string="Cerrar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+  
+    
+    
+    <record id="action_change_state_payslip_extra" model="ir.actions.act_window">
+        <field name="name">Cambiar Estado</field>
+        <field name="res_model">hr.payslip.extra.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="model_hr_payslip_extra"/>
+        <field name="binding_view_types">form</field>
+        <field name="view_id" ref="hr_payslip_extra_wizard_confirm"/>
+        <field name="target">new</field>
+    </record>
+		
+    
+    
+    
+    <record id="hr_payslip_extra_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.tree</field>
+        <field name="model">hr.payslip.extra</field>
+        <field name="arch" type="xml">
+            <tree string="Extras de Nómina"
+                  decoration-warning="state == 'draft'"
+                  decoration-muted="state == 'cancel'"
+                  decoration-primary="state == 'confirmed'"
+                  decoration-success="state == 'approved'"
+                  decoration-it="state == 'rejected'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="hr_salary_rule_id"/>
+                <field name="qty"/>
+                <field name="amount" sum="sum_amount"/>
+                <field name="payslip_id"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_payslip_extra_form" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.form</field>
+        <field name="model">hr.payslip.extra</field>
+        <field name="arch" type="xml">
+            <form string="Extras de Nómina">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmar" states="draft" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_approve" type="object" string="Aprobar" states="confirmed" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_reject" type="object" string="Rechazar" states="confirmed" 
+                            groups="hr_payroll.group_hr_payroll_user" />
+                    <button name="action_cancel" type="object" string="Cancelar" states="draft,confirmed,approved" 
+                            groups="hr_payroll.group_hr_payroll_user" 
+                            confirm="¿Está seguro que desea cancelar este registro?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <field name="tipopercepcion_id" invisible="1" />
+                    <field name="tipopercepcion_code" invisible="1" />
+                    <group colspan="4" col="4">
+                        <field name="employee_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="date"/>
+                        <field name="contract_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="department_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="hr_salary_rule_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="sat_nomina_tipohoraextra_id"
+                               attrs="{'invisible': [('tipopercepcion_code', '!=', '019')],'required': [('tipopercepcion_code', '=', '019')]}"/>
+                        <field name="qty"/>
+                        <newline />
+                        <field name="amount"/>
+                        <field name="leave_id" options="{'no_create': True}"/>
+                        <newline />
+                        <field name="payslip_id"/>
+                        <field name="payslip_date"/>
+                        <field name="payslip_state" widget="statusbar" statusbar_visible="draft,done"/>
+                        <newline />
+                        <field name="payslip_input_id" invisible="1"/>
+                        <newline />
+                        <field name="payslip_input_ids" colspan="4" invisible="1">
+                            <tree>
+                                <field name="code" />
+                                <field name="name" />
+                                <field name="contract_id" />
+                                <field name="amount" />
+                                <field name="payslip_extra_id" />
+                            </tree>
+                        </field>
+                        <field name="company_id" options="{'no_create': True}" 
+                               groups="base.group_multi_company"/>
+                    </group>
+                    <field name="notes" colspan="4" placeholder="Observaciones..." />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_payslip_extra_search" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.search</field>
+        <field name="model">hr.payslip.extra</field>
+        <field name="arch" type="xml">
+            <search string="Extras de Nómina">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="hr_salary_rule_id"/>
+                <field name="contract_id"/>
+                <field name="payslip_id"/>
+                <filter name="state_draft" string="En Borrador" domain="[('state','=','draft')]" />
+                <filter name="state_confirmed" string="Confirmado" domain="[('state','=','confirmed')]" />
+                <filter name="state_approved" string="Aprobado" domain="[('state','=','approved')]" />
+                <filter name="state_done" string="En Nómina" domain="[('state','=','done')]" />
+                <filter name="state_cancel" string="Cancelado" domain="[('state','=','cancel')]" />
+                <filter name="state_rejected" string="Rechazado" domain="[('state','=','rejected')]" />
+                <group expand="0" string="Group By">
+                    <filter string="Concepto" name="state" context="{'group_by':'hr_salary_rule_id'}"/>
+                    <filter string="Empleado" name="employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Departamento" name="department_id" context="{'group_by':'department_id'}"/>
+                    <filter string="Periodo" name="date" context="{'group_by':'date'}"/>
+                    <filter string="Nómina" name="payslip_id" context="{'group_by':'payslip_id'}"/>
+                    <filter string="Estado" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hr_payslip_extra" model="ir.actions.act_window">
+        <field name="name">Extras de Nómina</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.extra</field>
+        
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_payslip_extra_tree"/>
+    </record>
+
+    
+        
+        <menuitem id="hr_payslip_extra_menu" 
+                  name="Extras"
+                  sequence="65" 
+                  parent="hr_work_entry_contract.menu_hr_payroll_work_entries_root" />
+    
+        <menuitem action="action_hr_payslip_extra" 
+                  id="action_hr_payslip_extra_menu" 
+                  sequence="20" 
+                  parent="hr_payslip_extra_menu" />
+    
+    <!-- Descuentos Periodicos en Nomina -->
+        <record id="hr_payslip_extra_discounts_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.discounts.tree</field>
+        <field name="model">hr.payslip.extra.discounts</field>
+        <field name="arch" type="xml">
+            <tree string="Descuentos Periódicos de Nómina"
+                  decoration-warning="state == 'draft'"
+                  decoration-muted="state == 'cancel'"
+                  decoration-success="state == 'progress'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="description"/>
+                <field name="employee_id"/>
+                <field name="salary_rule_id"/>
+                <field name="monto_total" sum="sum_monto_total"/>
+                <field name="monto_periodo"/>
+                <field name="aplicacion"/>
+                <field name="saldo" sum="sum_saldo"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_payslip_extra_discounts_form" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.discounts.form</field>
+        <field name="model">hr.payslip.extra.discounts</field>
+        <field name="arch" type="xml">
+            <form string="Descuentos Periódicos de Nómina">
+                <header>
+                    <button name="action_compute" type="object" string="Calcular descuentos" 
+                            confirm="Está seguro que desea calcular las Líneas de Descuento? (Tome en cuenta que si existen líneas se eliminaran primero)."
+                            attrs="{'invisible': ['|', ('aplicacion', '=', 'manual'),('state','!=','draft')]}"
+                            class="oe_highlight"/>
+                    <button name="action_confirm" type="object" string="Confirmar" states="draft" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancelar" states="draft,progress" 
+                            groups="hr_payroll.group_hr_payroll_user" 
+                            confirm="¿Está seguro que desea cancelar este registro?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>                    
+                    <group colspan="4" col="4">
+                        <field name="description" colspan="4"/>
+                        <field name="date"/>
+                        <field name="date_start"/>
+                        <field name="employee_id" options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="department_id"/>
+                        <field name="contract_id" domain="[('employee_id','=',employee_id),('state','=','progress')]"
+                               options="{'no_create': True, 'no_edit': True}"/>
+                        <field name="sat_periodicidadpago_id" />
+                        <field name="salary_rule_id" 
+                               domain="[('can_be_payroll_extra','=',True)]"
+                               options="{'no_create': True, 'no_edit': True}"/>
+                        <newline/>
+                        <field name="monto_total"/>
+                        <field name="saldo"/>
+                        <field name="monto_periodo"/>
+                        <field name="aplicacion"/>
+                        <separator string="Líneas de Descuento" colspan="4" />
+                        <field name="payslip_extra_ids" colspan="4" nolabel="1" 
+                               context="{'default_employee_id': employee_id, 'default_hr_salary_rule_id': salary_rule_id}"
+                               attrs="{'readonly': ['|', ('aplicacion', '!=', 'manual'),('state','!=','draft')]}"/>
+                        <field name="company_id" options="{'no_create': True}" 
+                               groups="base.group_multi_company"/>
+                    </group>
+                    <field name="notes" colspan="4" placeholder="Observaciones..." />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_payslip_extra_discounts_search" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.discounts.search</field>
+        <field name="model">hr.payslip.extra.discounts</field>
+        <field name="arch" type="xml">
+            <search string="Descuentos Periódicos de Nómina">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="salary_rule_id"/>
+                <separator />
+                <filter name="state_draft" string="Borrador" domain="[('state','=','draft')]" />
+                <filter name="state_progress" string="En Proceso" domain="[('state','=','progress')]" />
+                <filter name="state_done" string="Realizado" domain="[('state','=','done')]" />
+                <group expand="0" string="Group By">
+                    <filter string="Empleado" name="employee_id" context="{'group_by':'employee_id'}"/>
+                    <filter string="Departamento" name="department_id" context="{'group_by':'department_id'}"/>
+                    <filter string="Periodo" name="date" context="{'group_by':'date'}"/>
+                    <filter string="Regla Salarial" name="salary_rule_id" context="{'group_by':'salary_rule_id'}"/>
+                    <filter string="Forma de Descuento" name="aplicacion" context="{'group_by':'aplicacion'}"/>
+                    <filter string="Estado" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    
+    <record id="hr_payslip_extra_discounts_pivot" model="ir.ui.view">
+         <field name="name">hr.payslip.extra.discounts.pivot</field>
+         <field name="model">hr.payslip.extra.discounts</field>
+         <field name="arch" type="xml">
+             <pivot string="Análisis de Descuentos" display_quantity="false">
+                 <field name="employee_id" type="row"/>
+                 <field name="salary_rule_id" type="col"/>
+                 <field name="saldo" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+
+    <record id="action_hr_payslip_extra_discounts" model="ir.actions.act_window">
+        <field name="name">Descuentos Periódicos de Nómina</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.extra.discounts</field>
+        
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_id" ref="hr_payslip_extra_discounts_tree"/>
+    </record>
+    
+    <menuitem action="action_hr_payslip_extra_discounts" 
+                  id="action_hr_payslip_extra_discounts_menu" 
+                  sequence="10" 
+                  parent="hr_payslip_extra_menu" />
+
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="menu_hr_attendance_dinning_root" name="Comedor" sequence="90" 
+              groups="hr_attendance_dinning.group_hr_attendance_dinning_user" 
+              web_icon="hr_attendance,static/description/icon.png"/>
+    
+        <record id="hr_attendance_dinning_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.dinning.tree</field>
+            <field name="model">hr.attendance.dinning</field>
+            <field name="arch" type="xml">
+                <tree string="Asistencia Comedor" editable="top">
+                    <field name="comedor_monto_descuento_fijo" invisible="1"/>
+                    <field name="employee_id" options="{'no_create': True, 'no_edit': True}"/>
+                    <field name="date" groups="hr_attendance_dinning.group_hr_attendance_dinning_manager"/>
+                    <field name="amount" attrs="{'readonly':[('comedor_monto_descuento_fijo','=',True)]}"
+                           force_save="1"/>
+                    <field name="date_record"/>
+                    <field name="hr_extra_ids" groups="hr_attendance_dinning.group_hr_attendance_dinning_manager"
+                           widget="many2many_tags"/>
+                    <field name="company_id" options="{'no_create': True, 'no_edit': True}"
+                           groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="hr_attendance_dinning_search" model="ir.ui.view">
+            <field name="name">hr.attendance.dinning.search</field>
+            <field name="model">hr.attendance.dinning</field>
+            <field name="arch" type="xml">
+                <search string="Asistencia Comedor">
+                     <field name="employee_id" />
+                    <field name="date"/>
+                    <field name="date_record"/>
+                    <filter name="today" string="Hoy" domain="[('date', '>=', datetime.datetime.now())]" />
+                </search>
+            </field>
+        </record>
+
+    
+        <record id="action_hr_attendance_dinning" model="ir.actions.act_window">
+            <field name="name">Asistencia Comedor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.attendance.dinning</field>
+            
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_today':1}</field>
+            <field name="view_id" ref="hr_attendance_dinning_tree"/>
+        </record>
+
+        <menuitem action="action_hr_attendance_dinning" 
+                  id="action_hr_attendance_dinning_menu" 
+                  groups="hr_attendance_dinning.group_hr_attendance_dinning_user"
+                  sequence="30" 
+                  parent="hr_attendance_dinning.menu_hr_attendance_dinning_root" />
+    
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="group_hr_payroll_super_manager" model="res.groups">
+            <field name="name">HR Payroll - Super Manager</field>
+            <field name="category_id" ref="base.module_category_human_resources_payroll"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+        
+        <record id="hr_payslip_extra_comp_rule" model="ir.rule">
+            <field name="name">Ver Extras de Nómina de Compañía Activa</field>
+            <field name="model_id" ref="model_hr_payslip_extra"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        
+        
+        <record id="hr_payslip_extra_discounts_comp_rule" model="ir.rule">
+            <field name="name">Ver Descuentos Periódicos de Nómina de Compañía Activa</field>
+            <field name="model_id" ref="model_hr_payslip_extra_discounts"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        
+        <!--<record id="hr_payslip_comp_rule" model="ir.rule">
+            <field name="name">Ver Nominas de Compañía Activa</field>
+            <field name="model_id" ref="model_hr_payslip"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        
+        <record id="hr_contract_comp_rule" model="ir.rule">
+            <field name="name">Ver Contratos de Compañía Activa</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        
+        <record id="hr_holiday_comp_rule" model="ir.rule">
+            <field name="name">Ver Ausencias de Compañía Activa</field>
+            <field name="model_id" ref="model_hr_leave"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        
+        <record id="hr_payslip_run_comp_rule" model="ir.rule">
+            <field name="name">Ver Ausencias de Compañía Activa</field>
+            <field name="model_id" ref="model_hr_payslip_run"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+        </record>
+        -->
+        
+    </data>
+</odoo>

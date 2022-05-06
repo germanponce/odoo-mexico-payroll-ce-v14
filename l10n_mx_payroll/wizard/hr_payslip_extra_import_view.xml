@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Wizard para Importar Extras de Nómina -->
+    <record id="hr_payslip_extra_import_view" model="ir.ui.view">
+        <field name="name">hr.payslip.extra.import.wiz</field>
+        <field name="model">hr.payslip.extra.import</field>
+        <field name="arch" type="xml">
+            <form string="Importar Extras de Nóminas">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <group col="4" colspan="4">
+                    <p colspan="4">Este asistente permite importar Extras de Nómina de Empleados dados de baja (sin necesidad de que el trabajador sea re-activado y que su último contrato también tenga que ser reactivado en el periodo actual.
+                    Esto es útil para pago de Nóminas Extraordinarias como PTU</p>
+                    <field name="archivo" 
+                           attrs="{'invisible':[('state','=','done')]}"/>
+                    <field name="archivo_filename" invisible="1"/>
+                    <field name="errores" nolabel="1" colspan="4"
+                           attrs="{'invisible':[('state','!=','done')]}"/>                    
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Importar" type="object" 
+                            attrs="{'invisible':[('state','=','done')]}"
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button string="Cerrar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record id="hr_payslip_extra_import_action" model="ir.actions.act_window">
+            <field name="name">Importar Extras de Nóminas</field>
+            <field name="res_model">hr.payslip.extra.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="hr_payslip_extra_import_view"/>
+        </record>
+    
+    
+    <menuitem action="hr_payslip_extra_import_action" 
+                  id="hr_payslip_extra_import_menu" 
+                  sequence="25" 
+                  parent="hr_payslip_extra_menu" />
+</odoo>

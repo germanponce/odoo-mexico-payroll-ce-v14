@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Wizard para Crear Archivo de Altas o Reingreso / Bajas / Modificaciones de IMSS -->
+    <record id="hr_employee_imss_movimientos_sua_wizard" model="ir.ui.view">
+        <field name="name">hr.employee.imss.movimientos.sua</field>
+        <field name="model">hr.employee.imss.movimientos.sua</field>
+        <field name="arch" type="xml">
+            <form string="Generar archivos">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="paso1,paso2"/>
+                </header>
+                <group colspan="4" col="4" attrs="{'invisible':[('state','!=','paso1')]}">
+                    <field name="type" />
+                    <label for="date_from" string="Periodo" />
+                    <div class="o_row">
+                        <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                    </div>
+                    <separator string="Estructuras Salariales" colspan="4" />
+                    <field name="struct_ids" widget="many2many_tags"/>
+                    <newline />
+                    <separator string="Departamentos" colspan="2" />
+                    <separator string="Empleados" colspan="2" />
+                    <field name="department_ids" widget="many2many_tags"/>
+                    <field name="employee_ids" widget="many2many_tags"/>
+                </group>
+                <group attrs="{'invisible':[('state','!=','paso2')]}">
+                    <group string="IDSE">
+                        <field name="idse" filename="idse_filename"/>
+                        <field name="idse_filename" invisible="1"/>
+                    </group>
+                    <group string="SUA">
+                        <field name="sua_afiliacion" filename="sua_afiliacion_filename"
+                               attrs="{'invisible': [('type','!=','08')]}"/>
+                        <field name="sua_afiliacion_filename" invisible="1"/>
+                        <field name="sua_asegurados" filename="sua_asegurados_filename"/>
+                        <field name="sua_asegurados_filename" invisible="1"/>
+                        <field name="sua_movimientos" filename="sua_movimientos_filename"/>
+                        <field name="sua_movimientos_filename" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_sua_files"  string="Obtener archivos" type="object" 
+                            attrs="{'invisible':[('state','!=','paso1')]}"
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button string="Cerrar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Acción para el Wizard -->
+
+    <record id="action_hr_employee_imss_movimientos_sua" model="ir.actions.act_window">
+      <field name="name">Generar Archivo Resumen</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.employee.imss.movimientos.sua</field>
+      <!--<field name="view_type">form</field>-->
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+
+    <menuitem 	name="Generar Archivo Resumen" 
+		        parent="menu_hr_payroll_imss_movimientos_acciones" 
+		        id="menu_hr_employee_imss_movimientos_sua" 
+               	action="action_hr_employee_imss_movimientos_sua"
+                sequence="90"
+                />
+    
+</odoo>

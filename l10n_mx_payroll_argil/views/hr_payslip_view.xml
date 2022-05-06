@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_payslip_form_l10n_mx_payroll_argil" model="ir.ui.view">
+        <field name="name">hr.payslip.form.l10n_mx_payroll_argil</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="49"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_note" position="after">
+                <field name="cfdi_folio_fiscal" attrs="{'invisible': [('cfdi_folio_fiscal','=',False)]}"/>
+                <field name="cfdi_fecha_timbrado" attrs="{'invisible': [('cfdi_fecha_timbrado','=',False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

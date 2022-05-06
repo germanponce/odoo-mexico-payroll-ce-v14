@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.state_mx_ags" model="res.country.state"><field name="imss_code">01</field></record>
+    <record id="base.state_mx_bc" model="res.country.state"><field name="imss_code">02</field></record>
+    <record id="base.state_mx_bcs" model="res.country.state"><field name="imss_code">03</field></record>
+    <record id="base.state_mx_camp" model="res.country.state"><field name="imss_code">04</field></record>
+    <record id="base.state_mx_coah" model="res.country.state"><field name="imss_code">05</field></record>
+    <record id="base.state_mx_col" model="res.country.state"><field name="imss_code">06</field></record>
+    <record id="base.state_mx_chis" model="res.country.state"><field name="imss_code">07</field></record>
+    <record id="base.state_mx_chih" model="res.country.state"><field name="imss_code">08</field></record>
+    <record id="base.state_mx_df" model="res.country.state"><field name="imss_code">09</field></record>
+    <record id="base.state_mx_dgo" model="res.country.state"><field name="imss_code">10</field></record>
+    <record id="base.state_mx_gto" model="res.country.state"><field name="imss_code">11</field></record>
+    <record id="base.state_mx_gro" model="res.country.state"><field name="imss_code">12</field></record>
+    <record id="base.state_mx_hgo" model="res.country.state"><field name="imss_code">13</field></record>
+    <record id="base.state_mx_jal" model="res.country.state"><field name="imss_code">14</field></record>
+    <record id="base.state_mx_mex" model="res.country.state"><field name="imss_code">15</field></record>
+    <record id="base.state_mx_mich" model="res.country.state"><field name="imss_code">16</field></record>
+    <record id="base.state_mx_mor" model="res.country.state"><field name="imss_code">17</field></record>
+    <record id="base.state_mx_nay" model="res.country.state"><field name="imss_code">18</field></record>
+    <record id="base.state_mx_nl" model="res.country.state"><field name="imss_code">19</field></record>
+    <record id="base.state_mx_oax" model="res.country.state"><field name="imss_code">20</field></record>
+    <record id="base.state_mx_pue" model="res.country.state"><field name="imss_code">21</field></record>
+    <record id="base.state_mx_qro" model="res.country.state"><field name="imss_code">22</field></record>
+    <record id="base.state_mx_q_roo" model="res.country.state"><field name="imss_code">23</field></record>
+    <record id="base.state_mx_slp" model="res.country.state"><field name="imss_code">24</field></record>
+    <record id="base.state_mx_sin" model="res.country.state"><field name="imss_code">25</field></record>
+    <record id="base.state_mx_son" model="res.country.state"><field name="imss_code">26</field></record>
+    <record id="base.state_mx_tab" model="res.country.state"><field name="imss_code">27</field></record>
+    <record id="base.state_mx_tamps" model="res.country.state"><field name="imss_code">28</field></record>
+    <record id="base.state_mx_tlax" model="res.country.state"><field name="imss_code">29</field></record>
+    <record id="base.state_mx_ver" model="res.country.state"><field name="imss_code">30</field></record>
+    <record id="base.state_mx_yuc" model="res.country.state"><field name="imss_code">31</field></record>
+    <record id="base.state_mx_zac" model="res.country.state"><field name="imss_code">32</field></record>
+
+</odoo>

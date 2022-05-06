@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="hr_employee_imss_sbc_line_search" model="ir.ui.view">
+        <field name="name">hr.employee.imss.sbc.line.search</field>
+        <field name="model">hr.employee.imss.sbc.line</field>
+        <field name="arch" type="xml">
+            <search string="Líneas">
+                <field name="employee_id"/>
+                <field name="contract_id"/>
+                <filter name="incapacitado_en_fecha_aplicacion" string="Incapacitado en Fecha de Aplicación" domain="[('incapacitado_en_fecha_aplicacion','=','True')]" />
+                <filter name="aplicar_modificacion_sbc" string="Aplicar Modificación" domain="[('aplicar_modificacion_sbc','=',True)]" />
+                <filter name="aplicar_modificacion_sbc" string="NO Aplicar Modificación" domain="[('aplicar_modificacion_sbc','!=',True)]" />
+                <group expand="0" string="Group By">
+                    <filter string="Incapacitado en Fecha Aplicación" name="group_incapacitado_en_fecha_aplicacion" context="{'group_by':'incapacitado_en_fecha_aplicacion'}"/>
+                    <filter string="Tipo Prestaciones" name="group_contract_sindicalizado" context="{'group_by':'contract_sindicalizado'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="hr_employee_imss_sbc_line_tree1" model="ir.ui.view">
+        <field name="name">hr.employee.imss.sbc.line.tree1</field>
+        <field name="model">hr.employee.imss.sbc.line</field>
+        <field name="arch" type="xml">
+            <tree string="Actualización SBC">
+                <field name="employee_num_empleado"/>
+                <field name="employee_id"/>
+                <field name="contract_id" invisible="1"/>
+                <field name="fecha_alta"/>                
+                <field name="antig_laboral"/>
+                <field name="incapacitado_en_fecha_aplicacion"/>                
+                <field name="contract_sindicalizado"/>
+                <field name="contract_tipo_salario"/>
+                <field name="dias_bimestre"/>
+                <field name="dias_base"/>
+                <field name="dias_incapacidad"/>
+                <field name="dias_ausencia"/>
+                <field name="dias_neto"/>
+                <!--<field name="sbc_actual_parte_fija"/>
+                <field name="sbc_actual_ultima_modif"/>
+                <field name="sbc_actual_parte_variable"/>-->
+                <field name="sbc_actual_sbc"/>
+                <field name="sbc_nuevo_parte_fija"/>
+                <field name="sbc_nuevo_parte_variable"/>
+                <button name="action_view_details"
+                                string="Ingresos Variables"
+                                class="oe_stat_button"
+                                icon="fa-money"
+                                type="object"/>
+                <field name="sbc_nuevo_sbc"/>
+                <field name="aplicar_modificacion_sbc"/>
+                <field name="notes"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record id="hr_employee_imss_sbc_line_form1" model="ir.ui.view">
+        <field name="name">hr.employee.imss.sbc.line.form1</field>
+        <field name="model">hr.employee.imss.sbc.line</field>
+        <field name="arch" type="xml">
+            <form string="Actualización SBC">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_details"
+                                string="Ingresos Variables"
+                                class="oe_stat_button"
+                                icon="fa-money"
+                                type="object"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="imss_sbc_id" readonly="1" options="{'no_open':True}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="employee_num_empleado"/>
+                            <field name="employee_nss"/>
+                            <field name="prestaciones_dias_vacaciones"/>
+                            <field name="prestaciones_prima_vacacional"/>
+                            <field name="prestaciones_dias_aguinaldo"/>
+                            <field name="factor_integracion"/>
+                        </group>
+                        <group>                            
+                            <field name="contract_id" />
+                            <field name="fecha_alta"/>
+                            <field name="antig_laboral"/>
+                            <field name="contract_sindicalizado"/>
+                            <field name="contract_tipo_salario"/>
+                            <field name="contract_salario_diario"/>
+                            <field name="incapacitado_en_fecha_aplicacion"/>
+                            <field name="aplicar_modificacion_sbc"/>
+                        </group>
+                        <group string="SBC Actual">
+                            <field name="sbc_actual_ultima_modif"/>
+                            <field name="sbc_actual_parte_fija"/>
+                            <field name="sbc_actual_parte_variable"/>
+                            <field name="sbc_actual_sbc"/>
+                        </group>
+                        <group string="SBC Nuevo">
+                            <field name="date" />
+                            <field name="sbc_nuevo_parte_fija"/>
+                            <field name="sbc_nuevo_parte_variable"/>
+                            <field name="total_percepciones_variables"/>
+                            <field name="dias_bimestre"/>
+                            <field name="dias_base"/>
+                            <field name="dias_incapacidad"/>
+                            <field name="dias_ausencia"/>
+                            <field name="dias_neto"/>
+                            <field name="sbc_nuevo_sbc"/>
+                        </group>
+                    </group>
+                    <field name="line_idse" colspan="4" />
+                    <field name="notes" colspan="4" placeholder="Observaciones"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    
+    <record id="action_hr_employee_imss_sbc_line" model="ir.actions.act_window">
+        <field name="name">Actualización SBC Bimestral Lineas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.employee.imss.sbc.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_employee_imss_sbc_line_tree1"/>
+        <field name="search_view_id" ref="hr_employee_imss_sbc_line_search"/>
+    </record>
+    
+    
+    <record id="hr_employee_imss_sbc_tree" model="ir.ui.view">
+        <field name="name">hr.employee.imss.sbc.tree</field>
+        <field name="model">hr.employee.imss.sbc</field>
+        <field name="arch" type="xml">
+            <tree string="Actualización SBC"
+                  decoration-warning="state == 'draft'"
+                  decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="dias_base"/>
+                <field name="lugar_de_trabajo"/>
+                <field name="line_ids"/>
+                <field name="contract_ids"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    
+    <record id="hr_employee_imss_sbc_form" model="ir.ui.view">
+        <field name="name">hr.employee.imss.sbc.form</field>
+        <field name="model">hr.employee.imss.sbc</field>
+        <field name="arch" type="xml">
+            <form string="Movimientos IMSS">
+                <header>
+                    <button name="action_compute" type="object" string="Calcular Líneas" states="draft" 
+                            confirm="Las líneas se eliminarán y se volverán a calcular, ¿está seguro que desea esta acción?"
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_confirm" type="object" string="Confirmar" states="draft" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancelar" states="draft,confirm" 
+                            groups="hr_payroll.group_hr_payroll_user" 
+                            confirm="¿Está seguro que desea cancelar este registro?"/>
+                    <button name="create_file" type="object" string="Re-Genera Archivo"
+                            states="confirm" confirm="¿Está seguro que desea volver a crear los archivos?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines" type="object" groups="hr.group_hr_user"
+                                class="oe_stat_button" icon="fa-bars">
+                            <field name="count_lines" /><span>Líneas</span>
+                        </button>
+                        <button name="action_view_details" type="object" groups="hr.group_hr_user"
+                                class="oe_stat_button" icon="fa-money">
+                            <span>Análisis</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <field name="filename" />
+                    <field name="idse_filename" invisible="1"/>               
+                    <group>
+                        <group>
+                            <label for="date_from" string="Periodo del Bimestre"/>
+                            <div>
+                                <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                            </div>
+                            <field name="dias_base"/>
+                            <field name="idse" filename="idse_filename" 
+                                   attrs="{'invisible':[('idse','=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="file" filename="filename"
+                                   attrs="{'invisible':[('file','=',False)]}"/>
+                            <field name="company_id"
+                                   options="{'no_create_edit': True, 'no_open': True}"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="notes" colspan="4" placeholder="Observaciones..." />
+                    <notebook>
+                        <page string="Líneas">
+                            <field name="line_ids" colspan="4" 
+                                   context="{'tree_view_ref': 'l10n_mx_payroll_imss.hr_employee_imss_sbc_line_tree1', 'form_view_ref': 'l10n_mx_payroll_imss.hr_employee_imss_sbc_line_form1'}"/>    
+                        </page>
+                        <page string="Contratos">
+                            <field name="contract_ids" readonly="1" colspan="4" 
+                                   options="{'no_create_edit': True, 'no_open': True}"/>
+                        </page>
+                        <page string="Parámetros">
+                            <group colspan="4" col="4">
+                                <field name="lugar_de_trabajo"/>
+                                <field name="uma_id" />
+                                <separator string="Departamentos" colspan="4" />
+                                <field name="department_ids" widget="many2many_tags" colspan="4"
+                                       options="{'no_create_edit': True, 'no_open': True}"/>
+
+                                <separator string="Contratos" colspan="4" />
+                                <field name="contract_filter_ids" widget="many2many_tags" colspan="4"
+                                       options="{'no_create_edit': True, 'no_open': True}"/>
+                                <separator string="Reglas Salariales" colspan="4" />
+                                <field name="salary_rule_ids" widget="many2many_tags" colspan="4"
+                                       options="{'no_create_edit': True, 'no_open': True}"/>
+                            
+                            </group>
+                        </page>
+                    </notebook>                
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="hr_employee_imss_sbc_search" model="ir.ui.view">
+        <field name="name">hr.employee.imss.sbc.search</field>
+        <field name="model">hr.employee.imss.sbc</field>
+        <field name="arch" type="xml">
+            <search string="Movimientos IMSS">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="lugar_de_trabajo"/>
+                <field name="department_ids"/>
+                <field name="contract_ids"/>
+                <filter name="state_draft" string="En Borrador" domain="[('state','=','draft')]" />
+                <filter name="state_confirmed" string="Confirmado" domain="[('state','=','confirm')]" />
+                <filter name="state_cancel" string="Cancelado" domain="[('state','=','cancel')]" />
+                <group expand="0" string="Group By">
+                    <filter string="Estado" name="group_state" context="{'group_by':'state'}"/>
+                    <filter string="Fecha" name="group_date" context="{'group_by':'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hr_employee_imss_sbc" model="ir.actions.act_window">
+        <field name="name">Actualización SBC Bimestral</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.employee.imss.sbc</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_employee_imss_sbc_tree"/>
+        <field name="search_view_id" ref="hr_employee_imss_sbc_search"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Cálculo Bimestral del SBC para el IMSS
+            </p>
+        </field>
+    </record>
+
+
+    
+    <menuitem action="action_hr_employee_imss_sbc" 
+              id="action_hr_payroll_imss_sbc_menu" 
+              sequence="60" 
+              parent="hr_payroll_imss_menu" />
+    
+    <menuitem action="action_hr_employee_imss_sbc" 
+              id="action_hr_employee_imss_sbc_menu" 
+              sequence="60" 
+              parent="hr_employee_imss_menu" />
+    
+    
+    
+</odoo>

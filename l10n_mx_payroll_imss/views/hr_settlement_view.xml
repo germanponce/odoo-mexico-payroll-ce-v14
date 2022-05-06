@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    
+    <record id="hr_settlement_tree_imss" model="ir.ui.view">
+        <field name="name">hr.settlement.tree.imss</field>
+        <field name="model">hr.settlement</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.hr_settlement_tree"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="causa_baja" />
+            </field>
+        </field>
+    </record>
+    
+    
+    <record id="hr_settlement_form_imss" model="ir.ui.view">
+        <field name="name">hr.settlement.form.imss</field>
+        <field name="model">hr.settlement</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.hr_settlement_form"/>
+        <field name="arch" type="xml">
+            <field name="hr_causa_id" position="after">
+                <field name="causa_baja" required="1" />
+            </field>
+        </field>
+    </record>
+    
+    
+    <record id="hr_settlement_search_imss" model="ir.ui.view">
+        <field name="name">hr.settlement.imss.search</field>
+        <field name="model">hr.settlement</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="l10n_mx_payroll.hr_settlement_search"/>
+        <field name="arch" type="xml">
+            <field name="settlement_batch_id" position="after">
+                <field name="causa_baja" />
+            </field>
+            <filter name="state" position="after">
+                <separator />
+                <filter string="Causa de Baja" name="group_causa_baja" context="{'group_by':'causa_baja'}"/>
+            </filter>
+        </field>
+    </record>
+    
+</odoo>

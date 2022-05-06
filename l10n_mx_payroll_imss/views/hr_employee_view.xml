@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="view_employee_form_l10n_mx_payroll_imss" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_mx_payroll_imss</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">51</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="replace">
+                <field name="name" placeholder="Employee's Name" required="True" class="oe_read_only"/>
+                <table width="100%" class="oe_edit_only oe_inline">
+                    <tr>
+                        <td><label for="nombre"/></td>
+                        <td><label for="apellido_paterno"/></td>
+                        <td><label for="apellido_materno"/></td>
+                    </tr>
+                    <tr>
+                        <td><field name="nombre"/></td>
+                        <td><field name="apellido_paterno"/></td>
+                        <td><field name="apellido_materno"/></td>
+                    </tr>
+                </table>
+            </field>
+            <notebook position="inside">
+                <page string="Movimientos IMSS">
+                    <field name="imss_ids" colspan="4">
+                        <tree>
+                            <field name="name" />
+                            <field name="date" />
+                            <field name="type" />
+                            <field name="contract_id" />
+                            <field name="causa_baja" />
+                            <field name="state" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+            <field name="country_of_birth" position="after">
+                <field name="state_of_birth" domain="[('country_id','=',country_of_birth)]"/>
+            </field>
+        </field>
+    </record>
+    
+    
+    <record id="view_employee_form_l10n_mx_payroll_imss2" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n_mx_payroll_imss2</field>
+        <field name="model">hr.employee</field>
+        <field name="priority">51</field>
+        <field name="inherit_id" ref="l10n_mx_payroll.view_employee_form_l10n_mx_payroll"/>
+        <field name="arch" type="xml">
+            <field name="nss" position="after">
+                <field name="clave_subdelegacion"/>
+                <field name="unidad_medicina_familiar"/>
+            </field>
+        </field>
+    </record>
+    
+</odoo>

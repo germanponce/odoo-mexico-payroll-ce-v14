@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_PERCEPCIONES"><field name="code">PERCEPCIONES</field><field name="name">Percepciones</field></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_PERCEP_EXENTA"><field name="code">PERCEP_EXENTA</field><field name="name">Percepciones Exentas</field><field name="parent_id" ref="salary_rule_categ_PERCEPCIONES"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_PERCEP_GRAVADA"><field name="code">PERCEP_GRAVADA</field><field name="name">Percepciones Gravadas</field><field name="parent_id" ref="salary_rule_categ_PERCEPCIONES"/></record>  
+    <record model="hr.salary.rule.category" id="salary_rule_categ_DEDUCCIONES"><field name="code">DEDUCCIONES</field><field name="name">Deducciones</field></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_IMSS"><field name="code">IMSS</field><field name="name">IMSS</field><field name="parent_id" ref="salary_rule_categ_DEDUCCIONES"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_OTROS_PAGOS"><field name="code">OTROS_PAGOS</field><field name="name">Otros Pagos</field></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_INCAPACIDAD"><field name="code">INCAPACIDAD</field><field name="name">Incapacidad</field></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_CONTROL"><field name="code">CONTROL</field><field name="name">CONTROL</field></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_DIAS_LABORADOS"><field name="code">DIAS_LABORADOS</field><field name="name">DIAS LABORADOS</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_FALTAS"><field name="code">FALTAS</field><field name="name">FALTAS</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_FALTAS_CON_GOCE"><field name="code">FALTAS_CON_GOCE</field><field name="name">Días Faltas con Goce de Sueldo</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_FALTAS_SIN_GOCE"><field name="code">FALTAS_SIN_GOCE</field><field name="name">Días Faltas Sin Goce de Sueldo</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_IMSS_EMPLEADO"><field name="code">IMSS_EMPLEADO</field><field name="name">IMSS Empleado</field></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_BASE_IMSS_FALTAS"><field name="code">BASE_IMSS_FALTAS</field><field name="name">Base para IMSS (Faltas)</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_BASE_IMSS_FALTAS_INCAPACIDADES"><field name="code">BASE_IMSS_FALTAS_INCAPACIDADES</field><field name="name">Base IMSS (Faltas e Incapacidades)</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_BASE_IMSS_INCAPACIDADES"><field name="code">BASE_IMSS_INCAPACIDADES</field><field name="name">Base IMSS (Incapacidades)</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_FALTAS_DOMINGOS"><field name="code">FALTAS_DOMINGOS</field><field name="name">Faltas Domingos</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_PERC_GRAVADAS_ISR"><field name="code">PERC_GRAVADAS_ISR</field><field name="name">Percepciones Gravadas para ISR</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_PERC_GRAVADAS_ISN"><field name="code">PERC_GRAVADAS_ISN</field><field name="name">Percepciones Gravadas para ISN</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_PATRON"><field name="code">PATRON</field><field name="name">Patrón</field><field name="parent_id" ref="salary_rule_categ_CONTROL"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_Patron_IMSS"><field name="code">Patron_IMSS</field><field name="name">Impuestos Patronales IMSS</field><field name="parent_id" ref="salary_rule_categ_PATRON"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_Patron_RCV"><field name="code">Patron_RCV</field><field name="name">Impuestos Patronales RCV</field><field name="parent_id" ref="salary_rule_categ_PATRON"/></record>
+    <record model="hr.salary.rule.category" id="salary_rule_categ_Patron_INFONAVIT"><field name="code">Patron_INFONAVIT</field><field name="name">Impuestos Patronales Infonavit</field><field name="parent_id" ref="salary_rule_categ_PATRON"/></record>
+
+</odoo>

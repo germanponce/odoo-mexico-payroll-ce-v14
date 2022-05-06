@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <template id="hr_payroll.report_payslip">
+            <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="15"/>
+            <t t-set="data_report_header_spacing" t-value="10"/>
+            <!--<t t-set="data_report_dpi" t-value="600"/>-->
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                    <t t-call="l10n_mx_payroll_recibos_estilo_nomipaq.slip_receipt_layout">
+                        <div class="page">
+                            <span style="font-size:10px;font-color: #68759F">Comprobante Fiscal Digital por Internet</span>
+                            <table style="border: 1px solid black;background-color: #CCCCCC; font-size: 11px;" width="100%">
+                                <tr style="padding: 2px;">
+                                    <td colspan="3" style="font-weight: bold; font-size: 14px;padding: 2px;"><span t-esc="o.company_id.name.upper()"/></td>
+                                    <td></td>
+                                </tr>
+                                <tr style="height: 10px;">
+                                    <td width="2%"></td>
+                                    <td width="30%" style="font-weight: bold; font-size: 12px;padding: 2px;">RFC: <span t-field="o.company_id.partner_id.vat" id="rfc_emisor"/></td>
+                                    <td width="30%" style="padding: 2px;">Registro Patronal: <span t-field="o.company_id.registro_patronal"/></td>
+                                    <td width="38%" style="text-align: right;padding: 2px;">Fecha/Hora: <span t-field="o.date_payslip_tz"/></td>
+                                </tr>
+                                <tr style="height: 10px;">
+                                    <td style="padding: 2px;"></td>
+                                    <td colspan="3" style="padding: 2px;">Régimen Fiscal:      <span t-field="o.company_id.partner_id.property_account_position_id.name"/></td>
+                                </tr>
+                                <tr style="height: 10px;">
+                                    <td style="padding: 2px;"></td>
+                                    <td colspan="3" style="padding: 2px;">Lugar de Expedición: <span t-field="o.company_id.zip"/> <span t-esc="o.company_id.city.upper()"/></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table style="border: 1px solid black;font-size: 10px;" width="100%">
+                                <tr>
+                                    <td width="50%" style="border: 1px solid black;">
+                                        <table width="95%" style="font-size: 10px;">
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td colspan="2" style="padding: 1px;"><strong><span t-field="o.employee_id.num_empleado"/> - <span t-field="o.employee_id.name"/></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="5%" style="padding: 1px;"></td>
+                                                <td width="45%" style="padding: 1px;">RFC:</td>
+                                                <td width="50%" style="padding: 1px;"><span t-field="o.employee_id.address_home_id.vat"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">CURP:</td>
+                                                <td style="padding: 1px;"><span t-field="o.employee_id.curp"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">Fecha Ini Rel Laboral:</td>
+                                                <td style="padding: 1px;"><span t-field="o.contract_id.fecha_ingreso"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">Jornada:</td>
+                                                <td style="padding: 1px;"><span t-field="o.contract_id.sat_tipojornada_id.code"/> - <span t-field="o.contract_id.sat_tipojornada_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">NSS:</td>
+                                                <td style="padding: 1px;"><span t-field="o.employee_id.nss"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">Tipo Salario:</td>
+                                                <td style="padding: 1px;"><span t-field="o.contract_id.tipo_salario"/></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="50%" style="border: 1px solid black;">
+                                        <table width="95%" style="font-size: 10px;">
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;"><strong>Periodo <t t-if="o.payslip_run_id and o.payslip_run_id.name.find(':') >= 0"><span t-esc="o.payslip_run_id.name.split(':')[0].replace('Sem ','').replace('Sem','') + ' '" /></t> <span t-field="o.contract_id.sat_periodicidadpago_id.code"/> - <span t-field="o.contract_id.sat_periodicidadpago_id.name"/></strong></td>
+                                                <td style="padding: 1px;"><strong><span t-field="o.date_from"/> - <span t-field="o.date_to"/></strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="5%" style="padding: 1px;"></td>
+                                                <td width="45%" style="padding: 1px;">Días Pago:</td>
+                                                <td width="50%" style="padding: 1px;"><span t-field="o.dias_periodo"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">Fecha Pago:</td>
+                                                <td style="padding: 1px;"><span t-field="o.date_payroll"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">Puesto:</td>
+                                                <td style="padding: 1px;"><span t-field="o.contract_id.job_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">Departamento:</td>
+                                                <td style="padding: 1px;"><span t-field="o.contract_id.department_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 1px;"></td>
+                                                <td style="padding: 1px;">SBC:</td>
+                                                <td style="padding: 1px;"><span t-esc="o.contract_id.cfdi_salario_diario_integrado2 or o.contract_id.cfdi_salario_diario_integrado"/></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="font-size: 10px;padding=: 2px;" width="100%">
+                                <tr style="background-color: #CCCCCC;text-align:center;text-weight:bold;">
+                                    <td width="50%" style="border: 1px solid black;">PERCEPCIONES</td>
+                                    <td width="50%" style="border: 1px solid black;">DEDUCCIONES</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;">
+                                        <table width="100%">
+                                            <tr style="background-color: #CCCCCC;text-align:center;text-weight:bold;">
+                                                <td style="padding: 1px;" width="10%">Agrup SAT</td>
+                                                <td style="padding: 1px;" width="15%">Código</td>
+                                                <td style="padding: 1px;" width="60%">Concepto</td>
+                                                <td style="padding: 1px;" width="15%">Total</td>
+                                            </tr>
+                                            <t t-set="suma_percepciones" t-value="0.0" />
+                                            <t t-set="records" t-value="o.percepciones_ids + o.otrospagos_ids.filtered(lambda w: w.salary_rule_id.tipootropago_id.code!='002')" />
+                                            <tr t-foreach="records" t-as="linea">
+                                                <t t-set="suma_percepciones" t-value="suma_percepciones + linea.total" />
+                                                <td style="padding: 1px;text-align:center;">
+                                                    <t t-if="linea.salary_rule_id.nomina_aplicacion=='percepcion'">
+                                                        <span t-field="linea.salary_rule_id.tipopercepcion_id.code"/>
+                                                    </t>
+                                                    <t t-if="linea.salary_rule_id.nomina_aplicacion!='percepcion'">
+                                                        <span t-field="linea.salary_rule_id.tipootropago_id.code"/>
+                                                    </t>
+                                                </td>
+                                                <td style="padding: 1px;text-align:center;">
+                                                    <span t-field="linea.code"/>
+                                                </td>
+                                                <td style="padding: 1px;">
+                                                    <span t-field="linea.name"/>
+                                                </td>
+                                                <td style="padding: 1px;text-align:right;">
+                                                    <span t-field="linea.total"/>
+                                                </td>    
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="border: 1px solid black;">
+                                        <table width="100%">
+                                            <tr style="background-color: #CCCCCC;text-align:center;text-weight:bold;">
+                                                <td style="padding: 1px;" width="10%">Agrup SAT</td>
+                                                <td style="padding: 1px;" width="15%">Código</td>
+                                                <td style="padding: 1px;" width="60%">Concepto</td>
+                                                <td style="padding: 1px;" width="15%">Total</td>
+                                            </tr>
+                                            <t t-set="suma_deducciones" t-value="0.0" />
+                                            <t t-set="records" t-value="o.deducciones_ids + o.otrospagos_ids.filtered(lambda w: w.salary_rule_id.tipootropago_id.code=='002' and not w.no_suma)" />
+                                            <tr t-foreach="records" t-as="linea">
+                                                <t t-if="linea.salary_rule_id.tipootropago_id.code=='002'">
+                                                    <t t-set="suma_deducciones" t-value="suma_deducciones - linea.total" />
+                                                </t>
+                                                <t t-if="linea.salary_rule_id.tipootropago_id.code!='002'">
+                                                    <t t-set="suma_deducciones" t-value="suma_deducciones + linea.total" />
+                                                </t>
+                                                <td style="padding: 1px;text-align:center;">
+                                                    <span t-field="linea.salary_rule_id.tipodeduccion_id.code"/>
+                                                </td>
+                                                <td style="padding: 1px;text-align:center;">
+                                                    <span t-field="linea.code"/>
+                                                </td>
+                                                <td style="padding: 1px;">
+                                                    <span t-field="linea.name"/>
+                                                </td>
+                                                <td style="padding: 1px;text-align:right;">
+                                                    <span t-field="linea.total"/>
+                                                </td>    
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="border: 1px solid black;font-weight:bold;" width="100%">
+                                            <tr>
+                                                <td width="85%" >Total Percepc. más Otros Pagos $</td>
+                                                <td width="15%" style="text-align:right;">
+                                                    <t t-esc="'{:,.2f}'.format(suma_percepciones)"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table width="80%" t-if="o.extra_hours_qty_doble">
+                                                <tr style="background-color: #CCCCCC;">
+                                                    <td rowspan="3">Horas Extras</td>
+                                                    <td>Tipo</td>
+                                                    <td>Horas</td>
+                                                    <td>Importe</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Dobles</td>
+                                                    <td class="text-right"><span t-field="o.extra_hours_qty_doble"/></td>
+                                                    <td class="text-right"><span t-field="o.extra_hours_monto_doble"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Triples</td>
+                                                    <td class="text-right"><span t-field="o.extra_hours_qty_triple"/></td>
+                                                    <td class="text-right"><span t-field="o.extra_hours_monto_triple"/></td>
+                                                </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table style="border: 1px solid black;" width="100%">
+                                            <tr>
+                                                <td width="85%" style="text-align:right;">Subtotal $</td>
+                                                <td width="15%" style="text-align:right;"><t t-esc="'{:,.2f}'.format(suma_percepciones)"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="85%" style="text-align:right;">Descuentos $</td>
+                                                <td width="15%" style="text-align:right;"><t t-esc="'{:,.2f}'.format(sum(o.deducciones_ids.filtered(lambda w: w.salary_rule_id.tipodeduccion_id.code!='002').mapped('total')))"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="85%" style="text-align:right;">Retenciones $</td>
+                                                <td width="15%" style="text-align:right;"><t t-esc="'{:,.2f}'.format(sum(o.deducciones_ids.filtered(lambda w: w.salary_rule_id.tipodeduccion_id.code=='002').mapped('total')))"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="85%" style="text-align:right;">Total $</td>
+                                                <td width="15%" style="text-align:right;"><t t-esc="'{:,.2f}'.format(suma_percepciones - sum(o.deducciones_ids.filtered(lambda w: w.salary_rule_id.tipodeduccion_id.code!='002').mapped('total')) - sum(o.deducciones_ids.filtered(lambda w: w.salary_rule_id.tipodeduccion_id.code=='002').mapped('total')))"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="85%" style="text-align:right;color:blue;">Neto del recibo $</td>
+                                                <td width="15%" style="text-align:right;color:blue;"><t t-esc="'{:,.2f}'.format(o.neto_a_pagar)"/></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" style="color:gray;">Se puso a mi disposición el archivo XML correspondiente y recibí de la empresa arriba mencionada la cantidad neta a que este documento se refiere estando conforme con las percepciones y deducciones que en él aparecen especificados.</td>
+                                    <td style="background-color:#F3DEC3;text-align: center;height: 20px;">Importe con Letra</td>
+                                </tr>
+                                <tr>                                    
+                                    <td style="text-align: center;"><span t-field="o.amount_to_text"/></td>
+                                </tr>
+                                <tr id="forma_de_pago">
+                                    <td rowspan="2"><strong><br/>Forma de Pago:</strong> 99 Por definir</td>
+                                    <td style="text-align: center;"><br/>__________________________________</td>
+                                </tr>
+                                <tr>                                    
+                                    <td style="text-align: center;">Firma del Empleado</td>
+                                </tr>
+                            </table>
+                            <div class="row" id="resumen" t-if="o.l10n_mx_edi_cfdi_uuid"> 
+                                <t t-set="xml" t-value="o.l10n_mx_edi_get_xml_etree()"/>
+                                <t t-set="tfd" t-value="o.l10n_mx_edi_get_tfd_etree(xml)"/>
+                                <t t-set="tfd_original_string" t-value="o._get_l10n_mx_edi_cadena()"/>
+                                <t t-set="sello" t-value="xml.get('Sello', 'No identificado')[-8:]"/>
+                                <table width="100%" style="font-size: 9px;table-layout: fixed;">
+                                    <tr>
+                                        <td valign="middle" width="30%" align="center">
+                                            <img alt="Barcode" t-att-src="'/report/barcode/?type=QR&amp;value=%s' % quote_plus(
+                        'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' + keep_query(
+                            re=o.l10n_mx_edi_cfdi_supplier_rfc, rr=o.l10n_mx_edi_cfdi_customer_rfc,
+                            tt='%.*f' % (2, o.neto_a_pagar), id=o.l10n_mx_edi_cfdi_uuid)
+                            + '&amp;fe=%s' % quote_plus(
+                                sello, 'utf-8', 'strict', '=/').replace('%2B', '+'))"
+                                         style="max-height: 180px;height: 180px;width: 180px;"/>
+                                        </td>
+                                        <td width="10%">·</td>
+                                        <td width="60%" style="vertical-align: top;">
+                                            <br/><br/><br/>
+                                            <table width="100%" style="border: 1px solid #CCCCCC;">
+                                                <tr><td style="background-color:lightgrey;text-align: center;padding: 1px;" colspan="2">Este documento es una representación impresa de un CFDI</td></tr>
+                                                <tr><td style="text-align: center;padding: 1px;" colspan="2">PUE - Pago en una sola exhibición</td></tr>
+                                                <tr style="border-bottom: 1px solid #CCCCCC;padding: 1px;"><td style="text-align: center;" colspan="2">Emitido desde: Odoo Nóminas</td></tr>
+                                                <tr>
+                                                    <td width="50%" style="font-color: #444444;text-align:right;border-right: 1px solid #CCCCCC;padding: 1px;">Serie del Certificado del emisor: </td>
+                                                    <td width="50%" style="font-color: #444444;border-right: 1px solid #CCCCCC;padding: 1px;"><span t-esc="xml.get('NoCertificado')"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="font-color: #444444;text-align:right;border-right: 1px solid #CCCCCC;padding: 1px;">Folio Fiscal UUID: </td>
+                                                    <td width="50%" style="font-color: #444444;padding: 1px;"><span t-field="o.l10n_mx_edi_cfdi_uuid"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="font-color: #444444;padding: 1px;text-align:right;border-right: 1px solid #CCCCCC;">No. de serie del Certificado del SAT: </td>
+                                                    <td width="50%" style="font-color: #444444;padding: 1px;"><span t-esc="tfd.get('NoCertificadoSAT')"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="font-color: #444444;padding: 1px;text-align:right;border-right: 1px solid #CCCCCC;">Fecha y hora de certificación: </td>
+                                                    <td width="50%" style="font-color: #444444;padding: 1px;"><span t-esc="tfd.get('FechaTimbrado', '')"/></td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr><td style="background-color:#F3DEC3;height: 20px;font-weight: bold;vertical-align: middle;" colspan="3">Sello digital del CFDI</td></tr>
+                                    <tr><td colspan="3" style="word-wrap:break-word;"><span t-esc="xml.get('sello', xml.get('Sello', 'No identificado'))"/></td></tr>
+                                    <tr><td style="background-color:#F3DEC3;height: 20px;font-weight: bold;vertical-align: middle;" colspan="3">Sello del SAT</td></tr>
+                                    <tr><td colspan="3" style="word-wrap:break-word;"><span t-esc="tfd.get('SelloSAT', 'No identificado')"/></td></tr>
+                                    <tr><td style="background-color:#F3DEC3;height: 20px;font-weight: bold;vertical-align: middle;" colspan="3">Cadena original del complemento del certificación digital del SAT</td></tr>
+                                    <tr><td colspan="3" style="word-wrap:break-word;"><span t-esc="tfd_original_string"/></td></tr>
+                                    <tr style="color:gray;"><td colspan="2"><br/>Versión del comprobante: 3.3</td><td><br/>Versión del complemento: 1.2</td></tr>
+                                </table>
+                                <span></span>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        
+    </data>
+</odoo>

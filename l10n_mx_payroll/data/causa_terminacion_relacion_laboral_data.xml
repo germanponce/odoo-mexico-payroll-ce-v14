@@ -1,0 +1,335 @@
+<?xml version="1.0" ?>
+<odoo>
+    
+    <data noupdate="1">
+
+        <record id="hr_causa_fin_relacion_laboral_01" model="hr.causa_fin_relacion_laboral">
+            <field name="code">01</field>
+            <field name="name">Despido injustificado por parte del patrón, negándose a aceptar la reinstalación del trabajador</field>
+            <field name="type">liquidacion</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="True" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="False" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="True" />
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="hr_causa_fin_relacion_laboral_02" model="hr.causa_fin_relacion_laboral">
+            <field name="code">02</field>
+            <field name="name">Despido injustificado por parte del patrón, y el trabajador no acepta la reinstalación</field>
+            <field name="type">liquidacion</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="False" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="True" />
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="hr_causa_fin_relacion_laboral_03" model="hr.causa_fin_relacion_laboral">
+            <field name="code">03</field>
+            <field name="name">Renuncia voluntaria del trabajador con antigüedad menor a 15 años</field>
+            <field name="type">finiquito</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_04" model="hr.causa_fin_relacion_laboral">
+            <field name="code">04</field>
+            <field name="name">Renuncia voluntaria del trabajador con antigüedad igual o mayor a 15 años</field>
+            <field name="type">finiquito</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_05" model="hr.causa_fin_relacion_laboral">
+            <field name="code">05</field>
+            <field name="name">Muerte natural del trabajador</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_06" model="hr.causa_fin_relacion_laboral">
+            <field name="code">06</field>
+            <field name="name">Muerte del trabajador derivada de riesgo de trabajo</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="True" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="True" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_07" model="hr.causa_fin_relacion_laboral">
+            <field name="code">07</field>
+            <field name="name">Rescisión del contrato de manera justificada por parte del trabajador</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_08" model="hr.causa_fin_relacion_laboral">
+            <field name="code">08</field>
+            <field name="name">Por conclusión de obra o plazo e inversión de capital</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="False" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_09" model="hr.causa_fin_relacion_laboral">
+            <field name="code">09</field>
+            <field name="name">Terminación anticipada del contrato por parte del patrón, por obra o tiempo determinado a plazo menor de un año</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_10" model="hr.causa_fin_relacion_laboral">
+            <field name="code">10</field>
+            <field name="name">Terminación anticipada del contrato por parte del patrón por obra o tiempo determinado de un año o más</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="True" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_11" model="hr.causa_fin_relacion_laboral">
+            <field name="code">11</field>
+            <field name="name">Incapacidad física o mental o inhabilidad manifiesta del trabajador por riesgo no profesional</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_12" model="hr.causa_fin_relacion_laboral">
+            <field name="code">12</field>
+            <field name="name">La fuerza mayor o el caso fortuito no imputable al patrón</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_13" model="hr.causa_fin_relacion_laboral">
+            <field name="code">13</field>
+            <field name="name">El concurso o la quiebra legalmente declarada</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_14" model="hr.causa_fin_relacion_laboral">
+            <field name="code">14</field>
+            <field name="name">La incosteabilidad notoria y manifiesta de la explotación</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_15" model="hr.causa_fin_relacion_laboral">
+            <field name="code">15</field>
+            <field name="name">El agotamiento de la materia objeto de una industria extractiva</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="True" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_16" model="hr.causa_fin_relacion_laboral">
+            <field name="code">16</field>
+            <field name="name">La implantación de maquinaria o procedimientos de trabajo nuevos</field>
+            <field name="indemnizacion_90_dias" eval="True" />
+            <field name="indemnizacion_20_dias" eval="True" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">liquidacion</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_17" model="hr.causa_fin_relacion_laboral">
+            <field name="code">17</field>
+            <field name="name">Por engaño del trabajador al patrón</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_18" model="hr.causa_fin_relacion_laboral">
+            <field name="code">18</field>
+            <field name="name">Por falta de probidad o actos de violencia del trabajador</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_19" model="hr.causa_fin_relacion_laboral">
+            <field name="code">19</field>
+            <field name="name">Por ocasionar el trabajador perjuicios materiales</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_20" model="hr.causa_fin_relacion_laboral">
+            <field name="code">20</field>
+            <field name="name">Por imprudencia del trabajador que arriesgue la fuente de trabajo</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_21" model="hr.causa_fin_relacion_laboral">
+            <field name="code">21</field>
+            <field name="name">Por comisión por parte del trabajador de actos inmorales</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_22" model="hr.causa_fin_relacion_laboral">
+            <field name="code">22</field>
+            <field name="name">Por revelación de secretos de fabricación o de asuntos privados (el trabajador)</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_23" model="hr.causa_fin_relacion_laboral">
+            <field name="code">23</field>
+            <field name="name">Por faltas injustificadas del trabajador</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_24" model="hr.causa_fin_relacion_laboral">
+            <field name="code">24</field>
+            <field name="name">Por desobediencia injustificada del trabajador</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_25" model="hr.causa_fin_relacion_laboral">
+            <field name="code">25</field>
+            <field name="name">Por no adoptar el trabajador medidas de seguridad e higiene</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_26" model="hr.causa_fin_relacion_laboral">
+            <field name="code">26</field>
+            <field name="name">Por embriaguez o influjo psicotrópico del trabajdor</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        <record id="hr_causa_fin_relacion_laboral_27" model="hr.causa_fin_relacion_laboral">
+            <field name="code">27</field>
+            <field name="name">Por prisión preventiva del trabajador</field>
+            <field name="indemnizacion_90_dias" eval="False" />
+            <field name="indemnizacion_20_dias" eval="False" />
+            <field name="prima_antiguedad_12_dias" eval="False" />
+            <field name="prima_antiguedad_15_anios" eval="True" />
+            <field name="gratif_x_invalidez" eval="False" />
+            <field name="salarios_vencidos" eval="False" />
+            <field name="type">finiquito</field>
+            <field name="active" eval="True" />
+        </record>
+        
+        
+    </data>
+</odoo>

@@ -1,0 +1,182 @@
+Videos
+
+
+
+1. Ambito de acción
+
+    * Ley Federal del Trabajo
+    
+    * Ley del Seguro Social
+    
+    * Salario Mínimo
+        - General
+        - Frontera Norte
+    
+    * UMA => Unidad de Medida y Actualización
+    
+    * UMI => Unidad Mixta Infonavit
+    
+    * Tablas ISR y Subsidio
+    
+
+2. Conceptos básicos
+
+    * ¿Qué es Sueldo?
+    * ¿Qué son prestaciones?
+        - Prestaciones de Ley
+        - Prestaciones Adicionales
+    * ¿Qué son retenciones de impuesto?
+    * ¿Qué son descuentos?
+        - Descuentos de Ley
+            + Seguridad Social (IMSS)
+            + Infonavit
+            + Infonacot
+            + Pensión Alimenticia
+            + Daño a mercancía o maquinaria de la empresa
+        - Descuentos generales
+            + Préstamos
+            + Revisar la lista de conceptos de descuentos
+    
+    * Sueldo Diario (Base)
+    * Sueldo con Previsión Social => Sueldo Diario + Prestaciones adicionales
+    * Salario Diario Integrado (para IMSS)
+    
+    
+3. Estructura de una Nómina
+    * Percepciones
+        - Percepciones regulares
+        - Percepciones extras
+    * Deducciones
+        - Deducciones regulares
+        - Deducciones extras
+    * Otros Pagos
+        - Otros Pagos regulares
+        - Otros Pagos extras
+        
+    
+4. Periodos de Nómina
+
+    * Por horas
+    
+    * Periodos Fijos
+        - Semanal
+            + Excepción => Séptimo día (LFT)
+        - Decenal
+        - Catorcenal
+    
+    * Periodos Variables
+        - Mensual
+            + Mensual => Días Reales
+            + Mensual => Días Promedio
+        - Quincenal
+            + Quincenal => Días Reales
+            + Quincenal => Días Promedio
+
+5. Tipos de Nómina
+
+    * Clasificación SAT
+        - Nómina Ordinaria
+            + Restricciones => No se deben traslapar periodos
+        - Nómina Extraordinaria
+            + PTU (Reparto de Utilidades)
+            + Aguinaldo
+            + Ajustes en conceptos
+            + Pago de Caja de Ahorro
+            + Pago de Fondo de Ahorro
+            + Finiquito  / Indemnización
+            
+    * Por tipo de Trabajador
+        - Asalariado
+        - Asalariado jubilado
+        - Asimilados
+        - Asociado
+        
+6. Percepciones Gravadas y Exentas
+
+    * Exento => Definición
+    * Gravado => Definición
+    
+    * Gravado para ISR
+    * Gravado para IMSS
+
+    
+7. Excepciones
+
+    * Faltas injustificadas
+    * Faltas con Goce de Sueldo
+    * Faltas justificadas
+        - Incapacidad  => https://www.gob.mx/cms/uploads/attachment/file/298270/incapacidades_laborales.pdf
+            + Accidente de Trabajo (incluye accidente en traslado desde y hacia el lugar de trabajo)
+                100 % del salario pagado por IMSS
+            + Enfermedad de Trabajo
+                100 % del salario pagado por IMSS
+            + Maternidad
+                100 % del salario pagado por IMSS
+            + Enfermedad General
+                60 % del salario pagado por IMSS
+                NOTA: En algunas empresas pagan el 40% restante como concepto "Acompletar Incapacidad" (nombre puede variar pero el código SAT es 014 - Subsidios por incapacidad)
+
+8. Cálculo ISR / Subsidio
+
+    * ISR sobre percepciones generales
+    * ISR sobre percepciones anualizadas (LFT Art 142)
+        - Aguinaldo
+        - Prima Vacacional
+        - Indemnizaciones y Prima de Antigüedad
+        
+9. Cálculo Descuentos
+
+    * Infonavit
+        - UMI
+        - Monto Fijo
+        - Porcentaje
+        
+    * Pensión Alimenticia
+        - Porcentaje
+    
+10. Cálculo IMSS
+
+    * Prima de Riesgo de Trabajo
+    * Conceptos para Empresa y Empleado
+        - Enfermedad y Maternidad	
+            + Especie - Cuota Fija
+            + Especie - Excedente
+            + Prestaciones en Dinero
+            + Pensionados y Beneficiarios
+        - Invalidez y Vida	
+        - Riesgo de Trabajo	
+        - Guarderia y Prestaciones Sociales	
+	
+        - Seguro de Retiro	
+        - Cesantía y Vejez	
+        - INFONAVIT
+        
+
+10. Calculando una nómina Ordinaria
+
+    * Ejemplo semanal
+    
+11. Calculando una nómina Ordinaria con Excepciones
+
+    * Ejemplo semanal
+    
+
+12. Calculando una nómina Ordinaria
+
+    * Ejemplo quincenal
+
+13. Calculando una nómina Ordinaria con Excepciones
+
+    * Ejemplo quincenal
+
+14. Calculando una nómina ExtraOrdinaria - PTU
+
+    * PTU
+    
+15. Calculando una nómina ExtraOrdinaria - Aguinaldo
+
+    * Aguinaldo
+
+16. Calculando una nómina ExtraOrdinaria - Finiquito
+
+    * Indemnizaciones y Prima de Antigüedad

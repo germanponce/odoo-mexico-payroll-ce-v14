@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Wizard para Crear Bajas de IMSS desde Finiquitos -->
+    <record id="hr_payslip_imss_wizard" model="ir.ui.view">
+        <field name="name">hr.payslip.imss.wizard</field>
+        <field name="model">hr.payslip.imss.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Calcular Gravado/Exento del IMSS">
+                <group>
+                    <field name="opcion" widget="radio"/>
+                    <field name="payslip_run_ids" attrs="{'invisible': [('opcion','!=','lista')]}"/>
+                    <field name="payslip_ids" attrs="{'invisible': [('opcion','!=','nominas')]}"/>
+                    <label for="date_from" string="Periodo" attrs="{'invisible': [('opcion','!=','periodo')]}"/>
+                    <div attrs="{'invisible': [('opcion','!=','periodo')]}">
+                        <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                    </div>
+                </group>         
+                <footer>
+                    <button name="compute_imss_rules"  string="Calcular Conceptos IMSS" type="object" 
+                            groups="hr_payroll.group_hr_payroll_user" class="oe_highlight"/>
+                    <button string="Cerrar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            
+        </field>
+    </record>
+    
+    <!-- Acción para el Wizard -->
+
+   <record id="action_hr_payslip_imss_wizard" model="ir.actions.act_window">
+      <field name="name">Re-Calcular Grav/Ex IMSS</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.payslip.imss.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+   </record>
+
+
+    <menuitem 	name="Re-Calcular Grav/Ex IMSS" 
+		        parent="menu_hr_payroll_imss_movimientos_acciones" 
+		        id="menu_hr_payslip_imss_wizard" 
+               	action="action_hr_payslip_imss_wizard"
+                sequence="900"
+                />
+    
+</odoo>

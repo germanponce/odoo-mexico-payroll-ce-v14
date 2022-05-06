@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Riesgo de Trabajo -->
+    <record id="hr_riesgo_trabajo_tree" model="ir.ui.view">
+        <field name="name">hr.riesgo_trabajo.tree</field>
+        <field name="model">hr.riesgo_trabajo</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="vigencia" />
+                <field name="factor" />
+                <field name="notas" />
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="action_hr_riesgo_trabajo" model="ir.actions.act_window">
+        <field name="name">Riesgo de Trabajo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.riesgo_trabajo</field>
+        
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="hr_riesgo_trabajo_tree"/>
+    </record>
+    
+    <!-- Seguro de Infonavit -->
+    <record id="hr_infonavit_importe_seguro_tree" model="ir.ui.view">
+        <field name="name">hr.infonavit.importe_seguro.tree</field>
+        <field name="model">hr.infonavit.importe_seguro</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="vigencia" />
+                <field name="factor" />
+                <field name="notas" />
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="action_hr_infonavit_importe_seguro" model="ir.actions.act_window">
+        <field name="name">Seguro Infonavit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.infonavit.importe_seguro</field>
+        
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="hr_infonavit_importe_seguro_tree"/>
+    </record>
+    
+    
+    <record id="res_config_settings_view_form_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.payroll.l10n_mx_payroll</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="55"/>
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='hr_payroll_accountant']" position="after">
+                    <h2>Datos IMSS</h2>
+                    <div class="row mt16 o_settings_container" id="l10n_mx_payroll_imss">
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">                                
+                                <label for="registro_patronal"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." role="img" aria-label="Values set here are company-specific." groups="base.group_multi_company"/>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Capture el Registro Patronal entregado por el IMSS sin guiones ni espacios
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="registro_patronal" class="o_light_label"  required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" title="Riesgo de Trabajo">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane" string="Riesgo de Trabajo">
+                                <label for="factor_riesgo_ids"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." role="img" aria-label="Values set here are company-specific." groups="base.group_multi_company"/>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Capture el Factor de Riesgo de Trabajo según se vaya actualizando por parte del IMSS
+                                    </div>
+                                </div>
+                                <br/>
+                                <button type="action" name="%(l10n_mx_payroll.action_hr_riesgo_trabajo)d" string="Riesgo de Trabajo" icon="fa-arrow-right" class="btn-link"/>                                
+                                <br/>
+                                <field name="factor_riesgo_ids" readonly="1">
+                                    <tree>
+                                        <field name="vigencia" />
+                                        <field name="factor" />
+                                    </tree>
+                                </field>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" title="Seguro Infonavit">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane" string="Seguro Infonavit">
+                                <label for="infonavit_importe_seguro_ids"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." role="img" aria-label="Values set here are company-specific." groups="base.group_multi_company"/>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Capture el Monto del Seguro de Infonavit cada vez que sea actualizado.
+                                    </div>
+                                </div>
+                                <br/>
+                                <button type="action" name="%(l10n_mx_payroll.action_hr_infonavit_importe_seguro)d" string="Seguro Infonavit" icon="fa-arrow-right" class="btn-link"/>
+                                <br/>
+                                <field name="infonavit_importe_seguro_ids" readonly="1" >
+                                    <tree>
+                                        <field name="vigencia" />
+                                        <field name="factor" />
+                                    </tree>
+                                </field>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Versión de CFDI</h2>
+                    <div class="row mt16 o_settings_container" id="l10n_mx_payroll_cfdi_params">
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="version_de_cfdi_para_nominas"/><br/>
+                                <field name="version_de_cfdi_para_nominas" required="1"/>
+                                <div class="text-muted">
+                                    Seleccione cuál es la versión de CFDI que emitirá para Nóminas.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Parámetros Generales</h2>
+                    <div class="row mt16 o_settings_container" id="l10n_mx_payroll_params">
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="antiguedad_finiquito"/><br/>
+                                <field name="antiguedad_finiquito" required="1"/>
+                                <div class="text-muted">
+                                    Seleccione la forma en que se calcula la Antigüedad del trabajador. Esto aplica al cálculo del Finiquito.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="antiguedad_segun_lft"/><br/>
+                                <field name="antiguedad_segun_lft" required="1"/>
+                                <div class="text-muted">
+                                    Seleccione la forma en que se tomará la Antigüedad del trabajador. Esto aplica al cálculo del Finiquito.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane">
+                                <field name="antiguedad_finiquito_proporcionales" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="antiguedad_finiquito_proporcionales"/><br/>
+                                <div class="text-muted">
+                                    Active si quiere agregar un día para el cálculo de la Antigüedad para los Proporcionales en el Finiquito. Generalmente se agrega un día para considerar el día de baja como parte de los proporcionales.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="crear_extra_prima_vacacional_en_aniversario"/><br/>
+                                <field name="crear_extra_prima_vacacional_en_aniversario" required="1"/>
+                                <div class="text-muted">
+                                    Parámetro para indicar si la Prima Vacacional se paga cuando el Trabajador cumple aniversario en la empresa.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible':[('crear_extra_prima_vacacional_en_aniversario','!=','1')]}">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="prima_vacacional_salary_rule_id"/><br/>
+                                <field name="prima_vacacional_salary_rule_id" attrs="{'required':[('crear_extra_prima_vacacional_en_aniversario','=','1')]}"/>
+                                <div class="text-muted">
+                                    Parametro para indicar la Regla Salarial a usarse para generar los Extras de Nómina para la Prima Vacacional a pagar cuando el trabajador cumpla aniversario. Generalmente el concepto es algo parecido a Días de Vacaciones (Prima Vacacional en Aniversario).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible':[('crear_extra_prima_vacacional_en_aniversario','!=',1)]}">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="dias_despues_de_aniversario_para_pagar_prima_vacacional"/><br/>
+                                <field name="dias_despues_de_aniversario_para_pagar_prima_vacacional" attrs="{'required':[('crear_extra_prima_vacacional_en_aniversario','=',1)]}"/>
+                                <div class="text-muted">
+                                    Indique cuantos días, posterior al aniversario, se pagarán los Días por Prima Vacacional.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="extras_dentro_de_periodo_de_nomina"/><br/>
+                                <field name="extras_dentro_de_periodo_de_nomina" required="1"/>
+                                <div class="text-muted">
+                                    1- Solo se incluirán los Extras de Nómina con fecha dentro del Periodo de Nómina.
+                                    2- Se incluyen los Extras de Nómina hasta la Fecha Final del Periodo no incluídos en Nóminas Previas
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" >
+                                <field name="aplicar_calculo_inverso" required="1"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="aplicar_calculo_inverso"/><br/>
+                                <div class="text-muted">
+                                    Parametro para indicar si se debe hacer el cálculo inverso para los conceptos seleccionados. Se sumarán los conceptos y sobre ese monto se recalcularán los montos según su representación porcentual.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" 
+                             attrs="{'invisible':[('aplicar_calculo_inverso','!=',True)]}">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="reglas_para_calculo_inverso_ids"/><br/>
+                                <field name="reglas_para_calculo_inverso_ids" widget="many2many_tags"
+                                       attrs="{'required':[('aplicar_calculo_inverso','=',1)]}"/>
+                                <div class="text-muted">
+                                    Seleccione las reglas salariales que se tomarán para aplicar Cálculo Inverso
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" >
+                                <field name="reprogramar_extras_al_eliminar_de_nomina" required="1"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="reprogramar_extras_al_eliminar_de_nomina"/><br/>
+                                <div class="text-muted">
+                                    Parametro para indicar si en una Nómina en Borrador al eliminar una Entrada (Otras Entradas) ligada a un Extra de Nómina entonces se abra un wizard para re-programar el Extra de Nómina para que no se pierdan.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible':[('crear_extra_prima_vacacional_en_aniversario','!=',1)]}">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="dias_para_vencimiento_de_vacaciones"/><br/>
+                                <field name="dias_para_vencimiento_de_vacaciones" />
+                                <div class="text-muted">
+                                    Indique cuantos días posteriores al vencimiento de las Vacaciones quiere mantenerlas disponibles para el trabajador.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="maximo_de_nominas_a_generar_en_batch"/><br/>
+                                <field name="maximo_de_nominas_a_generar_en_batch" />
+                                <div class="text-muted">
+                                    Indique el máximo de Nóminas a Generar cuando se creen desde Lotes de Nóminas. Por defecto 0 significa sin límite.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" >
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="reglas_a_incluir_en_periodo_de_nomina_finiquito_ids"/><br/>
+                                <field name="reglas_a_incluir_en_periodo_de_nomina_finiquito_ids" 
+                                       widget="many2many_tags"/>
+                                <div class="text-muted">
+                                    Seleccione las reglas salariales que solo deben tomarse en el periodo de la Nómina (de Finiquito) y descartar cualquier Extra de Nómina posterior al periodo de la Nómina. Esto aplica para conceptos como Fonacot.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+            <xpath expr="//div/h2" position="replace"/>
+            <xpath expr="//div[@id='hr_payroll_localization']" position="replace"/>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="view_department_form_l10n_mx_payroll" model="ir.ui.view">
+        <field name="name">hr.department.l10n_mx_payroll</field>
+        <field name="model">hr.department</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="dia_descanso_variable"/>
+            </field>
+        </field>
+    </record>
+    
+</odoo>
