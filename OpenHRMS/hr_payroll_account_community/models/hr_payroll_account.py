@@ -212,6 +212,9 @@ class HrContract(models.Model):
 
     analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account', domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
 
+    journal_id = fields.Many2one('account.journal', 'Diario', readonly=False, required=False)
+
+
 class HrPayrollStructure(models.Model):
     _inherit = 'hr.payroll.structure'
 
