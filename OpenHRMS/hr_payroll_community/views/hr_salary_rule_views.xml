@@ -84,6 +84,14 @@
                          </tree>
                       </field>
                      </page>
+                     <page name="other_input" string="Other Input">
+                       <field name="input_line_type_ids">
+                         <tree>
+                            <field name="name"/>
+                            <field name="code"/>
+                         </tree>
+                      </field>
+                     </page>
                 </notebook>
             </form>
         </field>

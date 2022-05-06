@@ -29,6 +29,9 @@ class HrPayrollStructure(models.Model):
     children_ids = fields.One2many('hr.payroll.structure', 'parent_id', string='Children', copy=True)
     rule_ids = fields.Many2many('hr.salary.rule', 'hr_structure_salary_rule_rel', 'struct_id', 'rule_id', string='Salary Rules')
 
+    input_line_type_ids = fields.Many2many('hr.payslip.input.type', string='Other Input Line')
+
+
     @api.constrains('parent_id')
     def _check_parent_id(self):
 
