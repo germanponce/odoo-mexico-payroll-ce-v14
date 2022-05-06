@@ -36,11 +36,11 @@
         parent="menu_hr_payroll_employees_root"
         sequence="10"/>
 
-    <!-- <menuitem
+    <menuitem
         id="menu_hr_payroll_contracts_configuration"
         action="hr_payroll_community.action_hr_contract_repository"
         parent="menu_hr_payroll_employees_root"
-        sequence="20"/> -->
+        sequence="20"/>
 
     <!-- **** Payslips **** -->
     <menuitem
