@@ -23,93 +23,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: hr_payroll_account
-#: model_terms:ir.ui.view,arch_db:hr_payroll_account_community.hr_salary_rule_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_salary_rule_view_form
 msgid "Accounting"
 msgstr "Contabilidad"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payslip__move_id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__move_id
 msgid "Accounting Entry"
 msgstr "Asiento contable"
 
 #. module: hr_payroll_account
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "Adjustment Entry"
 msgstr "Asiento de ajuste"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_contract__analytic_account_id
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule__analytic_account_id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_contract__analytic_account_id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__analytic_account_id
 msgid "Analytic Account"
 msgstr "Cuenta analítica"
 
 #. module: hr_payroll_account
-#: model_terms:ir.ui.view,arch_db:hr_payroll_account_community.hr_payslip_run_view_form
-#: model_terms:ir.ui.view,arch_db:hr_payroll_account_community.hr_payslip_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_view_form
 msgid "Create Draft Entry"
 msgstr "Crear una Entrada de Borrador"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule__account_credit
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__account_credit
 msgid "Credit Account"
 msgstr "Cuenta acreedora"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payslip__date
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__date
 msgid "Date Account"
 msgstr "Fecha de la Cuenta"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule__account_debit
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__account_debit
 msgid "Debit Account"
 msgstr "Cuenta deudora"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_contract__display_name
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payroll_structure__display_name
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payslip__display_name
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule__display_name
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_contract__display_name
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payroll_structure__display_name
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__display_name
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: hr_payroll_account
-#: model:ir.model,name:hr_payroll_account_community.model_hr_contract
+#: model:ir.model,name:hr_payroll_account.model_hr_contract
 msgid "Employee Contract"
 msgstr "Contrato de empleado"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_contract__id
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payroll_structure__id
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payslip__id
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule__id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_contract__id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payroll_structure__id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__id
 msgid "ID"
 msgstr "ID"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,help:hr_payroll_account_community.field_hr_payslip__date
+#: model:ir.model.fields,help:hr_payroll_account.field_hr_payslip__date
 msgid "Keep empty to use the period of the validation(Payslip) date."
 msgstr ""
 "Deje en blanco para usar el período de la fecha de validación de la nómina"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_contract____last_update
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payroll_structure____last_update
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payslip____last_update
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule____last_update
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_contract____last_update
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payroll_structure____last_update
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip____last_update
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_salary_rule__not_computed_in_net
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
 msgid "Not computed in net accountably"
 msgstr "No se computa en neto de manera contable"
 
 #. module: hr_payroll_account
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "One of the contract for these payslips has no structure type."
 msgstr ""
@@ -117,40 +117,40 @@ msgstr ""
 "estructura."
 
 #. module: hr_payroll_account
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "One of the payroll structures has no account journal defined on it."
 msgstr ""
 "Una de las estructuras de nómina no tiene un diario contable definido."
 
 #. module: hr_payroll_account
-#: model:ir.model,name:hr_payroll_account_community.model_hr_payslip
+#: model:ir.model,name:hr_payroll_account.model_hr_payslip
 msgid "Pay Slip"
 msgstr "Nómina"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payroll_structure__journal_id
-#: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_payslip__journal_id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payroll_structure__journal_id
+#: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__journal_id
 msgid "Salary Journal"
 msgstr "Diario de salarios"
 
 #. module: hr_payroll_account
-#: model:ir.model,name:hr_payroll_account_community.model_hr_salary_rule
+#: model:ir.model,name:hr_payroll_account.model_hr_salary_rule
 msgid "Salary Rule"
 msgstr "Regla de Salario"
 
 #. module: hr_payroll_account
-#: model:ir.model,name:hr_payroll_account_community.model_hr_payroll_structure
+#: model:ir.model,name:hr_payroll_account.model_hr_payroll_structure
 msgid "Salary Structure"
 msgstr "Estructura salarial"
 
 #. module: hr_payroll_account
-#: model_terms:ir.ui.view,arch_db:hr_payroll_account_community.hr_payslip_run_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
 msgid "Set to Draft"
 msgstr "Establecer a borrador"
 
 #. module: hr_payroll_account
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "The Expense Journal \"%s\" has not properly configured the Credit Account!"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr ""
 "correctamente!"
 
 #. module: hr_payroll_account
-#: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:0
+#: code:addons/hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "The Expense Journal \"%s\" has not properly configured the Debit Account!"
 msgstr ""
@@ -166,7 +166,7 @@ msgstr ""
 "correctamente!"
 
 #. module: hr_payroll_account
-#: model:ir.model.fields,help:hr_payroll_account_community.field_hr_salary_rule__not_computed_in_net
+#: model:ir.model.fields,help:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
 msgid ""
 "This field allows you to delete the value of this rule in the \"Net Salary\""
 " rule at the accounting level to explicitly display the value of this rule "

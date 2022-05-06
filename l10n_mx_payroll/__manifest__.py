@@ -6,7 +6,10 @@
     "author": "Argil Consulting",
     "category": "HR",
     "website": "http://www.argil.mx/",
-    "depends": ["hr_payroll_account_community", "hr_holidays"],
+    "depends": [
+        "hr_payroll_account_community", 
+        "hr_holidays"
+        ],
     "demo": [],
     "data": [
         "data/causa_terminacion_relacion_laboral_data.xml",
