@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import os
+import datetime
 
-from odoo.tools import config, test_reports
-from odoo.addons.hr_payroll_community.tests.common import TestPayslipBase
+from odoo.addons.hr_payroll.tests.common import TestPayslipBase
+from dateutil.relativedelta import relativedelta
 
 
 class TestPayslipFlow(TestPayslipBase):
 
     def test_00_payslip_flow(self):
         """ Testing payslip flow and report printing """
+        # activate Richard's contract
+        self.richard_emp.contract_ids[0].state = 'open'
+
         # I create an employee Payslip
         richard_payslip = self.env['hr.payslip'].create({
             'name': 'Payslip of Richard',
@@ -23,14 +27,7 @@ class TestPayslipFlow(TestPayslipBase):
         # I verify the payslip is in draft state
         self.assertEqual(richard_payslip.state, 'draft', 'State not changed!')
 
-        context = {
-            "lang": "en_US", "tz": False, "active_model": "ir.ui.menu",
-            "department_id": False, "section_id": False,
-            "active_ids": [self.ref("hr_payroll_community.menu_department_tree")],
-            "active_id": self.ref("hr_payroll_community.menu_department_tree")
-        }
-        # I click on 'Compute Sheet' button on payslip
-        richard_payslip.with_context(context).compute_sheet()
+        richard_payslip.compute_sheet()
 
         # Then I click on the 'Confirm' button on payslip
         richard_payslip.action_payslip_done()
@@ -61,18 +58,30 @@ class TestPayslipFlow(TestPayslipBase):
         # I generate the payslip by clicking on Generat button wizard.
         payslip_employee.with_context(active_id=payslip_run.id).compute_sheet()
 
-        # I open Contribution Register and from there I print the Payslip Lines report.
-        self.env['payslip.lines.contribution.register'].create({
-            'date_from': '2011-09-30',
-            'date_to': '2011-09-01'
+    def test_01_batch_with_specific_structure(self):
+        """ Create a batch with a given structure different than the regular pay"""
+
+        specific_structure = self.env['hr.payroll.structure'].create({
+            'name': 'End of the Year Bonus - Test',
+            'type_id': self.structure_type.id,
         })
 
-        # I print the payslip report
-        data, data_format = self.env.ref('hr_payroll_community.action_report_payslip').render(richard_payslip.ids)
+        self.richard_emp.contract_ids[0].state = 'open'
 
-        # I print the payslip details report
-        data, data_format = self.env.ref('hr_payroll_community.payslip_details_report').render(richard_payslip.ids)
+        # 13th month pay
+        payslip_run = self.env['hr.payslip.run'].create({
+            'date_start': datetime.date.today() + relativedelta(years=-1, month=8, day=1),
+            'date_end': datetime.date.today() + relativedelta(years=-1, month=8, day=31),
+            'name': 'End of the year bonus'
+        })
+        # I create record for generating the payslip for this Payslip run.
+        payslip_employee = self.env['hr.payslip.employees'].create({
+            'employee_ids': [(4, self.richard_emp.id)],
+            'structure_id': specific_structure.id,
+        })
 
-        # I print the contribution register report
-        context = {'model': 'hr.contribution.register', 'active_ids': [self.ref('hr_payroll_community.hr_houserent_register')]}
-        test_reports.try_report_action(self.env.cr, self.env.uid, 'action_payslip_lines_contribution_register', context=context, our_module='hr_payroll_community')
+        # I generate the payslip by clicking on Generat button wizard.
+        payslip_employee.with_context(active_id=payslip_run.id).compute_sheet()
+
+        self.assertEqual(len(payslip_run.slip_ids), 1)
+        self.assertEqual(payslip_run.slip_ids.struct_id.id, specific_structure.id)
