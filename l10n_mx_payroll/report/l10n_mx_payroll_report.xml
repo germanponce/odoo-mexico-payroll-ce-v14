@@ -2,7 +2,7 @@
 <odoo>
     <data>
     
-        <template id="hr_payroll.report_payslip">
+        <template id="hr_payroll_account_community.report_payslip">
             <t t-call="web.html_container">
             <t t-set="data_report_margin_top" t-value="15"/>
             <t t-set="data_report_header_spacing" t-value="10"/>

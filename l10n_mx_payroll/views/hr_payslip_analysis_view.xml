@@ -110,7 +110,7 @@
 
     <menuitem action="action_hr_payslip_analysis" 
               name="Análisis de Nóminas" 
-              parent="hr_payroll.menu_hr_payroll_report"
+              parent="hr_payroll_account_community.menu_hr_payroll_report"
               id="menu_hr_payslip_analysis" sequence="50"/>
         
 

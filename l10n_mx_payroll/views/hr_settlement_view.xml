@@ -483,7 +483,7 @@
     <menuitem id="hr_payslip_settlement_menu" 
                   name="Finiquitos"
                   sequence="99" 
-                  parent="hr_payroll.menu_hr_payroll_payslips" />
+                  parent="hr_payroll_account_community.menu_hr_payroll_payslips" />
     
         
     <menuitem id="hr_settlement_menu" 

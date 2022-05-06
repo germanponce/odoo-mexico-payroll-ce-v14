@@ -6,7 +6,7 @@
         <field name="name">hr.payroll.structure.form.l10n_mx_payroll</field>
         <field name="model">hr.payroll.structure</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_employee_grade_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='rule_ids']/tree/field[@name='sequence']" position="replace"/>
             <xpath expr="//field[@name='rule_ids']/tree/field[@name='name']" position="before">
@@ -20,7 +20,7 @@
         <field name="name">hr.salary.rule.form.l10n_mx_payroll</field>
         <field name="model">hr.salary.rule</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="inherit_id" ref="hr_payroll_account_community.hr_salary_rule_form"/>
         <field name="arch" type="xml">
             <field name="struct_id" position="replace"/>
             <field name="appears_on_payslip" position="after">
@@ -109,7 +109,7 @@
         <field name="name">hr.salary.rule.tree.l10n_mx_payroll</field>
         <field name="model">hr.salary.rule</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
+        <field name="inherit_id" ref="hr_payroll_account_community.hr_salary_rule_list"/>
         <field name="arch" type="xml">
             <field name="register_id" position="replace" />
         </field>

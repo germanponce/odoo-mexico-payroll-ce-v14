@@ -26,13 +26,13 @@
             <form string="Periodos de Nóminas">
                 <header>
                     <button name="compute_lines" type="object" string="Calcular Líneas" states="draft" 
-                            groups="hr_payroll.group_hr_payroll_manager" class="oe_highlight"/>
+                            groups="hr_payroll_account_community.group_hr_payroll_manager" class="oe_highlight"/>
                     <button name="action_confirm" type="object" string="Confirmar" states="draft" 
-                            groups="hr_payroll.group_hr_payroll_manager" class="oe_highlight"/>
+                            groups="hr_payroll_account_community.group_hr_payroll_manager" class="oe_highlight"/>
                     <button name="set_to_draft" type="object" string="Regresar a Borrador" states="cancel" 
-                            groups="hr_payroll.group_hr_payroll_manager" />
+                            groups="hr_payroll_account_community.group_hr_payroll_manager" />
                     <button name="action_cancel" type="object" string="Cancelar" states="draft,confirmed,approved" 
-                            groups="hr_payroll.group_hr_payroll_manager" 
+                            groups="hr_payroll_account_community.group_hr_payroll_manager" 
                             confirm="¿Está seguro que desea cancelar este registro?"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
