@@ -221,6 +221,6 @@ class HrPayrollStructure(models.Model):
             ('type', '=', 'general'), ('company_id', '=', self.env.company.id)], limit=1))
 
 class HrPayslipRun(models.Model):
-    _inherit = 'hr.payroll.run'
+    _inherit = 'hr.payslip.run'
 
     journal_id = fields.Many2one('account.journal', 'Diario', readonly=False, required=False)
