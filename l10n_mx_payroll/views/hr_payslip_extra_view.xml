@@ -9,13 +9,13 @@
             <form string="Extras de Nóminas">
                 <group col="4" colspan="4">
                     <button name="action_confirm_extras" string="Confirmar" type="object" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button name="action_approve_extras" string="Aprobar" type="object" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button name="action_reject_extras"  string="Rechazar" type="object" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button name="action_cancel_extras"  string="Cancelar" type="object" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                 </group>
                 <footer>
                     <button string="Cerrar" class="oe_link" special="cancel"/>
@@ -69,13 +69,13 @@
             <form string="Extras de Nómina">
                 <header>
                     <button name="action_confirm" type="object" string="Confirmar" states="draft" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button name="action_approve" type="object" string="Aprobar" states="confirmed" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button name="action_reject" type="object" string="Rechazar" states="confirmed" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" />
+                            groups="hr_payroll_community.group_hr_payroll_user" />
                     <button name="action_cancel" type="object" string="Cancelar" states="draft,confirmed,approved" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" 
+                            groups="hr_payroll_community.group_hr_payroll_user" 
                             confirm="¿Está seguro que desea cancelar este registro?"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,done"/>
                 </header>
@@ -215,9 +215,9 @@
                             attrs="{'invisible': ['|', ('aplicacion', '=', 'manual'),('state','!=','draft')]}"
                             class="oe_highlight"/>
                     <button name="action_confirm" type="object" string="Confirmar" states="draft" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button name="action_cancel" type="object" string="Cancelar" states="draft,progress" 
-                            groups="hr_payroll_account_community.group_hr_payroll_user" 
+                            groups="hr_payroll_community.group_hr_payroll_user" 
                             confirm="¿Está seguro que desea cancelar este registro?"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,progress,done"/>
                 </header>

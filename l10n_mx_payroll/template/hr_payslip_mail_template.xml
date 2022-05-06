@@ -10,9 +10,9 @@
             <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
             <field name="subject">${object.company_id.name} Recibo de Nómina CFDI (Ref ${object.name or 'n/a'})</field>
             <field name="partner_to">${object.employee_id.address_home_id.id}</field>
-            <field name="model_id" ref="hr_payroll_account_community.model_hr_payslip"/>
+            <field name="model_id" ref="hr_payroll_community.model_hr_payslip"/>
             <field name="auto_delete" eval="True"/>
-            <field name="report_template" ref="hr_payroll_account_community.action_report_payslip"/>
+            <field name="report_template" ref="hr_payroll_community.action_report_payslip"/>
             <field name="report_name">${(object.fname_payslip or '').replace('/','_').replace(' ','').replace('-','_')}</field>
             <field name="lang">${object.employee_id.address_home_id.lang}</field>
             <field name="body_html"><![CDATA[

@@ -6,7 +6,7 @@
         <field name="name">hr.payslip.employees.l10n_mx_payroll</field>
         <field name="model">hr.payslip.employees</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_payslip_by_employees"/>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_by_employees"/>
         <field name="arch" type="xml">
             <field name="employee_ids" position="replace">
                 <field name="employee_ids" nolabel="1"
@@ -20,7 +20,7 @@
         <field name="name">hr.payslip.search.l10n_mx_payroll.search</field>
         <field name="model">hr.payslip</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_payslip_filter"/>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_filter"/>
         <field name="arch" type="xml">
             <field name="payslip_run_id" position="after">
                 <separator />
@@ -40,7 +40,7 @@
         <field name="name">hr.payslip.line.l10n_mx_payroll.search</field>
         <field name="model">hr.payslip.line</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_payslip_line_filter"/>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_line_filter"/>
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="salary_rule_id" />
@@ -52,7 +52,7 @@
         <field name="name">hr.payslip.line.l10n_mx_payroll.tree</field>
         <field name="model">hr.payslip.line</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_payslip_line_tree"/>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_line_tree"/>
         <field name="arch" type="xml">
             <field name="category_id" position="before">
                 <field name="salary_rule_id" />
@@ -70,7 +70,7 @@
         <field name="name">hr.payslip.run.l10n_mx_payroll.tree</field>
         <field name="model">hr.payslip.run</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.hr_payslip_run_tree"/>
+        <field name="inherit_id" ref="hr_payroll_community.hr_payslip_run_tree"/>
         <field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="struct_id" />
@@ -87,7 +87,7 @@
         <field name="name">hr.payslip.run.l10n_mx_payroll</field>
         <field name="model">hr.payslip.run</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.hr_payslip_run_form"/>
+        <field name="inherit_id" ref="hr_payroll_community.hr_payslip_run_form"/>
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button name="action_view_analysis" type="object" groups="hr.group_hr_user"
@@ -162,7 +162,7 @@
         <field name="name">hr.payslip.kanban.l10n_mx_payroll</field>
         <field name="model">hr.payslip</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.hr_payslip_view_kanban"/>
+        <field name="inherit_id" ref="hr_payroll_community.hr_payslip_view_kanban"/>
         <field name="arch" type="xml">
             <field name="employee_id" position="before">
                 <span>Nómina # </span><strong><field name="number" /></strong><br/> 
@@ -181,7 +181,7 @@
         <field name="name">hr.payslip.tree.l10n_mx_payroll</field>
         <field name="model">hr.payslip</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_payslip_tree"/>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_tree"/>
         <field name="arch" type="xml">
             <field name="date_to" position="after">
                 <field name="date_payroll" optional="hide" />
@@ -207,7 +207,7 @@
         <field name="view_mode">tree</field>
         <field name="binding_model_id" ref="model_hr_payslip"/>
         <field name="binding_view_types">form</field>
-        <field name="view_id" ref="hr_payroll_account_community.view_hr_payslip_line_tree"/>
+        <field name="view_id" ref="hr_payroll_community.view_hr_payslip_line_tree"/>
         <field name="context">{'default_slip_id': active_id,'search_default_slip_id': active_id}</field>
         <field name="target">current</field>
     </record>
@@ -217,7 +217,7 @@
         <field name="name">hr.payslip.form.l10n_mx_payroll</field>
         <field name="model">hr.payslip</field>
         <field name="priority" eval="50"/>
-        <field name="inherit_id" ref="hr_payroll_account_community.view_hr_payslip_form"/>
+        <field name="inherit_id" ref="hr_payroll_community.view_hr_payslip_form"/>
         <field name="arch" type="xml">
             <div class="oe_button_box" name="button_box">
                 <button name="action_view_analysis" type="object" groups="hr.group_hr_user"

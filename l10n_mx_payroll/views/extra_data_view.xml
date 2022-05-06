@@ -5,7 +5,7 @@
               name="Catálogos Nómina" 
               parent="hr_work_entry_contract.menu_hr_payroll_configuration" 
               sequence="90"
-              groups="hr_payroll_account_community.group_hr_payroll_manager"/>
+              groups="hr_payroll_community.group_hr_payroll_manager"/>
     
     <!-- c_OrigenRecurso -->
         <record id="sat_c_OrigenRecurso_tree" model="ir.ui.view">

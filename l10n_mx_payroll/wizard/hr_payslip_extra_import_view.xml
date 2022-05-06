@@ -21,7 +21,7 @@
                 <footer>
                     <button name="action_confirm" string="Importar" type="object" 
                             attrs="{'invisible':[('state','=','done')]}"
-                            groups="hr_payroll_account_community.group_hr_payroll_user" class="oe_highlight"/>
+                            groups="hr_payroll_community.group_hr_payroll_user" class="oe_highlight"/>
                     <button string="Cerrar" class="oe_link" special="cancel"/>
                 </footer>
             </form>
