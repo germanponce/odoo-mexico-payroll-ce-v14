@@ -31,6 +31,8 @@ class HrPayrollStructure(models.Model):
 
     input_line_type_ids = fields.Many2many('hr.payslip.input.type', string='Other Input Line')
 
+    wage_type = fields.Selection([('monthly', 'Monthly Fixed Wage'), ('hourly', 'Hourly Wage')], default='monthly', required=True)
+
 
     @api.constrains('parent_id')
     def _check_parent_id(self):
