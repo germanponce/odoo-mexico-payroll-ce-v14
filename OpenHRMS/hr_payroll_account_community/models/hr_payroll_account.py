@@ -219,3 +219,8 @@ class HrPayrollStructure(models.Model):
         company_dependent=True,
         default=lambda self: self.env['account.journal'].sudo().search([
             ('type', '=', 'general'), ('company_id', '=', self.env.company.id)], limit=1))
+
+class HrPayslipRun(models.Model):
+    _inherit = 'hr.payroll.run'
+
+    journal_id = fields.Many2one('account.journal', 'Diario', readonly=False, required=False)
