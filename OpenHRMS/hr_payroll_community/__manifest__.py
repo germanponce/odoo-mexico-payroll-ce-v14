@@ -10,9 +10,10 @@
     'installable': True,
     'application': True,
     'depends': [
-        'hr_contract',
+        # 'hr_contract',
         'mail',
         'hr_holidays',
+        'hr_work_entry_contrac',
         'web_dashboard',
     ],
     'data': [
